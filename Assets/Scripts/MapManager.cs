@@ -4,9 +4,9 @@ public class MapManager : MonoBehaviour
 {
     public static MapManager Instance { get; private set; }
 
-    [SerializeField] private GameObject startTile;
+    [SerializeField] private TileLogic startTile;
 
-    public GameObject StartTile { get => startTile; }
+    public TileLogic StartTile { get => startTile; }
 
     void Awake()
     {
