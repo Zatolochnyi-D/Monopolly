@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class DiceLogic : MonoBehaviour
+public class DiceButtonLogic : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI text;
 
