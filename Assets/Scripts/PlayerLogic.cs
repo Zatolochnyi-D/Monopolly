@@ -1,7 +1,34 @@
+using System;
 using UnityEngine;
 
 public class PlayerLogic : MonoBehaviour
 {
+    public abstract class TileCommandSO : ScriptableObject
+    {
+        public abstract void Alter(PlayerLogic player);
+    }
+
+    [CreateAssetMenu(menuName = "TileCommands/Tile1")]
+    public class Tile1SO : TileCommandSO
+    {
+        public int tileID;
+
+        [HideInInspector] public TileLogic tileTo;
+
+        public override void Alter(PlayerLogic player)
+        {
+            if (tileTo == null)
+            {
+                tileTo = MapManager.Instance.FindTileByID(tileID);
+            }
+
+            player.currentTile = tileTo;
+            player.transform.position = tileTo.GetPosition();
+            tileTo.AlterPlayer(player);
+        }
+    }
+
+
     private TileLogic currentTile;
 
     void Start()
@@ -20,5 +47,6 @@ public class PlayerLogic : MonoBehaviour
         }
 
         transform.position = currentTile.GetPosition();
+        currentTile.AlterPlayer(this);
     }
 }

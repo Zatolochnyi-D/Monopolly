@@ -639,7 +639,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20a40668499294d929e27b9889b37e10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tileID: 4
   nextTile: {fileID: 1847390276}
+  commandSO: {fileID: 0}
 --- !u!4 &581232760
 Transform:
   m_ObjectHideFlags: 0
@@ -685,7 +687,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20a40668499294d929e27b9889b37e10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tileID: 7
   nextTile: {fileID: 1484092564}
+  commandSO: {fileID: 0}
 --- !u!4 &674566371
 Transform:
   m_ObjectHideFlags: 0
@@ -899,7 +903,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20a40668499294d929e27b9889b37e10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tileID: 3
   nextTile: {fileID: 581232759}
+  commandSO: {fileID: 11400000, guid: b267d50cd6c6a417cb6bc7f4f55951f8, type: 2}
 --- !u!4 &926557966
 Transform:
   m_ObjectHideFlags: 0
@@ -1067,6 +1073,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startTile: {fileID: 1484092564}
+  alternativeStartTile: {fileID: 0}
 --- !u!4 &1205607429
 Transform:
   m_ObjectHideFlags: 0
@@ -1124,7 +1131,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20a40668499294d929e27b9889b37e10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tileID: 1
   nextTile: {fileID: 2058292733}
+  commandSO: {fileID: 11400000, guid: c8a43036b9db3462a97baba7e8207423, type: 2}
 --- !u!4 &1216420508
 Transform:
   m_ObjectHideFlags: 0
@@ -1293,7 +1302,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20a40668499294d929e27b9889b37e10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tileID: 0
   nextTile: {fileID: 1216420507}
+  commandSO: {fileID: 0}
 --- !u!4 &1484092565
 Transform:
   m_ObjectHideFlags: 0
@@ -1591,7 +1602,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20a40668499294d929e27b9889b37e10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tileID: 5
   nextTile: {fileID: 1856288237}
+  commandSO: {fileID: 0}
 --- !u!4 &1847390277
 Transform:
   m_ObjectHideFlags: 0
@@ -1637,7 +1650,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20a40668499294d929e27b9889b37e10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tileID: 6
   nextTile: {fileID: 674566370}
+  commandSO: {fileID: 0}
 --- !u!4 &1856288238
 Transform:
   m_ObjectHideFlags: 0
@@ -1901,7 +1916,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20a40668499294d929e27b9889b37e10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tileID: 2
   nextTile: {fileID: 926557965}
+  commandSO: {fileID: 0}
 --- !u!4 &2058292734
 Transform:
   m_ObjectHideFlags: 0
