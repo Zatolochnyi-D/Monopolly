@@ -7,10 +7,9 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: ToEnd
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerLogic/Tile1SO
-  tileID: 7
-  tileTo: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: dd5a0dff5512242e484c0de849397f2a, type: 3}
+  m_Name: Test2
+  m_EditorClassIdentifier: 
+  message: World

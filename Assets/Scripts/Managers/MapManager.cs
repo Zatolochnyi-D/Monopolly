@@ -43,3 +43,14 @@ public class MapManager : MonoBehaviour
         throw new ArgumentException("No tiles with the given ID.");
     }
 }
+
+
+public partial class MyClass : MonoBehaviour
+{
+    public string MyString;
+}
+
+public partial class MyClass : MonoBehaviour
+{
+    public int MyInt;
+}

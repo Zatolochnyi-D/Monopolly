@@ -4,7 +4,7 @@ public class TileLogic : MonoBehaviour
 {
     [SerializeField] private int tileID;
     [SerializeField] private TileLogic nextTile;
-    [SerializeField] private PlayerLogic.TileCommandSO commandSO;
+    [SerializeField] private TileEffectSO effectSO;
 
     public int TileID => tileID;
     public TileLogic NextTile => nextTile;
@@ -16,6 +16,6 @@ public class TileLogic : MonoBehaviour
 
     public void AlterPlayer(PlayerLogic player)
     {
-        commandSO?.Alter(player);
+        effectSO?.AlterPlayer(player);
     }
 }
