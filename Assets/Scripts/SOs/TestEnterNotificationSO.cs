@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "TileEffects/TestMessageOnEnter")]
@@ -7,6 +8,6 @@ public class TestEnterNotificationSO : TileEffectSO
 
     public override void AlterPlayer(PlayerLogic player)
     {
-        Debug.Log(message);
+        Debug.Log(message + " Initiator: " + player.gameObject.name);
     }
 }

@@ -8,11 +8,9 @@ public class PlayerLogic : MonoBehaviour
     {
         currentTile = MapManager.Instance.StartTile;
         transform.position = currentTile.GetPosition();
-
-        DiceManager.Instance.DiceRolled += OnDiceRolled;
     }
 
-    private void OnDiceRolled(int rolledNumber)
+    public void MovePlayer(int rolledNumber)
     {
         for (int i = 0; i < rolledNumber; i++)
         {
