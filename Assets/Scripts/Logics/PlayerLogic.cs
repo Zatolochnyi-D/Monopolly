@@ -6,10 +6,10 @@ public class PlayerLogic : MonoBehaviour
 
     void Start()
     {
-        currentTile = MapManager.Instance.StartTile;
-        transform.position = currentTile.GetTemporalPosition();
-
         TileLogic.PositionUpdated += OnPositionUpdated;
+
+        currentTile = MapManager.Instance.StartTile;
+        transform.position = currentTile.TakePlace(this);
     }
 
     private void OnPositionUpdated(int id)

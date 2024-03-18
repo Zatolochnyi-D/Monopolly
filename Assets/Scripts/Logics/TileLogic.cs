@@ -44,7 +44,7 @@ public class TileLogic : MonoBehaviour
 
         newPlayers[^1] = player;
         players = newPlayers;
-        PositionUpdated.Invoke(tileID);
+        PositionUpdated?.Invoke(tileID);
         return playerPositions[tileCapacityLevel - 1].GetChild(tileCapacityLevel - 1).position;
     }
 
