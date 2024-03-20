@@ -7,9 +7,11 @@ public class DiceButtonLogic : MonoBehaviour
 
     void Start()
     {
-        DiceManager.Instance.DiceRolled += (rolledNumber) =>
-        {
-            text.text = "Roll the dice: " + rolledNumber;
-        };
+        DiceManager.Instance.DiceRolled += OnDiceRolled;
+    }
+
+    private void OnDiceRolled(int rolledNumber)
+    {
+        text.text = "Roll the dice: " + rolledNumber;
     }
 }

@@ -11,8 +11,8 @@ public class DiceManager : MonoBehaviour
     [SerializeField] private Button rollDiceButton;
 
     // 2 x d6
-    private int minRolledNumber = 2;
-    private int maxRolledNumber = 12;
+    private readonly int minRolledNumber = 2;
+    private readonly int maxRolledNumber = 12;
 
     void Awake()
     {
