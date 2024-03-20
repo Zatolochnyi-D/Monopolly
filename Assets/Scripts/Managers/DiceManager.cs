@@ -8,7 +8,7 @@ public class DiceManager : MonoBehaviour
 
     public event Action<int> DiceRolled;
 
-    [SerializeField] private Button rollDiceButton;
+    [SerializeField] private Button diceRollButton;
 
     // 2 x d6
     private readonly int minRolledNumber = 2;
@@ -18,7 +18,7 @@ public class DiceManager : MonoBehaviour
     {
         Instance = this;
 
-        rollDiceButton.onClick.AddListener(() =>
+        diceRollButton.onClick.AddListener(() =>
         {
             RollDice();
         });

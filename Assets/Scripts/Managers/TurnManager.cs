@@ -4,10 +4,10 @@ public class TurnManager : MonoBehaviour
 {
     public static TurnManager Instance;
 
-    [SerializeField] private PlayerLogic[] players;
+    [SerializeField] private PlayerMovementLogic[] players;
     private int currentPlayerIndex = 0;
 
-    public PlayerLogic CurrentPlayer => players[currentPlayerIndex];
+    public PlayerMovementLogic CurrentPlayer => players[currentPlayerIndex];
 
     void Awake()
     {

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerLogic : MonoBehaviour
+public class PlayerMovementLogic : MonoBehaviour
 {
     private TileLogic currentTile;
 

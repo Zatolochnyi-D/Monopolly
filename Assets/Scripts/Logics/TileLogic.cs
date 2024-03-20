@@ -11,7 +11,7 @@ public class TileLogic : MonoBehaviour
     [SerializeField] private TileEffectSO effectSO;
     [SerializeField] private Transform[] playerPositions;
 
-    private PlayerLogic[] players = new PlayerLogic[0];
+    private PlayerMovementLogic[] players = new PlayerMovementLogic[0];
     private int tileCapacityLevel = 0;
 
     public int TileID => tileID;
@@ -22,7 +22,7 @@ public class TileLogic : MonoBehaviour
         return playerPositions[0].GetChild(0).position;
     }
 
-    public Vector3 TakePlace(PlayerLogic player)
+    public Vector3 TakePlace(PlayerMovementLogic player)
     {
         // look for place on tile for a new player
         for (int i = 0; i < players.Length; i++)
@@ -39,7 +39,7 @@ public class TileLogic : MonoBehaviour
         // if there is not enough rooms, raise tile capacity and place new player
 
         tileCapacityLevel++;
-        PlayerLogic[] newPlayers = new PlayerLogic[tileCapacityLevel];
+        PlayerMovementLogic[] newPlayers = new PlayerMovementLogic[tileCapacityLevel];
         players.CopyTo(newPlayers, 0);
 
         newPlayers[^1] = player;
@@ -48,7 +48,7 @@ public class TileLogic : MonoBehaviour
         return playerPositions[tileCapacityLevel - 1].GetChild(tileCapacityLevel - 1).position;
     }
 
-    public Vector3 GetUpdatedPosition(PlayerLogic player)
+    public Vector3 GetUpdatedPosition(PlayerMovementLogic player)
     {
         for (int i = 0; i < players.Length; i++)
         {
@@ -61,7 +61,7 @@ public class TileLogic : MonoBehaviour
         throw new Exception("Something went wrong while updating players position");
     }
 
-    public void ReleasePlace(PlayerLogic player)
+    public void ReleasePlace(PlayerMovementLogic player)
     {
         for (int i = 0; i < players.Length; i++)
         {
@@ -75,11 +75,11 @@ public class TileLogic : MonoBehaviour
         if (players.All(x => x == null))
         {
             tileCapacityLevel = 0;
-            players = new PlayerLogic[tileCapacityLevel];
+            players = new PlayerMovementLogic[tileCapacityLevel];
         }
     }
 
-    public void AlterPlayer(PlayerLogic player)
+    public void AlterPlayer(PlayerMovementLogic player)
     {
         effectSO?.AlterPlayer(player);
     }
