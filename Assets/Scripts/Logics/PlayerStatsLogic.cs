@@ -1,4 +1,3 @@
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class PlayerStatsLogic : MonoBehaviour
@@ -21,6 +20,9 @@ public class PlayerStatsLogic : MonoBehaviour
     private int productAmount = 0;
     private int passiveIncome = 0;
     // TODO: shares
+
+    public string PlayerName => playerName;
+    public Color DisplayColor => displayColor;
 
     void Awake()
     {
