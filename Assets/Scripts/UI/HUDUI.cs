@@ -14,7 +14,7 @@ public class HUDUI : MonoBehaviour
 
         TurnManager.Instance.TurnPassed += UpdateWhoseTurnText;
 
-        DiceManager.Instance.DiceRolled += UpdateRolledNumberDisplayText;
+        // DiceManager.Instance.DiceRolled += UpdateRolledNumberDisplayText;
     }
 
     private void UpdateWhoseTurnText()

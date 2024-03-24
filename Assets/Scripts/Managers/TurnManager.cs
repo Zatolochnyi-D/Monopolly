@@ -28,7 +28,7 @@ public class TurnManager : MonoBehaviour
 
     void Start()
     {
-        DiceManager.Instance.DiceRolled += OnDiceRolled;
+        // DiceManager.Instance.DiceRolled += OnDiceRolled;
     }
 
     private void OnDiceRolled(int rolledNumber)
