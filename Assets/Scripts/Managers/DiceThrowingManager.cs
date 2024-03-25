@@ -5,6 +5,8 @@ public class DiceThrowingManager : MonoBehaviour
 {
     public static DiceThrowingManager Instance;
 
+    public event Action<int> OnDiceMovementStopped;
+
     [SerializeField] private DiceLogic firstDice;
     [SerializeField] private DiceLogic secondDice;
 
@@ -20,15 +22,16 @@ public class DiceThrowingManager : MonoBehaviour
         firstDice.OnMovementStopped += CalculateRolledNumber;
         secondDice.OnMovementStopped += CalculateRolledNumber;
 
-        DiceManager.Instance.DiceRolled += ThrowDices;
+        DiceManager.Instance.OnRollDiceTriggered += ThrowDices;
     }
 
     private void CalculateRolledNumber(int rolledNumber)
     {
-        totalRolledNumber = rolledNumber;
+        totalRolledNumber += rolledNumber;
 
         if (firstDice.IsStopped && secondDice.IsStopped)
         {
+            OnDiceMovementStopped?.Invoke(totalRolledNumber);
             // start despawn countdown
         }
     }

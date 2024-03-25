@@ -6,7 +6,7 @@ public class DiceManager : MonoBehaviour
 {
     public static DiceManager Instance { get; private set; }
 
-    public event Action DiceRolled;
+    public event Action OnRollDiceTriggered;
 
     [SerializeField] private Button diceRollButton;
 
@@ -16,14 +16,9 @@ public class DiceManager : MonoBehaviour
 
         diceRollButton.onClick.AddListener(() =>
         {
-            RollDice();
+            OnRollDiceTriggered?.Invoke();
         });
 
         // TODO: bind hotkey for dice rolling
-    }
-
-    private void RollDice()
-    {
-        DiceRolled?.Invoke();
     }
 }

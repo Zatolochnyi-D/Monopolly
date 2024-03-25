@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using UnityEngine;
 
 public class DiceLogic : MonoBehaviour
@@ -15,6 +14,9 @@ public class DiceLogic : MonoBehaviour
     
     private Rigidbody diceRigidbody;
 
+    private float isStoppedCheckDelay = 1.0f; // when dice are thrown, on first frame their speed is 0, which means stop event triggers immediately
+    private float isStoppedCheckTimer = 0.0f; // check dice speed a second after they were thrown
+
     public bool IsStopped => diceRigidbody.velocity.magnitude == 0.0f;
 
     void Awake()
@@ -28,9 +30,12 @@ public class DiceLogic : MonoBehaviour
     {
         if (!diceRigidbody.isKinematic)
         {
-            if (IsStopped)
+            isStoppedCheckTimer += Time.fixedDeltaTime;
+            if (IsStopped && isStoppedCheckTimer > isStoppedCheckDelay)
             {
                 OnMovementStopped?.Invoke(GetRolledNumber());
+                isStoppedCheckTimer = 0.0f;
+                diceRigidbody.isKinematic = true;
             }
         }
     }
@@ -64,7 +69,17 @@ public class DiceLogic : MonoBehaviour
 
     public int GetRolledNumber()
     {
-        int rolledNumber = Array.IndexOf(diceSides, diceSides.Max(x => x.position.y)) + 1;
+        int rolledNumber = 0;
+        float y = diceSides[0].position.y;
+
+        for (int i = 0; i < diceSides.Length; i++)
+        {
+            if (diceSides[i].position.y > y)
+            {
+                y = diceSides[i].position.y;
+                rolledNumber = i + 1;
+            }
+        }
 
         return rolledNumber;
     }
