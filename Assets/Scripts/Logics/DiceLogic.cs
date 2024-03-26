@@ -14,8 +14,10 @@ public class DiceLogic : MonoBehaviour
     
     private Rigidbody diceRigidbody;
 
-    private float isStoppedCheckDelay = 1.0f; // when dice are thrown, on first frame their speed is 0, which means stop event triggers immediately
-    private float isStoppedCheckTimer = 0.0f; // check dice speed a second after they were thrown
+    private float isStoppedCheckDelay = 1.0f; // check speed after some delay, because early trigger on first frame
+    private float throwTimeOut = 10.0f;
+    private float timeFromBeingThrowed = 0.0f;
+    private float distanceFromTarget = 5.0f;
 
     public bool IsStopped => diceRigidbody.velocity.magnitude == 0.0f;
 
@@ -30,12 +32,20 @@ public class DiceLogic : MonoBehaviour
     {
         if (!diceRigidbody.isKinematic)
         {
-            isStoppedCheckTimer += Time.fixedDeltaTime;
-            if (IsStopped && isStoppedCheckTimer > isStoppedCheckDelay)
+            timeFromBeingThrowed += Time.fixedDeltaTime;
+            if (IsStopped && timeFromBeingThrowed > isStoppedCheckDelay)
             {
                 OnMovementStopped?.Invoke(GetRolledNumber());
-                isStoppedCheckTimer = 0.0f;
+                timeFromBeingThrowed = 0.0f;
                 diceRigidbody.isKinematic = true;
+            }
+
+            if (timeFromBeingThrowed > throwTimeOut)
+            {
+                // dice falled out of the field
+                diceRigidbody.velocity = new Vector3(0f, 0f, 0f);
+                timeFromBeingThrowed = 0f;
+                transform.position = target.position + new Vector3(0f, distanceFromTarget, 0f);
             }
         }
     }

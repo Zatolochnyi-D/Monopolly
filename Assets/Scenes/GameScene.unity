@@ -4708,6 +4708,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   whoseTurnText: {fileID: 1061013109}
   rolledNumberDisplayText: {fileID: 1101474313}
+  rollDiceButton: {fileID: 336216212}
 --- !u!1 &1061013107
 GameObject:
   m_ObjectHideFlags: 0
