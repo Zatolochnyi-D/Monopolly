@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class Timer
@@ -49,13 +50,21 @@ public class CooldownTimer : Timer
 }
 
 
-public class AsyncTimer : Timer
+public class AsyncTimer
 {
-    public AsyncTimer(float targetTime) : base(targetTime)
-    { }
+    public event Action OnTimeOut;
 
-    public void Start()
+    private float targetTime;
+
+    public AsyncTimer(float targetTime)
     {
-        
+        this.targetTime = targetTime;
+    }
+
+    public async void Start()
+    {
+        await Task.Delay((int)(targetTime * 1000));
+
+        OnTimeOut?.Invoke();
     }
 }

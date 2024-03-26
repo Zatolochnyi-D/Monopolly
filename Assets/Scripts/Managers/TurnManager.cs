@@ -5,7 +5,7 @@ public class TurnManager : MonoBehaviour
 {
     public static TurnManager Instance;
 
-    public event Action TurnPassed;
+    public event Action OnTurnEnded;
 
     [SerializeField] private PlayerMovementLogic[] players;
 
@@ -28,15 +28,15 @@ public class TurnManager : MonoBehaviour
 
     void Start()
     {
-        // DiceManager.Instance.DiceRolled += OnDiceRolled;
+        DiceManager.Instance.OnDiceThrowingEnded += MoveCurrentPlayer;
     }
 
-    private void OnDiceRolled(int rolledNumber)
+    private void MoveCurrentPlayer(int rolledNumber)
     {
         CurrentPlayer.MovePlayer(rolledNumber);
 
         currentPlayerIndex = (currentPlayerIndex + 1) % players.Length;
 
-        TurnPassed?.Invoke();
+        OnTurnEnded?.Invoke();
     }
 }

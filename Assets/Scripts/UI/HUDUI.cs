@@ -15,11 +15,18 @@ public class HUDUI : MonoBehaviour
         UpdateWhoseTurnText();
         ClearRolledNumberDisplayText();
 
-        TurnManager.Instance.TurnPassed += UpdateWhoseTurnText;
+        TurnManager.Instance.OnTurnEnded += PrepareHUDForNewPlayer;
 
-        DiceManager.Instance.OnRollDiceTriggered += HideButton;
+        DiceManager.Instance.OnRollDiceTriggered += HideDiceButton;
 
         DiceThrowingManager.Instance.OnDiceMovementStopped += ShowRolledNumber;
+    }
+
+    private void PrepareHUDForNewPlayer()
+    {
+        UpdateWhoseTurnText();
+        ClearRolledNumberDisplayText();
+        ShowDiceButton();
     }
 
     private void ShowRolledNumber(int rolledNumber)
@@ -27,7 +34,12 @@ public class HUDUI : MonoBehaviour
         rolledNumberDisplayText.text = rolledNumber.ToString();
     }
 
-    private void HideButton()
+    private void ShowDiceButton()
+    {
+        rollDiceButton.gameObject.SetActive(true);
+    }
+
+    private void HideDiceButton()
     {
         rollDiceButton.gameObject.SetActive(false);
     }
