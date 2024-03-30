@@ -51,8 +51,8 @@ public class HUDUI : MonoBehaviour
 
     private void UpdateWhoseTurnText()
     {
-        string playerName = TurnManager.Instance.CurrentPlayerData.PlayerName;
-        string playerDisplayHexColor = $"#{TurnManager.Instance.CurrentPlayerData.DisplayColor.ToHexString()}";
+        string playerName = TurnManager.Instance.CurrentPlayer.PlayerName;
+        string playerDisplayHexColor = $"#{TurnManager.Instance.CurrentPlayer.DisplayColor.ToHexString()}";
 
         string textToShow = $"<{playerDisplayHexColor}>{playerName}</color>'s turn";
 

@@ -6,7 +6,7 @@ public class MapManager : MonoBehaviour
     public static MapManager Instance { get; private set; }
 
     [SerializeField] private TileLogic startTile;
-    [SerializeField] private TileLogic alternativeStartTile; // start tile in bid circle
+    [SerializeField] private TileLogic alternativeStartTile; // start tile in big circle
 
     public TileLogic StartTile { get => startTile; }
 
@@ -39,7 +39,6 @@ public class MapManager : MonoBehaviour
             currentTile = currentTile.NextTile;
         } while (currentTile.TileID != alternativeStartTile.TileID);
 
-        Debug.LogError("No tiles with the given ID.");
         throw new ArgumentException("No tiles with the given ID.");
     }
 }

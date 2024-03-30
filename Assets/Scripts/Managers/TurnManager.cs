@@ -3,27 +3,18 @@ using UnityEngine;
 
 public class TurnManager : MonoBehaviour
 {
-    public static TurnManager Instance;
+    public static TurnManager Instance { get; private set; }
 
     public event Action OnTurnEnded;
 
-    [SerializeField] private PlayerMovementLogic[] players;
-
-    private PlayerStatsLogic[] playersData;
+    private PlayerLogic[] players;
     private int currentPlayerIndex = 0;
 
-    public PlayerMovementLogic CurrentPlayer => players[currentPlayerIndex];
-    public PlayerStatsLogic CurrentPlayerData => playersData[currentPlayerIndex];
+    public PlayerLogic CurrentPlayer => players[currentPlayerIndex];
 
     void Awake()
     {
         Instance = this;
-
-        playersData = new PlayerStatsLogic[players.Length];
-        for (int i = 0; i < players.Length; i++)
-        {
-            playersData[i] = players[i].GetComponent<PlayerStatsLogic>();
-        }
     }
 
     void Start()
