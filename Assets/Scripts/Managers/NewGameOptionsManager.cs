@@ -4,19 +4,36 @@ using UnityEngine;
 
 public class NewGameOptionsManager : MonoBehaviour
 {
-    public struct NewPlayerData
+    public static NewGameOptionsManager Instance { get; private set; }
+
+    private PlayerListOptionsModule playerList = new();
+
+    public PlayerListOptionsModule PlayerList => playerList;
+
+    void Awake()
     {
-        public Sprite sprite;
+        Instance = this;
+    }
+
+    public void Reset()
+    {
+        playerList = new();
+    }
+}
+
+
+public class PlayerListOptionsModule
+{
+    public struct Player
+    {
         public string name;
     }
 
-    public static NewGameOptionsManager Instance { get; private set; }
-
     public event Action OnPlayersUpdated;
 
-    private readonly int maxPlayerAmount = 4;
-    private readonly int minPlayerAmount = 2;
-    private readonly List<NewPlayerData> playerDatas = new();
+    private readonly int maxPlayers = 4;
+    private readonly int minPlayers = 2;
+    private readonly List<Player> players = new();
 
     private readonly Dictionary<string, bool> defaultNames = new()
     {
@@ -26,22 +43,22 @@ public class NewGameOptionsManager : MonoBehaviour
         { "Player1", false },
     };
 
-    public int MaxPlayerAmount => maxPlayerAmount;
-    public int MinPlayerAmount => minPlayerAmount;
-    public List<NewPlayerData> PlayerDatas => playerDatas;
-    public bool IsMaxPlayerLimitReached => playerDatas.Count == maxPlayerAmount;
-    public bool IsMinPlayerLimitReached => playerDatas.Count == minPlayerAmount;
+    public int MaxPlayers => maxPlayers;
+    public int MinPlayers => minPlayers;
+    public List<Player> Players => players;
+    public bool IsMaxPlayersReached => players.Count == maxPlayers;
+    public bool IsMinPlayersReached => players.Count == minPlayers;
 
-    void Awake()
+    public PlayerListOptionsModule()
     {
-        Instance = this;
-
-        for (int i = 0; i < minPlayerAmount; i++)
+        for (int i = 0; i < minPlayers; i++)
         {
-            NewPlayerData n = new();
-            n.name = GetDefaultName();
+            Player player = new()
+            {
+                name = GetDefaultName(),
+            };
 
-            playerDatas.Add(n);
+            players.Add(player);
         }
     }
 
@@ -71,18 +88,20 @@ public class NewGameOptionsManager : MonoBehaviour
 
     public void AddPlayer()
     {
-        NewPlayerData n = new();
-        n.name = GetDefaultName();
+        Player player = new() 
+        {
+            name = GetDefaultName(),
+        };       
 
-        playerDatas.Add(n);
+        players.Add(player);
         OnPlayersUpdated?.Invoke();
     }
 
     public void RemovePlayer(int index)
     {
-        FreeDefaultName(playerDatas[index].name);
+        FreeDefaultName(players[index].name);
 
-        playerDatas.RemoveAt(index);
+        players.RemoveAt(index);
         OnPlayersUpdated?.Invoke();
     }
 }

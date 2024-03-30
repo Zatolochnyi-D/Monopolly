@@ -63,7 +63,9 @@ public class ImageListUI : MonoBehaviour
     }
 
     public void FillList(Sprite[] options)
-    { 
+    {
+        Awake();
+
         foreach (Transform child in container)
         {
             if (child == template) continue;
@@ -84,9 +86,12 @@ public class ImageListUI : MonoBehaviour
                 OnOptionSelected?.Invoke(cached);
                 Disable();
             });
+
+            option.gameObject.SetActive(true);
         }
 
-        int rowsAmount = (int)MathF.Ceiling(options.Length / oneRowCapacity);
+        int rowsAmount = (int)MathF.Ceiling((float)options.Length / oneRowCapacity);
+
         Vector2 newSize = new()
         {
             x = padding[0] + padding[1] + spacing.x * (oneRowCapacity - 1) + cellSize.x * oneRowCapacity,
@@ -94,5 +99,17 @@ public class ImageListUI : MonoBehaviour
         };
 
         listBackground.sizeDelta = newSize;
+    }
+
+    public void UpdateAvailability(bool[] availabilityMap)
+    {
+        int i = 0;
+        foreach (Transform child in container)
+        {
+            if (child == template) continue;
+            Button button = child.GetComponent<Button>();
+            button.interactable = availabilityMap[i];
+            i++;
+        }
     }
 }
