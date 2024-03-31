@@ -27,7 +27,7 @@ public class GamePreparationManager : MonoBehaviour
         // create test players
         for (int i = 0; i < 4; i++)
         {
-            builders.Add(new(playerPrefab));
+            builders.Add(new());
             builders[i].SetPosition(0);
             builders[i].SetName(names[i]);
             builders[i].SetNumber(5);
@@ -41,7 +41,7 @@ public class GamePreparationManager : MonoBehaviour
 
         for (int i = 0; i < players.Length; i++)
         {
-            players[i] = builders[i].GetProduct();
+            // players[i] = builders[i].GetProduct();
         }
 
         return players;

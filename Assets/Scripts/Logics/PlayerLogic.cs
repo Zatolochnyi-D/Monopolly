@@ -9,8 +9,8 @@ public partial class PlayerLogic : MonoBehaviour
     private int number;
     private int money;
     private int image;
-    private int product;
-    private int passiveIncome;
+    private int product = 0;
+    private int passiveIncome = 0;
     // TODO: shares
 
     private TileLogic currentTile;
@@ -18,17 +18,15 @@ public partial class PlayerLogic : MonoBehaviour
     public string PlayerName => playerName;
     public Color DisplayColor => playerVisuals.displayColor;
 
-    private void Init()
-    {
-        transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = playerVisuals.visual;
-    }
-
     void Start()
     {
+        transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = playerVisuals.visual;
+
         currentTile = MapManager.Instance.FindTileByID(tileID);
         transform.position = currentTile.TakePlace(this);
 
         TileLogic.PositionUpdated += OnPositionUpdated;
+        TurnManager.Instance.OnTurnStarted += MovePlayer;
     }
 
     private void OnPositionUpdated(int id)
@@ -41,14 +39,17 @@ public partial class PlayerLogic : MonoBehaviour
 
     public void MovePlayer(int rolledNumber)
     {
-        currentTile.ReleasePlace(this);
-
-        for (int i = 0; i < rolledNumber; i++)
+        if (TurnManager.Instance.CurrentPlayer == this)
         {
-            currentTile = currentTile.NextTile;
-        }
+            currentTile.ReleasePlace(this);
 
-        transform.position = currentTile.TakePlace(this);
-        currentTile.AlterPlayer(this);
+            for (int i = 0; i < rolledNumber; i++)
+            {
+                currentTile = currentTile.NextTile;
+            }
+
+            transform.position = currentTile.TakePlace(this);
+            currentTile.AlterPlayer(this);
+        }
     }
 }

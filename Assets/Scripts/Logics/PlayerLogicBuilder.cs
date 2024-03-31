@@ -9,69 +9,74 @@ public partial class PlayerLogic
         public void SetNumber(int number);
         public void SetVisuals(PawnVisualsSO pawnVisualsSO);
         public void SetPosition(int tileID);
-        public GameObject GetProduct();
+        public GameObject GetProduct(GameObject playerPrefab);
     }
 
 
     public class PlayerBuilder : IPlayerBuilder
     {
-        private GameObject playerTemplate;
+        private string name;
+        private int tileID;
+        private PawnVisualsSO pawnVisuals;
+        private int number;
+        private int money;
+        private int image;
 
-        private GameObject actualPlayer;
-        private PlayerLogic actualPlayerLogic;
-
-        public string Name { get; private set; }
-        public Sprite Visual { get; private set; }
-
-        public PlayerBuilder(GameObject playerPrefab)
+        public PlayerBuilder()
         {
-            playerTemplate = playerPrefab;
             Reset();
         }
 
         public void Reset()
         {
-            actualPlayer = Instantiate(playerTemplate);
-            actualPlayer.SetActive(false);
-            actualPlayerLogic = actualPlayer.GetComponent<PlayerLogic>();
+            name = "";
+            tileID = 0;
+            pawnVisuals = null;
+            number = Random.Range(1, 6);
+            money = 100;
+            image = 0;
         }
 
         public void SetName(string name)
         {
-            actualPlayerLogic.playerName = name;
-            Name = name;
+            this.name = name;
         }
 
         public void SetNumber(int number)
         {
-            actualPlayerLogic.number = number;
+            this.number = number;
         }
 
         public void SetPosition(int tileID)
         {
-            actualPlayerLogic.tileID = tileID;
+            this.tileID = tileID;
         }
 
         public void SetVisuals(PawnVisualsSO pawnVisualsSO)
         {
-            actualPlayerLogic.playerVisuals = pawnVisualsSO;
-            Visual = pawnVisualsSO.visual;
+            pawnVisuals = pawnVisualsSO;
         }
 
-        private void SetDefaultParameters()
+        public GameObject GetProduct(GameObject playerPrefab)
         {
-            actualPlayerLogic.money = 100;
-            actualPlayerLogic.image = 0;
-            actualPlayerLogic.product = 0;
-            actualPlayerLogic.passiveIncome = 0;
-        }
+            GameObject player = Instantiate(playerPrefab);
 
-        public GameObject GetProduct()
-        {
-            actualPlayer.SetActive(true);
-            SetDefaultParameters();
-            actualPlayerLogic.Init();
-            return actualPlayer;
+            PlayerLogic script = player.GetComponent<PlayerLogic>();
+
+            script.playerName = name;
+            script.tileID = tileID;
+            script.number = number;
+            script.money = money;
+            script.image = image;
+
+            if (pawnVisuals == null)
+            {
+                Debug.LogError("Assigning of pawn visuals is necessary");
+            }
+
+            script.playerVisuals = pawnVisuals;
+
+            return player;
         }
     }
 }

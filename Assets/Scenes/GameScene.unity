@@ -5295,11 +5295,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 1190746623297010276, guid: 604e4a40a214742c7bd97d8788360120, type: 3}
-  pawnVisuals:
-  - {fileID: 11400000, guid: 0ea840f3ca568489882b5a7784e78bee, type: 2}
-  - {fileID: 11400000, guid: 3a17c5ef49c714949bb63ce534f55d45, type: 2}
-  - {fileID: 11400000, guid: c350e9d19eb8644a49bb14a08db6f5c0, type: 2}
-  - {fileID: 11400000, guid: 9c6e5296fbd4e42b9bf7ab4ef361f17d, type: 2}
 --- !u!114 &1205607433
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5871,6 +5866,60 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20a40668499294d929e27b9889b37e10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1297762074
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1297762076}
+  - component: {fileID: 1297762075}
+  m_Layer: 0
+  m_Name: DebugPlayerCreator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1297762075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1297762074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa526afef2ce64310a876a4c11a989b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  visuals:
+  - {fileID: 11400000, guid: 0ea840f3ca568489882b5a7784e78bee, type: 2}
+  - {fileID: 11400000, guid: 3a17c5ef49c714949bb63ce534f55d45, type: 2}
+  - {fileID: 11400000, guid: c350e9d19eb8644a49bb14a08db6f5c0, type: 2}
+  - {fileID: 11400000, guid: 9c6e5296fbd4e42b9bf7ab4ef361f17d, type: 2}
+  names:
+  - Uranium
+  - Ferum
+  - Cobalt
+  - Zirconium
+--- !u!4 &1297762076
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1297762074}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1354773396
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8716,3 +8765,4 @@ SceneRoots:
   - {fileID: 29746700}
   - {fileID: 533131669}
   - {fileID: 2064577552}
+  - {fileID: 1297762076}
