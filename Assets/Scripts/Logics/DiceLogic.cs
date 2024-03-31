@@ -3,19 +3,18 @@ using UnityEngine;
 
 public class DiceLogic : MonoBehaviour
 {
-    public event Action<int> OnMovementStopped;
+    public event Action<int> OnDiceLanded;
 
     [SerializeField] private Transform[] diceSides;
     [SerializeField] private Transform resetPoint;
     [SerializeField] private Transform target;
-    [SerializeField] private Vector3 allowedDeviation;
     [SerializeField] private float throwStrength;
     [SerializeField] private float maxRotationSpeed;
     
     private Rigidbody diceRigidbody;
 
     private float isStoppedCheckDelay = 1.0f; // check speed after some delay, because early trigger on first frame
-    private float throwTimeOut = 10.0f;
+    private float throwTimeOut = 7.0f;
     private float timeFromBeingThrowed = 0.0f;
     private float distanceFromTarget = 5.0f;
 
@@ -35,7 +34,7 @@ public class DiceLogic : MonoBehaviour
             timeFromBeingThrowed += Time.fixedDeltaTime;
             if (IsStopped && timeFromBeingThrowed > isStoppedCheckDelay)
             {
-                OnMovementStopped?.Invoke(GetRolledNumber());
+                OnDiceLanded?.Invoke(GetRolledNumber());
                 timeFromBeingThrowed = 0.0f;
                 diceRigidbody.isKinematic = true;
             }
@@ -62,14 +61,6 @@ public class DiceLogic : MonoBehaviour
 
         Vector3 movementVector = (target.position - transform.position).normalized;
 
-        (float xMin, float xMax) = (-allowedDeviation.x / 2.0f, allowedDeviation.x / 2.0f);
-        (float yMin, float yMax) = (-allowedDeviation.y / 2.0f, allowedDeviation.y / 2.0f);
-        (float zMin, float zMax) = (-allowedDeviation.z / 2.0f, allowedDeviation.z / 2.0f);
-
-        movementVector.x += UnityEngine.Random.Range(xMin, xMax);
-        movementVector.y += UnityEngine.Random.Range(yMin, yMax);
-        movementVector.z += UnityEngine.Random.Range(zMin, zMax);
-
         diceRigidbody.AddForce(movementVector * throwStrength, ForceMode.VelocityChange);
 
         Vector3 rotationSpeed = new(UnityEngine.Random.Range(-1.0f, 1.0f), UnityEngine.Random.Range(-1.0f, 1.0f), UnityEngine.Random.Range(-1.0f, 1.0f));
@@ -92,12 +83,5 @@ public class DiceLogic : MonoBehaviour
         }
 
         return rolledNumber;
-    }
-
-    [ContextMenu("Rethrow")]
-    public void Rethrow()
-    {
-        Reset();
-        Throw();
     }
 }

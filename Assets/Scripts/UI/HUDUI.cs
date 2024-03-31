@@ -1,4 +1,3 @@
-using System;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -17,9 +16,9 @@ public class HUDUI : MonoBehaviour
 
         TurnManager.Instance.OnTurnEnded += PrepareHUDForNewPlayer;
 
-        DiceManager.Instance.OnRollDiceTriggered += HideDiceButton;
+        DiceManager.Instance.OnDiceThrowed += HideDiceButton;
 
-        DiceThrowingManager.Instance.OnDiceMovementStopped += ShowRolledNumber;
+        DiceManager.Instance.OnDiceLanded += ShowRolledNumber;
     }
 
     private void PrepareHUDForNewPlayer()

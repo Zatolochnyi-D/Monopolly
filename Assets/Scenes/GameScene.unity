@@ -5244,9 +5244,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1205607429}
   - component: {fileID: 1205607428}
-  - component: {fileID: 1205607430}
   - component: {fileID: 1205607431}
-  - component: {fileID: 1205607432}
   - component: {fileID: 1205607433}
   m_Layer: 0
   m_Name: MetaManager
@@ -5284,19 +5282,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1205607430
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1205607427}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fad9c06e72344c9c94dae757061b56c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  diceRollButton: {fileID: 336216212}
 --- !u!114 &1205607431
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5315,20 +5300,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3a17c5ef49c714949bb63ce534f55d45, type: 2}
   - {fileID: 11400000, guid: c350e9d19eb8644a49bb14a08db6f5c0, type: 2}
   - {fileID: 11400000, guid: 9c6e5296fbd4e42b9bf7ab4ef361f17d, type: 2}
---- !u!114 &1205607432
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1205607427}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 440f94e4226e64539ad02b3edab12f75, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  firstDice: {fileID: 104010550}
-  secondDice: {fileID: 967294064}
 --- !u!114 &1205607433
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8234,6 +8205,53 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20a40668499294d929e27b9889b37e10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &2064577550
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2064577552}
+  - component: {fileID: 2064577551}
+  m_Layer: 0
+  m_Name: DiceManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2064577551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2064577550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fad9c06e72344c9c94dae757061b56c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  diceRollButton: {fileID: 336216212}
+  firstDice: {fileID: 104010550}
+  secondDice: {fileID: 967294064}
+--- !u!4 &2064577552
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2064577550}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2070618800
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8697,3 +8715,4 @@ SceneRoots:
   - {fileID: 1147195891}
   - {fileID: 29746700}
   - {fileID: 533131669}
+  - {fileID: 2064577552}

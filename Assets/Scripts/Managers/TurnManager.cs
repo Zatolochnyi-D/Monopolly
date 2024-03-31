@@ -50,7 +50,7 @@ public class TurnManager : MonoBehaviour
 
     void Start()
     {
-        DiceManager.Instance.OnDiceThrowingEnded += MoveCurrentPlayer;
+        DiceManager.Instance.OnDiceReset += MoveCurrentPlayer;
     }
 
     private void MoveCurrentPlayer(int rolledNumber)

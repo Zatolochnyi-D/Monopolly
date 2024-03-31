@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Yellow
   m_EditorClassIdentifier: 
   visual: {fileID: 21300000, guid: d4b826ccd9d3e4083b130fec8b21aa45, type: 3}
-  displayColor: {r: 0.8584906, g: 0.8546915, b: 0.2713154, a: 0}
+  displayColor: {r: 0.8584906, g: 0.8546915, b: 0.2713154, a: 1}
