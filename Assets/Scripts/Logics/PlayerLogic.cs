@@ -1,7 +1,11 @@
+using System;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public partial class PlayerLogic : MonoBehaviour
 {
+    public event Action OnMovementEnded;
+
     // data
     private int tileID;
     private string playerName;
@@ -14,6 +18,7 @@ public partial class PlayerLogic : MonoBehaviour
     // TODO: shares
 
     private TileLogic currentTile;
+    private float delayBetweenSteps = 0.2f;
 
     public string PlayerName => playerName;
     public Color DisplayColor => playerVisuals.displayColor;
@@ -43,13 +48,32 @@ public partial class PlayerLogic : MonoBehaviour
         {
             currentTile.ReleasePlace(this);
 
-            for (int i = 0; i < rolledNumber; i++)
-            {
-                currentTile = currentTile.NextTile;
-            }
+            MoveStepByStep(rolledNumber);
 
+            // for (int i = 0; i < rolledNumber; i++)
+            // {
+            //     currentTile = currentTile.NextTile;
+            //     transform.position = currentTile.GetTemporalPosition();
+            // }
+
+            
+        }
+    }
+
+    private async void MoveStepByStep(int steps)
+    {
+        if (steps != 0)
+        {
+            currentTile = currentTile.NextTile;
+            transform.position = currentTile.GetTemporalPosition();
+            await Task.Delay((int)(delayBetweenSteps * 1000));
+            MoveStepByStep(steps - 1);
+        }
+        else
+        {
             transform.position = currentTile.TakePlace(this);
             currentTile.AlterPlayer(this);
+            OnMovementEnded?.Invoke();
         }
     }
 }
