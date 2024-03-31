@@ -20,7 +20,7 @@ public partial class PlayerLogic : MonoBehaviour
 
     private void Init()
     {
-
+        transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = playerVisuals.visual;
     }
 
     void Start()

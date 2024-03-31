@@ -38,7 +38,7 @@ public partial class PlayerLogic
 
         public void SetName(string name)
         {
-            actualPlayerLogic.name = name;
+            actualPlayerLogic.playerName = name;
             Name = name;
         }
 
