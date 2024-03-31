@@ -17,6 +17,7 @@ public class DiceManager : MonoBehaviour
     private int totalRolledNumber = 0;
     private float timeToStartMovement = 1.0f;
     private AsyncTimer timer;
+    private bool canThrowDice = true;
 
     void Awake()
     {
@@ -28,10 +29,10 @@ public class DiceManager : MonoBehaviour
         diceRollButton.onClick.AddListener(() =>
         {
             ThrowDice();
-            OnDiceThrowed?.Invoke();
         });
+        GameInputManager.Instance.OnThrowDicePerformed += ThrowDice;
 
-        // TODO: bind hotkey for dice rolling
+        TurnManager.Instance.OnTurnEnded += Activate;
     }
 
     void Start()
@@ -53,8 +54,13 @@ public class DiceManager : MonoBehaviour
 
     private void ThrowDice()
     {
-        firstDice.Throw();
-        secondDice.Throw();
+        if (canThrowDice)
+        {
+            firstDice.Throw();
+            secondDice.Throw();
+            OnDiceThrowed?.Invoke();
+            canThrowDice = false;
+        }
     }
 
     private void ResetDice()
@@ -65,5 +71,10 @@ public class DiceManager : MonoBehaviour
         OnDiceReset?.Invoke(totalRolledNumber);
 
         totalRolledNumber = 0;
+    }
+
+    private void Activate()
+    {
+        canThrowDice = true;
     }
 }

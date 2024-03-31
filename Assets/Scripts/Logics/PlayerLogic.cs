@@ -49,14 +49,6 @@ public partial class PlayerLogic : MonoBehaviour
             currentTile.ReleasePlace(this);
 
             MoveStepByStep(rolledNumber);
-
-            // for (int i = 0; i < rolledNumber; i++)
-            // {
-            //     currentTile = currentTile.NextTile;
-            //     transform.position = currentTile.GetTemporalPosition();
-            // }
-
-            
         }
     }
 

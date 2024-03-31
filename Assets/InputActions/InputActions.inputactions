@@ -1,0 +1,34 @@
+{
+    "name": "InputActions",
+    "maps": [
+        {
+            "name": "Game",
+            "id": "ded3bba5-aca4-42ea-9419-ce00247ef204",
+            "actions": [
+                {
+                    "name": "ThrowDice",
+                    "type": "Button",
+                    "id": "32f29ff1-884c-407b-ad7e-cb4552a305d1",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "f471ea9b-b95e-407e-b5e5-d1b5a42d0055",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ThrowDice",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
