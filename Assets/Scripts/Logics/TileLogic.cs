@@ -8,8 +8,10 @@ public class TileLogic : MonoBehaviour
 
     [SerializeField] private int tileID;
     [SerializeField] private TileLogic nextTile;
-    [SerializeField] private TileEffectSO effectSO;
     [SerializeField] private Transform[] playerPositions;
+
+    [Header("Tile interactions")]
+    [SerializeField] private InteractionUI tileInteractionDialog;
 
     private PlayerLogic[] players = new PlayerLogic[0];
     private int tileCapacityLevel = 0;
@@ -79,8 +81,8 @@ public class TileLogic : MonoBehaviour
         }
     }
 
-    public void AlterPlayer(PlayerLogic player)
+    public void Interact(PlayerLogic player)
     {
-        effectSO?.AlterPlayer(player);
+        if (tileInteractionDialog != null) tileInteractionDialog.Iteract(player);
     }
 }

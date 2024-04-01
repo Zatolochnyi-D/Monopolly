@@ -67,7 +67,7 @@ public partial class PlayerLogic : MonoBehaviour
         else
         {
             transform.position = currentTile.TakePlace(this);
-            currentTile.AlterPlayer(this);
+            currentTile.Interact(this);
             OnMovementEnded?.Invoke();
         }
     }
