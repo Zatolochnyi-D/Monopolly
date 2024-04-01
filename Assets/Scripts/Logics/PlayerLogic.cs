@@ -22,6 +22,9 @@ public partial class PlayerLogic : MonoBehaviour
 
     public string PlayerName => playerName;
     public Color DisplayColor => playerVisuals.displayColor;
+    public int Money => money;
+    public int Number => number;
+    public int Image => image;
 
     void Start()
     {

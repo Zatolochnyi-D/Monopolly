@@ -8,6 +8,18 @@ public class HUDUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI whoseTurnText;
     [SerializeField] private TextMeshProUGUI rolledNumberDisplayText;
     [SerializeField] private Button rollDiceButton;
+    
+    [Header("To page PlayerStats")]
+    [SerializeField] private PlayerStatsUI playerStatsScript;
+    [SerializeField] private Button showStatsButton;
+
+    void Awake()
+    {
+        showStatsButton.onClick.AddListener(() =>
+        {
+            playerStatsScript.Show();
+        });
+    }
 
     void Start()
     {
