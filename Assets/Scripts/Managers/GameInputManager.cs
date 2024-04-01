@@ -7,6 +7,7 @@ public class GameInputManager : MonoBehaviour
     public static GameInputManager Instance { get; private set; }
 
     public event Action OnThrowDicePerformed;
+    public event Action OnOpenCloseStatsPreformed;
 
     private InputActions inputActions;
 
@@ -18,6 +19,7 @@ public class GameInputManager : MonoBehaviour
 
         inputActions.Game.Enable();
         inputActions.Game.ThrowDice.performed += ThrowDicePerformed;
+        inputActions.Game.OpenCloseStats.performed += OpenCloseStatsPreformed;
     }
 
     void OnDestroy()
@@ -28,5 +30,10 @@ public class GameInputManager : MonoBehaviour
     private void ThrowDicePerformed(InputAction.CallbackContext context)
     {
         OnThrowDicePerformed?.Invoke();
+    }
+
+    private void OpenCloseStatsPreformed(InputAction.CallbackContext context)
+    {
+        OnOpenCloseStatsPreformed?.Invoke();
     }
 }

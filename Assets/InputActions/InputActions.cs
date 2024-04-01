@@ -35,6 +35,15 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""OpenCloseStats"",
+                    ""type"": ""Button"",
+                    ""id"": ""e0def61b-6c3f-49df-8c80-3eb0559bc06b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -48,6 +57,17 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""action"": ""ThrowDice"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a3f5d097-c52a-4193-b15f-b50947520250"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OpenCloseStats"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -57,6 +77,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         // Game
         m_Game = asset.FindActionMap("Game", throwIfNotFound: true);
         m_Game_ThrowDice = m_Game.FindAction("ThrowDice", throwIfNotFound: true);
+        m_Game_OpenCloseStats = m_Game.FindAction("OpenCloseStats", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -119,11 +140,13 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Game;
     private List<IGameActions> m_GameActionsCallbackInterfaces = new List<IGameActions>();
     private readonly InputAction m_Game_ThrowDice;
+    private readonly InputAction m_Game_OpenCloseStats;
     public struct GameActions
     {
         private @InputActions m_Wrapper;
         public GameActions(@InputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @ThrowDice => m_Wrapper.m_Game_ThrowDice;
+        public InputAction @OpenCloseStats => m_Wrapper.m_Game_OpenCloseStats;
         public InputActionMap Get() { return m_Wrapper.m_Game; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -136,6 +159,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @ThrowDice.started += instance.OnThrowDice;
             @ThrowDice.performed += instance.OnThrowDice;
             @ThrowDice.canceled += instance.OnThrowDice;
+            @OpenCloseStats.started += instance.OnOpenCloseStats;
+            @OpenCloseStats.performed += instance.OnOpenCloseStats;
+            @OpenCloseStats.canceled += instance.OnOpenCloseStats;
         }
 
         private void UnregisterCallbacks(IGameActions instance)
@@ -143,6 +169,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @ThrowDice.started -= instance.OnThrowDice;
             @ThrowDice.performed -= instance.OnThrowDice;
             @ThrowDice.canceled -= instance.OnThrowDice;
+            @OpenCloseStats.started -= instance.OnOpenCloseStats;
+            @OpenCloseStats.performed -= instance.OnOpenCloseStats;
+            @OpenCloseStats.canceled -= instance.OnOpenCloseStats;
         }
 
         public void RemoveCallbacks(IGameActions instance)
@@ -163,5 +192,6 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     public interface IGameActions
     {
         void OnThrowDice(InputAction.CallbackContext context);
+        void OnOpenCloseStats(InputAction.CallbackContext context);
     }
 }

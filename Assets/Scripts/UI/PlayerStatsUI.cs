@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,14 +13,27 @@ public class PlayerStatsUI : MonoBehaviour
         {
             Hide();
         });
-
-        gameObject.SetActive(false);
     }
 
     void Start()
     {
         UpdateStatsSheet();
         TurnManager.Instance.OnTurnEnded += UpdateStatsSheet;
+
+        GameInputManager.Instance.OnOpenCloseStatsPreformed += SwitchStatsUIState;
+        gameObject.SetActive(false);
+    }
+
+    private void SwitchStatsUIState()
+    {
+        if (gameObject.activeSelf)
+        {
+            Hide();
+        }
+        else
+        {
+            Show();
+        }
     }
 
     public void Show()
