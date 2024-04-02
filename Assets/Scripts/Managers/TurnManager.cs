@@ -24,17 +24,13 @@ public class TurnManager : MonoBehaviour
         for (int i = 0; i < players.Length; i++)
         {
             players[i] = playerBuilders[i].GetProduct(playerPrefab).GetComponent<PlayerLogic>();
+            players[i].transform.parent = transform;
         }
     }
 
     void Start()
     {
         DiceManager.Instance.OnDiceReset += DoTurn;
-
-        foreach (PlayerLogic script in players)
-        {
-            script.OnMovementEnded += EndTurn;
-        }
     }
 
     private void DoTurn(int rolledNumber)
@@ -42,7 +38,7 @@ public class TurnManager : MonoBehaviour
         OnTurnStarted?.Invoke(rolledNumber);
     }
 
-    private void EndTurn()
+    public void EndTurn()
     {
         currentPlayerIndex = (currentPlayerIndex + 1) % players.Length;
 

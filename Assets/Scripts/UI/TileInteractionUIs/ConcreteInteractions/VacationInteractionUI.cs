@@ -5,8 +5,6 @@ public class VacationInteractionUI : InteractionUI
 {
     [SerializeField] private Button confirmationButton;
 
-    private PlayerLogic currentPlayer;
-
     void Awake()
     {
         confirmationButton.onClick.AddListener(() =>
@@ -17,13 +15,12 @@ public class VacationInteractionUI : InteractionUI
 
     public override void Iteract(PlayerLogic player)
     {
-        currentPlayer = player;
         Show();
     }
 
     private void DoNothing()
     {
         Hide();
-        currentPlayer = null;
+        EndTurn();
     }
 }

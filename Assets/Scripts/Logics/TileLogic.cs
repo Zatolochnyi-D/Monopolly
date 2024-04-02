@@ -83,6 +83,13 @@ public class TileLogic : MonoBehaviour
 
     public void Interact(PlayerLogic player)
     {
-        if (tileInteractionDialog != null) tileInteractionDialog.Iteract(player);
+        if (tileInteractionDialog != null)
+        {
+            tileInteractionDialog.Iteract(player);
+        }
+        else
+        {
+            TurnManager.Instance.EndTurn();
+        }
     }
 }
