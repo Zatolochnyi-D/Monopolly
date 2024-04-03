@@ -2,7 +2,7 @@ using UnityEngine;
 
 public abstract class InteractionUI : MonoBehaviour
 {
-    protected PlayerLogic currentPlayer;
+    protected PlayerLogic.PlayerCommand playerCommand;
 
     void Start()
     {

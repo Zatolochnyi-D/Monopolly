@@ -5,28 +5,26 @@ public class NegativePRInteractionUI : InteractionUI
 {
     [SerializeField] private Button confirmButton;
 
-    private PlayerLogic.DecreaseImageMultiplyAdditively playerCommand = new();
-
     void Awake()
     {
         confirmButton.onClick.AddListener(() =>
         {
             Accept();
         });
+
+        playerCommand = new PlayerLogic.MultiplyAddWithCapImageCommand();
     }
 
     private void Accept()
     {
-        currentPlayer = null;
         Hide();
         EndTurn();
     }
 
     public override void Iteract(PlayerLogic player)
     {
-        currentPlayer = player;
         Show();
-        playerCommand.coeffitient = 0.1f;
-        playerCommand.Execute(currentPlayer);
+        playerCommand.SetReceiver(player);
+        playerCommand.Execute(new PlayerLogic.SimpleFloatParam() { floating = -0.1f });
     }
 }

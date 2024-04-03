@@ -18,7 +18,7 @@ public class CasinoInteractionUI : InteractionUI
     private int firstLuckyNumber;
     private int secondLuckyNumber;
 
-    private PlayerLogic.AlterBalanceAdditively playerCommand = new();
+    private PlayerLogic currentPlayer;
 
     void Awake()
     {
@@ -40,6 +40,8 @@ public class CasinoInteractionUI : InteractionUI
         ResetDialog();
 
         betField.onValueChanged.AddListener((string value) => warningText.gameObject.SetActive(false));
+
+        playerCommand = new PlayerLogic.AddBalanceCommand();
     }
 
     private void ResetDialog()
@@ -51,6 +53,7 @@ public class CasinoInteractionUI : InteractionUI
 
     public override void Iteract(PlayerLogic player)
     {
+        playerCommand.SetReceiver(player);
         currentPlayer = player;
 
         firstLuckyNumber = Random.Range(1, 7);
@@ -66,7 +69,6 @@ public class CasinoInteractionUI : InteractionUI
 
     private void Close()
     {
-        currentPlayer = null;
         ResetDialog();
         Hide();
         EndTurn();
@@ -91,17 +93,19 @@ public class CasinoInteractionUI : InteractionUI
         bool isVictorious = await Roll();
 
         endScreen.SetActive(true);
+
+        PlayerLogic.SimpleIntegerParam intToAdd = new();
         if (isVictorious)
         {
-            endScreenSummaryText.text = $"You won! \n+{bet * 2}00$";
-            playerCommand.balance = bet * 2;
+            intToAdd.integer = bet * 2;
+            endScreenSummaryText.text = $"You won! \n+{intToAdd.integer}00$";
         }
         else
         {
-            endScreenSummaryText.text = $"You lost. \n-{bet}00$";
-            playerCommand.balance = -bet;
+            intToAdd.integer = -bet;
+            endScreenSummaryText.text = $"You lost. \n{intToAdd.integer}00$";
         }
-        playerCommand.Execute(currentPlayer);
+        playerCommand.Execute(intToAdd);
     }
 
     private async Task<bool> Roll()

@@ -1,40 +1,91 @@
+using System;
 using UnityEngine;
 
 public partial class PlayerLogic : MonoBehaviour
 {
-    public interface IPlayerCommand
+    public class PlayerCommandParams { }
+
+
+    public class SimpleIntegerParam : PlayerCommandParams
     {
-        void Execute(PlayerLogic player);
+        public int integer;
+    }
+
+    public class SimpleFloatParam : PlayerCommandParams
+    {
+        public float floating;
     }
 
 
-    public class AlterBalanceAdditively : IPlayerCommand
+    public abstract class PlayerCommand
     {
-        public int balance;
+        protected PlayerLogic player;
 
-        public void Execute(PlayerLogic player)
+        public virtual void SetReceiver(PlayerLogic player)
         {
-            player.Money += balance;
+            this.player = player;
+        }
+
+        public abstract void Execute(PlayerCommandParams parameters);
+
+        protected T Validate<T>(PlayerCommandParams parameters) where T : PlayerCommandParams
+        {
+            T param = parameters as T;
+
+            if (param == null) throw new ArgumentException("Incorrect parameter in tile interaction");
+
+            return param;
         }
     }
 
 
-    public class DecreaseImageMultiplyAdditively : IPlayerCommand
+    public class AddBalanceCommand : PlayerCommand
     {
-        public float coeffitient;
-
-        public void Execute(PlayerLogic player)
+        public override void Execute(PlayerCommandParams parameters)
         {
-            int imageToSubstract;
+            var param = Validate<SimpleIntegerParam>(parameters);
+
+            player.Money += param.integer;
+        }
+    }
+
+
+    public class AddImageCommand : PlayerCommand
+    {
+        public override void Execute(PlayerCommandParams parameters)
+        {
+            var param = Validate<SimpleIntegerParam>(parameters);
+
+            player.Image += param.integer;
+        }
+    }
+
+
+    public class MultiplyAddWithCapImageCommand : PlayerCommand
+    {
+        private AddImageCommand alterImageCommand = new();
+
+        public override void SetReceiver(PlayerLogic player)
+        {
+            base.SetReceiver(player);
+            alterImageCommand.SetReceiver(player);
+        }
+
+        public override void Execute(PlayerCommandParams parameters)
+        {
+            var param = Validate<SimpleFloatParam>(parameters);
+
+            SimpleIntegerParam intToAdd;
             if (player.Image > 0)
             {
-                imageToSubstract = Mathf.CeilToInt(player.Image * coeffitient);
+                intToAdd = new() { integer = Mathf.CeilToInt(player.Image * param.floating) };
             }
             else
             {
-                imageToSubstract = 1;
+                intToAdd = new() { integer = 1 * Math.Sign(param.floating) };
             }
-            player.Image -= imageToSubstract;
+
+            alterImageCommand.Execute(intToAdd);
         }
     }
 }

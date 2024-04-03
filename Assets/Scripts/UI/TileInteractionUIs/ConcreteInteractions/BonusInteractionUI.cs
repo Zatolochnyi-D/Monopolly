@@ -7,31 +7,31 @@ public class BonusInteractionUI : InteractionUI
     [SerializeField] private TextMeshProUGUI descriptionText;
     [SerializeField] private Button confirmButton;
 
-    private PlayerLogic.AlterBalanceAdditively playerCommand = new();
-
     void Awake()
     {
         confirmButton.onClick.AddListener(() =>
         {
             Confirm();
         });
+
+        playerCommand = new PlayerLogic.AddBalanceCommand();
     }
 
     public override void Iteract(PlayerLogic player)
     {
         Show();
+        playerCommand.SetReceiver(player);
 
         if (player.Image > 0)
         {
             int defaultBonusPerImage = 5;
-            int bonus = player.Image * defaultBonusPerImage;
-            descriptionText.text = $"Your received bonus for a good job. \n+{bonus}00$";
-            playerCommand.balance = bonus;
-            playerCommand.Execute(player);
+            PlayerLogic.SimpleIntegerParam bonus = new() { integer = player.Image * defaultBonusPerImage };
+            descriptionText.text = $"Your received bonus for a good job. \n+{bonus.integer}00$";
+            playerCommand.Execute(bonus);
         }
         else
         {
-            descriptionText.text = "Your reputations is to low. No bonus for you.";
+            descriptionText.text = "Your reputations is too low. No bonus for you.";
         }
     }
 
