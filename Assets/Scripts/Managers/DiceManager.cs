@@ -19,6 +19,8 @@ public class DiceManager : MonoBehaviour
     private AsyncTimer timer;
     private bool canThrowDice = true;
 
+    private int DEBUGRolledNumber = 6;
+
     void Awake()
     {
         Instance = this;
@@ -68,7 +70,7 @@ public class DiceManager : MonoBehaviour
         firstDice.Reset();
         secondDice.Reset();
 
-        OnDiceReset?.Invoke(totalRolledNumber);
+        OnDiceReset?.Invoke(DEBUGRolledNumber); // TODO: replace with totalRolledNumber
 
         totalRolledNumber = 0;
     }

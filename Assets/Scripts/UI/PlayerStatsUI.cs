@@ -19,8 +19,9 @@ public class PlayerStatsUI : MonoBehaviour
     {
         UpdateStatsSheet();
         TurnManager.Instance.OnTurnEnded += UpdateStatsSheet;
-
         GameInputManager.Instance.OnOpenCloseStatsPreformed += SwitchStatsUIState;
+        PlayerLogic.OnPropertyChanged += UpdateStatsSheet;
+
         gameObject.SetActive(false);
     }
 
