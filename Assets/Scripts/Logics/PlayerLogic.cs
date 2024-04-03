@@ -25,14 +25,22 @@ public partial class PlayerLogic : MonoBehaviour
     public string PlayerName => playerName;
     public Color DisplayColor => playerVisuals.displayColor;
     public int Number => number;
-    public int Image => image;
 
-    public int Money 
+    public int Money
     {
         get => money;
         private set
         {
             money = value;
+            OnPropertyChanged?.Invoke();
+        }
+    }
+    public int Image
+    {
+        get => image;
+        private set
+        {
+            image = value;
             OnPropertyChanged?.Invoke();
         }
     }

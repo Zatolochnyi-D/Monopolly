@@ -18,7 +18,7 @@ public class CasinoInteractionUI : InteractionUI
     private int firstLuckyNumber;
     private int secondLuckyNumber;
 
-    private PlayerLogic.AlterBalanceCommand playerCommand = new();
+    private PlayerLogic.AlterBalanceAdditively playerCommand = new();
 
     void Awake()
     {
