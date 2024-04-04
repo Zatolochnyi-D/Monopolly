@@ -119,4 +119,33 @@ public partial class PlayerLogic : MonoBehaviour
             alterImageCommand.Execute(intToAdd);
         }
     }
+
+
+    public class MultiplyAddWithCapBalanceCommand : PlayerCommand
+    {
+        private PlayerCommand alterBalanceCommand = new AddBalanceCommand();
+
+        public override void SetReceiver(PlayerLogic player)
+        {
+            base.SetReceiver(player);
+            alterBalanceCommand.SetReceiver(player);
+        }
+
+        public override void Execute(PlayerCommandParams parameters)
+        {
+            var param = Validate<SimpleFloatParam>(parameters);
+
+            SimpleIntegerParam intToAdd = new();
+            if (player.Money > 0)
+            {
+                intToAdd.integer = Mathf.FloorToInt(player.Money * param.floating);
+            }
+            else
+            {
+                intToAdd.integer = 0;
+            }
+
+            alterBalanceCommand.Execute(intToAdd);
+        }
+    }
 }
