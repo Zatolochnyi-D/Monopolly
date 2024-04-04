@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using UnityEngine;
 
 public class TurnManager : MonoBehaviour
@@ -15,6 +16,8 @@ public class TurnManager : MonoBehaviour
     private int currentPlayerIndex = 0;
 
     public PlayerLogic CurrentPlayer => players[currentPlayerIndex];
+    public int HighestImage => players.Max(x => x.Image);
+    public int HighestImageExcludeCurrentPlayer => players.Where(x => x != CurrentPlayer).Max(x => x.Image);
 
     void Awake()
     {

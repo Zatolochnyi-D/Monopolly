@@ -1,32 +1,32 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class NegativePRInteractionUI : InteractionUI
+public class RecomendationsInteractionUI : InteractionUI
 {
     [SerializeField] private Button confirmButton;
 
-    private float imageMultiplier = -0.1f;
+    private float imageMultiplier = 0.2f;
 
     void Awake()
     {
         confirmButton.onClick.AddListener(() =>
         {
-            Accept();
+            Close();
         });
 
-        playerCommand = new PlayerLogic.MultiplyAddWithCapImageCommand();
-    }
-
-    private void Accept()
-    {
-        Hide();
-        EndTurn();
+        playerCommand = new PlayerLogic.AddImagePercentFromHighestCommand();
     }
 
     public override void Iteract(PlayerLogic player)
     {
-        Show();
         playerCommand.SetReceiver(player);
         playerCommand.Execute(new PlayerLogic.SimpleFloatParam() { floating = imageMultiplier });
+        Show();
+    }
+
+    private void Close()
+    {
+        Hide();
+        EndTurn();
     }
 }

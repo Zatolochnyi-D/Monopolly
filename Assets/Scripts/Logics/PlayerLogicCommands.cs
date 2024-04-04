@@ -11,6 +11,7 @@ public partial class PlayerLogic : MonoBehaviour
         public int integer;
     }
 
+
     public class SimpleFloatParam : PlayerCommandParams
     {
         public float floating;
@@ -63,7 +64,7 @@ public partial class PlayerLogic : MonoBehaviour
 
     public class MultiplyAddWithCapImageCommand : PlayerCommand
     {
-        private AddImageCommand alterImageCommand = new();
+        private PlayerCommand alterImageCommand = new AddImageCommand();
 
         public override void SetReceiver(PlayerLogic player)
         {
@@ -83,6 +84,36 @@ public partial class PlayerLogic : MonoBehaviour
             else
             {
                 intToAdd = new() { integer = 1 * Math.Sign(param.floating) };
+            }
+
+            alterImageCommand.Execute(intToAdd);
+        }
+    }
+
+
+    public class AddImagePercentFromHighestCommand : PlayerCommand
+    {
+        private PlayerCommand alterImageCommand = new AddImageCommand();
+
+        public override void SetReceiver(PlayerLogic player)
+        {
+            base.SetReceiver(player);
+            alterImageCommand.SetReceiver(player);
+        }
+
+        public override void Execute(PlayerCommandParams parameters)
+        {
+            var param = Validate<SimpleFloatParam>(parameters);
+
+            int highestImage = TurnManager.Instance.HighestImageExcludeCurrentPlayer;
+            SimpleIntegerParam intToAdd = new();
+            if (highestImage > 0)
+            {
+                intToAdd.integer = Mathf.CeilToInt(highestImage * param.floating);
+            }
+            else
+            {
+                intToAdd.integer = Mathf.CeilToInt(Mathf.Abs(highestImage) * param.floating);
             }
 
             alterImageCommand.Execute(intToAdd);
