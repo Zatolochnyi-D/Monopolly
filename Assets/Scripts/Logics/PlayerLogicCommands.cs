@@ -18,6 +18,13 @@ public partial class PlayerLogic : MonoBehaviour
     }
 
 
+    public class DoubleIntegerParam : PlayerCommandParams
+    {
+        public int first;
+        public int second;
+    }
+
+
     public abstract class PlayerCommand
     {
         protected PlayerLogic player;
@@ -146,6 +153,27 @@ public partial class PlayerLogic : MonoBehaviour
             }
 
             alterBalanceCommand.Execute(intToAdd);
+        }
+    }
+
+    public class ImageMoneyExchangeCommand : PlayerCommand
+    {
+        private PlayerCommand alterImageCommand = new AddImageCommand();
+        private PlayerCommand alterBalanceCommand = new AddBalanceCommand();
+
+        public override void SetReceiver(PlayerLogic player)
+        {
+            base.SetReceiver(player);
+            alterImageCommand.SetReceiver(player);
+            alterBalanceCommand.SetReceiver(player);
+        }
+
+        public override void Execute(PlayerCommandParams parameters)
+        {
+            var param = Validate<DoubleIntegerParam>(parameters);
+
+            alterImageCommand.Execute(new SimpleIntegerParam() { integer = param.first });
+            alterBalanceCommand.Execute(new SimpleIntegerParam() { integer = param.second });
         }
     }
 }
