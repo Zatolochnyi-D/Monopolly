@@ -34,7 +34,7 @@ public partial class PlayerLogic
             pawnVisuals = null;
             number = Random.Range(1, 6);
             money = 100;
-            image = 10;
+            image = 1;
         }
 
         public void SetName(string name)

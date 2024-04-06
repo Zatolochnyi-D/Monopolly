@@ -49,6 +49,7 @@ public class DiceManager : MonoBehaviour
 
         if (firstDice.IsStopped && secondDice.IsStopped)
         {
+            if (totalRolledNumber < 2) totalRolledNumber = 2;
             OnDiceLanded?.Invoke(totalRolledNumber);
             timer.Start();
         }
