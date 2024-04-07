@@ -17,6 +17,9 @@ public class GreatDealInteractionUI : InteractionUI
     [SerializeField] private int yield;
     [SerializeField] private int difficulty;
     [SerializeField] private TileLogic targetTile;
+    [SerializeField] private bool resetImageOnSuccess = true;
+
+    private PlayerLogic player;
 
     protected void Awake()
     {
@@ -44,6 +47,7 @@ public class GreatDealInteractionUI : InteractionUI
     public override void Interact(PlayerLogic player)
     {
         playerCommand.SetReceiver(player);
+        this.player = player;
 
         endScreen.SetActive(false);
         rolledNumberText.gameObject.SetActive(false);
@@ -56,6 +60,7 @@ public class GreatDealInteractionUI : InteractionUI
             var param = new PlayerLogic.TileIntegersParam();
             param.tile.tile = targetTile;
             param.integers.second = yield;
+            if (resetImageOnSuccess) param.integers.first = -player.Image;
             playerCommand.Execute(param);
         }
 
@@ -76,6 +81,7 @@ public class GreatDealInteractionUI : InteractionUI
             param.integers.second = yield;
             param.tile.tile = targetTile;
             endScreenText.text = $"You handled this deal! \n+{yield}00$";
+            if (resetImageOnSuccess) param.integers.first = -player.Image;
             endScreen.SetActive(true);
         }
         else
