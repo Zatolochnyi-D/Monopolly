@@ -3362,6 +3362,10 @@ PrefabInstance:
       propertyPath: targetTile
       value: 
       objectReference: {fileID: 2023769774}
+    - target: {fileID: -8084976841802850497, guid: beb1fba4cba6943a7b56ec7ed9d0ae9e, type: 3}
+      propertyPath: resetImageOnSuccess
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5670129744858490363, guid: beb1fba4cba6943a7b56ec7ed9d0ae9e, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

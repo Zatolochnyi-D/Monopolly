@@ -14,7 +14,7 @@ public class NegativePRInteractionUI : InteractionUI
             Accept();
         });
 
-        playerCommand = new PlayerLogic.MultiplyAddWithCapImageCommand();
+        playerCommand = new PlayerLogic.AlterImageCommand();
     }
 
     private void Accept()
@@ -25,8 +25,20 @@ public class NegativePRInteractionUI : InteractionUI
 
     public override void Interact(PlayerLogic player)
     {
+        playerCommand.TargetPlayer = player;
+
+        int imageToAdd;
+        if (player.Image > 0)
+        {
+            imageToAdd = -Mathf.CeilToInt(player.Image * imageMultiplier);
+        }
+        else
+        {
+            imageToAdd = -1;
+        }
+
+        playerCommand.Parameters = new PlayerLogic.SimpleIntegerParam() { integer = imageToAdd };
+        playerCommand.Execute();
         Show();
-        playerCommand.SetReceiver(player);
-        playerCommand.Execute(new PlayerLogic.SimpleFloatParam() { floating = imageMultiplier });
     }
 }

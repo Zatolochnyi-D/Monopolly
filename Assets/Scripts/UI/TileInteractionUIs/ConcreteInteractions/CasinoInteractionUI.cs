@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -41,7 +42,7 @@ public class CasinoInteractionUI : InteractionUI
 
         betField.onValueChanged.AddListener((string value) => warningText.gameObject.SetActive(false));
 
-        playerCommand = new PlayerLogic.AddBalanceCommand();
+        playerCommand = new PlayerLogic.AlterBalanceCommand();
     }
 
     private void ResetDialog()
@@ -53,7 +54,7 @@ public class CasinoInteractionUI : InteractionUI
 
     public override void Interact(PlayerLogic player)
     {
-        playerCommand.SetReceiver(player);
+        playerCommand.TargetPlayer = player;
         currentPlayer = player;
 
         firstLuckyNumber = Random.Range(1, 7);
@@ -105,7 +106,8 @@ public class CasinoInteractionUI : InteractionUI
             intToAdd.integer = -bet;
             endScreenSummaryText.text = $"You lost. \n{intToAdd.integer}00$";
         }
-        playerCommand.Execute(intToAdd);
+        playerCommand.Parameters = intToAdd;
+        playerCommand.Execute();
     }
 
     private async Task<bool> Roll()

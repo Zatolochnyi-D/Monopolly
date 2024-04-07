@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -38,12 +39,15 @@ public class SimpleDealInteractionUI : InteractionUI
 
         yieldText.text = $"{yield}00$";
 
-        playerCommand = new PlayerLogic.ImageMoneyExchangeCommand();
+        playerCommand = new PlayerLogic.AlterBalanceCommand()
+        {
+            NextCommand = new PlayerLogic.AlterImageCommand()
+        };
     }
 
     public override void Interact(PlayerLogic player)
     {
-        playerCommand.SetReceiver(player);
+        playerCommand.TargetPlayer = player;
 
         endScreen.SetActive(false);
         rolledNumberText.gameObject.SetActive(false);
@@ -53,7 +57,8 @@ public class SimpleDealInteractionUI : InteractionUI
         {
             endScreen.SetActive(true);
             endScreenText.text = $"Your reputation successfully handled this deal. Your received {yield}00$.";
-            playerCommand.Execute(new PlayerLogic.DoubleIntegerParam() { second = yield });
+            SetParameters(yield, 0);
+            playerCommand.Execute();
         }
 
         if (difficulty - player.Image > 12)
@@ -77,20 +82,19 @@ public class SimpleDealInteractionUI : InteractionUI
 
         endScreen.SetActive(true);
 
-        PlayerLogic.DoubleIntegerParam intToAdd = new();
         if (isVictorious)
         {
-            intToAdd.second = yield;
-            endScreenText.text = $"You handled this deal! \n+{intToAdd.second}00$";
+            SetParameters(yield, 0);
+            endScreenText.text = $"You handled this deal! \n+{yield}00$";
             endScreen.SetActive(true);
         }
         else
         {
-            intToAdd.first = -1;
+            SetParameters(0, -1);
             endScreenText.text = $"You lost this deal. \n-1 image";
             endScreen.SetActive(true);
         }
-        playerCommand.Execute(intToAdd);
+        playerCommand.Execute();
     }
 
     private async Task<bool> Roll()
@@ -113,5 +117,11 @@ public class SimpleDealInteractionUI : InteractionUI
     {
         Hide();
         EndTurn();
+    }
+
+    private void SetParameters(int money, int image)
+    {
+        playerCommand.Parameters = new PlayerLogic.SimpleIntegerParam() { integer = money };
+        playerCommand.NextCommand.Parameters = new PlayerLogic.SimpleIntegerParam() { integer = image };
     }
 }

@@ -14,13 +14,18 @@ public class RecomendationsInteractionUI : InteractionUI
             Close();
         });
 
-        playerCommand = new PlayerLogic.AddImagePercentFromHighestCommand();
+        playerCommand = new PlayerLogic.AlterImageCommand();
     }
 
     public override void Interact(PlayerLogic player)
     {
-        playerCommand.SetReceiver(player);
-        playerCommand.Execute(new PlayerLogic.SimpleFloatParam() { floating = imageMultiplier });
+        playerCommand.TargetPlayer = player;
+
+        int highestImage = TurnManager.Instance.HighestImageExcludeCurrentPlayer;
+        int imageToAdd = Mathf.CeilToInt(Mathf.Abs(highestImage) * imageMultiplier);
+
+        playerCommand.Parameters = new PlayerLogic.SimpleIntegerParam() { integer = imageToAdd };
+        playerCommand.Execute();
         Show();
     }
 

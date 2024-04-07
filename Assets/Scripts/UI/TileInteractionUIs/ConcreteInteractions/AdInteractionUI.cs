@@ -35,7 +35,10 @@ public class AdInteractionUI : InteractionUI
             warningText.gameObject.SetActive(false);
         });
 
-        playerCommand = new PlayerLogic.ImageMoneyExchangeCommand();
+        playerCommand = new PlayerLogic.AlterBalanceCommand()
+        {
+            NextCommand = new PlayerLogic.AlterImageCommand()
+        };
     }
 
     private void TryConfirm()
@@ -44,7 +47,9 @@ public class AdInteractionUI : InteractionUI
         if (currentPlayer.Money >= cost)
         {
             int image = imageCostPairs[options.value].image;
-            playerCommand.Execute(new PlayerLogic.DoubleIntegerParam() { first = image, second = -cost });
+            playerCommand.Parameters = new PlayerLogic.SimpleIntegerParam() { integer = -cost };
+            playerCommand.NextCommand.Parameters = new PlayerLogic.SimpleIntegerParam() { integer = image };
+            playerCommand.Execute();
             Close();
         }
         else
@@ -61,7 +66,7 @@ public class AdInteractionUI : InteractionUI
 
     public override void Interact(PlayerLogic player)
     {
-        playerCommand.SetReceiver(player);
+        playerCommand.TargetPlayer = player;
         currentPlayer = player;
         warningText.gameObject.SetActive(false);
         options.value = 2;

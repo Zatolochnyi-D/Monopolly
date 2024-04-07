@@ -34,13 +34,16 @@ public class ImageInteractionUI : InteractionUI
             Close();
         });
 
-        playerCommand = new PlayerLogic.ImageMoneyExchangeCommand();
+        playerCommand = new PlayerLogic.AlterBalanceCommand()
+        {
+            NextCommand = new PlayerLogic.AlterImageCommand()
+        };
     }
 
     public override void Interact(PlayerLogic player)
     {
         this.player = player;
-        playerCommand.SetReceiver(player);
+        playerCommand.TargetPlayer = player;
 
         warning.gameObject.SetActive(false);
         endScreen.SetActive(false);
@@ -61,7 +64,8 @@ public class ImageInteractionUI : InteractionUI
         endScreenDescription.text = events.texts[selectedEventID];
         costText.text = $"Cost: {events.numbers[selectedEventID].y}";
         imageText.text = $"Image: {events.numbers[selectedEventID].x}";
-        playerCommand.Execute(new PlayerLogic.DoubleIntegerParam() { first = events.numbers[selectedEventID].x, second = -events.numbers[selectedEventID].y });
+        SetParameters(-events.numbers[selectedEventID].y, events.numbers[selectedEventID].x);
+        playerCommand.Execute();
         endScreen.SetActive(true);
     }
 
@@ -69,5 +73,11 @@ public class ImageInteractionUI : InteractionUI
     {
         Hide();
         EndTurn();
+    }
+
+    private void SetParameters(int money, int image)
+    {
+        playerCommand.Parameters = new PlayerLogic.SimpleIntegerParam() { integer = money};
+        playerCommand.NextCommand.Parameters = new PlayerLogic.SimpleIntegerParam() { integer = image };
     }
 }

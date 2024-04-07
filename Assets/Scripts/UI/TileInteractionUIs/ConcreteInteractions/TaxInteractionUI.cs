@@ -7,7 +7,7 @@ public class TaxInteractionUI : InteractionUI
     [SerializeField] private Button confirmButton;
     [SerializeField] private TextMeshProUGUI descriptionText;
 
-    private float taxRate = -0.1f;
+    private float taxRate = 0.1f;
 
     void Awake()
     {
@@ -16,16 +16,19 @@ public class TaxInteractionUI : InteractionUI
             Close();
         });
 
-        playerCommand = new PlayerLogic.MultiplyAddWithCapBalanceCommand();
+        playerCommand = new PlayerLogic.AlterBalanceCommand();
     }
 
     public override void Interact(PlayerLogic player)
     {
-        playerCommand.SetReceiver(player);
+        playerCommand.TargetPlayer = player;
 
         if (player.Money >= 10)
         {
-            playerCommand.Execute(new PlayerLogic.SimpleFloatParam() { floating = taxRate });
+            int balanceToAdd = -Mathf.FloorToInt(player.Money * taxRate);
+            playerCommand.Parameters = new PlayerLogic.SimpleIntegerParam() { integer = balanceToAdd };
+            playerCommand.Execute();
+
             descriptionText.text = "Tax Service have caught you! \n-10% of your current balance.";
         }
         else

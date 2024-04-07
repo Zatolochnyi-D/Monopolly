@@ -14,25 +14,27 @@ public class BonusInteractionUI : InteractionUI
             Confirm();
         });
 
-        playerCommand = new PlayerLogic.AddBalanceCommand();
+        playerCommand = new PlayerLogic.AlterBalanceCommand();
     }
 
     public override void Interact(PlayerLogic player)
     {
-        Show();
-        playerCommand.SetReceiver(player);
+        playerCommand.TargetPlayer = player;
 
         if (player.Image > 0)
         {
             int defaultBonusPerImage = 5;
             PlayerLogic.SimpleIntegerParam bonus = new() { integer = player.Image * defaultBonusPerImage };
             descriptionText.text = $"Your received bonus for a good job. \n+{bonus.integer}00$";
-            playerCommand.Execute(bonus);
+            playerCommand.Parameters = bonus;
+            playerCommand.Execute();
         }
         else
         {
             descriptionText.text = "Your reputations is too low. No bonus for you.";
         }
+
+        Show();
     }
 
     private void Confirm()

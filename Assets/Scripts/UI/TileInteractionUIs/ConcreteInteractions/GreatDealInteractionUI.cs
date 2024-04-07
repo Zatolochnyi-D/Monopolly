@@ -41,12 +41,18 @@ public class GreatDealInteractionUI : InteractionUI
         yieldText.text = $"{yield}00$";
         difficultyText.text = difficulty.ToString();
 
-        playerCommand = new PlayerLogic.MovePlayerAndChangeStatsCommand();
+        playerCommand = new PlayerLogic.AlterBalanceCommand()
+        {
+            NextCommand = new PlayerLogic.AlterImageCommand()
+            {
+                NextCommand = new PlayerLogic.MovePlayerCommand()
+            }
+        };
     }
 
     public override void Interact(PlayerLogic player)
     {
-        playerCommand.SetReceiver(player);
+        playerCommand.TargetPlayer = player;
         this.player = player;
 
         endScreen.SetActive(false);
@@ -57,11 +63,8 @@ public class GreatDealInteractionUI : InteractionUI
             endScreen.SetActive(true);
             endScreenText.text = $"This deal is to easy. Your received {yield}00$ and pass to the big circle";
 
-            var param = new PlayerLogic.TileIntegersParam();
-            param.tile.tile = targetTile;
-            param.integers.second = yield;
-            if (resetImageOnSuccess) param.integers.first = -player.Image;
-            playerCommand.Execute(param);
+            SetParameters(yield, resetImageOnSuccess ? -player.Image : 0, targetTile);
+            playerCommand.Execute();
         }
 
         Show();
@@ -78,19 +81,17 @@ public class GreatDealInteractionUI : InteractionUI
         PlayerLogic.TileIntegersParam param = new();
         if (isVictorious)
         {
-            param.integers.second = yield;
-            param.tile.tile = targetTile;
+            SetParameters(yield, resetImageOnSuccess ? -player.Image : 0, targetTile);
             endScreenText.text = $"You handled this deal! \n+{yield}00$";
-            if (resetImageOnSuccess) param.integers.first = -player.Image;
             endScreen.SetActive(true);
         }
         else
         {
-            param.integers.first = -3;
+            SetParameters(0, -3, null);
             endScreenText.text = $"You lost this deal. \n-3 image";
             endScreen.SetActive(true);
         }
-        playerCommand.Execute(param);
+        playerCommand.Execute();
     }
 
     private async Task<bool> Roll()
@@ -113,5 +114,12 @@ public class GreatDealInteractionUI : InteractionUI
     {
         Hide();
         EndTurn();
+    }
+
+    private void SetParameters(int money, int image, TileLogic tile)
+    {
+        playerCommand.Parameters = new PlayerLogic.SimpleIntegerParam() { integer = money };
+        playerCommand.NextCommand.Parameters = new PlayerLogic.SimpleIntegerParam() { integer = image };
+        playerCommand.NextCommand.NextCommand.Parameters = new PlayerLogic.SimpleTileParam() { tile = tile };
     }
 }
