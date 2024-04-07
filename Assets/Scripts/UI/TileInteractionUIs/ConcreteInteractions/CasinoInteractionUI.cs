@@ -51,7 +51,7 @@ public class CasinoInteractionUI : InteractionUI
         endScreen.SetActive(false);
     }
 
-    public override void Iteract(PlayerLogic player)
+    public override void Interact(PlayerLogic player)
     {
         playerCommand.SetReceiver(player);
         currentPlayer = player;

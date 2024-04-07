@@ -24,5 +24,5 @@ public abstract class InteractionUI : MonoBehaviour
         TurnManager.Instance.EndTurn();
     }
 
-    public abstract void Iteract(PlayerLogic player);
+    public abstract void Interact(PlayerLogic player);
 }

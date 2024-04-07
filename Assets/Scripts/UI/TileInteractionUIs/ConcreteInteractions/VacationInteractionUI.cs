@@ -13,7 +13,7 @@ public class VacationInteractionUI : InteractionUI
         });
     }
 
-    public override void Iteract(PlayerLogic player)
+    public override void Interact(PlayerLogic player)
     {
         Show();
     }

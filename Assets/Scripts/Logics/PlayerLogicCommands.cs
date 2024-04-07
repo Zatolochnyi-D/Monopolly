@@ -3,7 +3,7 @@ using UnityEngine;
 
 public partial class PlayerLogic : MonoBehaviour
 {
-    public class PlayerCommandParams { }
+    public abstract class PlayerCommandParams { }
 
 
     public class SimpleIntegerParam : PlayerCommandParams
@@ -22,6 +22,19 @@ public partial class PlayerLogic : MonoBehaviour
     {
         public int first;
         public int second;
+    }
+
+
+    public class SimpleTileParam : PlayerCommandParams
+    {
+        public TileLogic tile;
+    }
+
+
+    public class TileIntegersParam: PlayerCommandParams
+    {
+        public SimpleTileParam tile = new();
+        public DoubleIntegerParam integers = new();
     }
 
 
@@ -174,6 +187,44 @@ public partial class PlayerLogic : MonoBehaviour
 
             alterImageCommand.Execute(new SimpleIntegerParam() { integer = param.first });
             alterBalanceCommand.Execute(new SimpleIntegerParam() { integer = param.second });
+        }
+    }
+
+
+    public class MovePlayerCommand : PlayerCommand
+    {
+        public override void Execute(PlayerCommandParams parameters)
+        {
+            var param = Validate<SimpleTileParam>(parameters);
+
+            player.currentTile = param.tile;
+            player.TakeTile();
+        }
+    }
+
+
+    public class MovePlayerAndChangeStatsCommand : PlayerCommand
+    {
+        private PlayerCommand alterStatsCommand = new ImageMoneyExchangeCommand();
+        private PlayerCommand movePlayer = new MovePlayerCommand();
+
+        public override void SetReceiver(PlayerLogic player)
+        {
+            base.SetReceiver(player);
+            alterStatsCommand.SetReceiver(player);
+            movePlayer.SetReceiver(player);
+        }
+
+        public override void Execute(PlayerCommandParams parameters)
+        {
+            var param = Validate<TileIntegersParam>(parameters);
+
+            alterStatsCommand.Execute(param.integers);
+
+            if (param.tile.tile != null)
+            {
+                movePlayer.Execute(param.tile);
+            }
         }
     }
 }

@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SimpleDealInteractionUI : InteractionUI
+public class GreatDealInteractionUI : InteractionUI
 {
     [SerializeField] private Button confirmButton;
     [SerializeField] private Button cancelButton;
@@ -16,8 +16,7 @@ public class SimpleDealInteractionUI : InteractionUI
 
     [SerializeField] private int yield;
     [SerializeField] private int difficulty;
-
-    private int currentDifficulty;
+    [SerializeField] private TileLogic targetTile;
 
     protected void Awake()
     {
@@ -37,8 +36,9 @@ public class SimpleDealInteractionUI : InteractionUI
         });
 
         yieldText.text = $"{yield}00$";
+        difficultyText.text = difficulty.ToString();
 
-        playerCommand = new PlayerLogic.ImageMoneyExchangeCommand();
+        playerCommand = new PlayerLogic.MovePlayerAndChangeStatsCommand();
     }
 
     public override void Interact(PlayerLogic player)
@@ -47,24 +47,17 @@ public class SimpleDealInteractionUI : InteractionUI
 
         endScreen.SetActive(false);
         rolledNumberText.gameObject.SetActive(false);
-        currentDifficulty = difficulty;
 
-        if (player.Image - 2 >= difficulty)
+        if (2 > difficulty)
         {
             endScreen.SetActive(true);
-            endScreenText.text = $"Your reputation successfully handled this deal. Your received {yield}00$.";
-            playerCommand.Execute(new PlayerLogic.DoubleIntegerParam() { second = yield });
+            endScreenText.text = $"This deal is to easy. Your received {yield}00$ and pass to the big circle";
+
+            var param = new PlayerLogic.TileIntegersParam();
+            param.tile.tile = targetTile;
+            param.integers.second = yield;
+            playerCommand.Execute(param);
         }
-
-        if (difficulty - player.Image > 12)
-        {
-            endScreen.SetActive(true);
-            endScreenText.text = $"Your reputation is to low for this deal.";
-        }
-
-        currentDifficulty = difficulty - player.Image;
-
-        difficultyText.text = currentDifficulty.ToString();
 
         Show();
     }
@@ -77,20 +70,21 @@ public class SimpleDealInteractionUI : InteractionUI
 
         endScreen.SetActive(true);
 
-        PlayerLogic.DoubleIntegerParam intToAdd = new();
+        PlayerLogic.TileIntegersParam param = new();
         if (isVictorious)
         {
-            intToAdd.second = yield;
-            endScreenText.text = $"You handled this deal! \n+{intToAdd.second}00$";
+            param.integers.second = yield;
+            param.tile.tile = targetTile;
+            endScreenText.text = $"You handled this deal! \n+{yield}00$";
             endScreen.SetActive(true);
         }
         else
         {
-            intToAdd.first = -1;
-            endScreenText.text = $"You lost this deal. \n-1 image";
+            param.integers.first = -3;
+            endScreenText.text = $"You lost this deal. \n-3 image";
             endScreen.SetActive(true);
         }
-        playerCommand.Execute(intToAdd);
+        playerCommand.Execute(param);
     }
 
     private async Task<bool> Roll()
@@ -99,14 +93,14 @@ public class SimpleDealInteractionUI : InteractionUI
         rolledNumberText.gameObject.SetActive(true);
         for (int i = 0; i < 20; i++)
         {
-            rolledNumber = UnityEngine.Random.Range(1, 13);
+            rolledNumber = Random.Range(1, 13);
             rolledNumberText.text = rolledNumber.ToString();
             await Task.Delay(100);
         }
 
         await Task.Delay(1000);
 
-        return rolledNumber >= currentDifficulty;
+        return rolledNumber > difficulty;
     }
 
     private void Close()

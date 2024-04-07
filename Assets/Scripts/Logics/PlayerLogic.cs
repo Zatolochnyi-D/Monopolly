@@ -85,9 +85,14 @@ public partial class PlayerLogic : MonoBehaviour
         }
         else
         {
-            transform.position = currentTile.TakePlace(this);
+            TakeTile();
             currentTile.Interact(this);
-            OnMovementEnded?.Invoke();
         }
+    }
+
+    private void TakeTile()
+    {
+        transform.position = currentTile.TakePlace(this);
+        OnMovementEnded?.Invoke();
     }
 }

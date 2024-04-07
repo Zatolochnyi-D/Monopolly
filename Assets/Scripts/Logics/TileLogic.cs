@@ -85,7 +85,7 @@ public class TileLogic : MonoBehaviour
     {
         if (tileInteractionDialog != null)
         {
-            tileInteractionDialog.Iteract(player);
+            tileInteractionDialog.Interact(player);
         }
         else
         {

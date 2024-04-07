@@ -17,7 +17,7 @@ public class BonusInteractionUI : InteractionUI
         playerCommand = new PlayerLogic.AddBalanceCommand();
     }
 
-    public override void Iteract(PlayerLogic player)
+    public override void Interact(PlayerLogic player)
     {
         Show();
         playerCommand.SetReceiver(player);

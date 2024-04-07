@@ -17,7 +17,7 @@ public class RecomendationsInteractionUI : InteractionUI
         playerCommand = new PlayerLogic.AddImagePercentFromHighestCommand();
     }
 
-    public override void Iteract(PlayerLogic player)
+    public override void Interact(PlayerLogic player)
     {
         playerCommand.SetReceiver(player);
         playerCommand.Execute(new PlayerLogic.SimpleFloatParam() { floating = imageMultiplier });

@@ -19,7 +19,7 @@ public class TaxInteractionUI : InteractionUI
         playerCommand = new PlayerLogic.MultiplyAddWithCapBalanceCommand();
     }
 
-    public override void Iteract(PlayerLogic player)
+    public override void Interact(PlayerLogic player)
     {
         playerCommand.SetReceiver(player);
 

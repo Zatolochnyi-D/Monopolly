@@ -23,7 +23,7 @@ public class NegativePRInteractionUI : InteractionUI
         EndTurn();
     }
 
-    public override void Iteract(PlayerLogic player)
+    public override void Interact(PlayerLogic player)
     {
         Show();
         playerCommand.SetReceiver(player);
