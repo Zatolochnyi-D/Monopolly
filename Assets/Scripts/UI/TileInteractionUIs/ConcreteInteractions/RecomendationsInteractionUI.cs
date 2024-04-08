@@ -17,9 +17,9 @@ public class RecomendationsInteractionUI : InteractionUI
         playerCommand = new PlayerLogic.AlterImageCommand();
     }
 
-    public override void Interact(PlayerLogic player)
+    public override void Interact()
     {
-        playerCommand.TargetPlayer = player;
+        playerCommand.TargetPlayer = TurnManager.Instance.CurrentPlayer;
 
         int highestImage = TurnManager.Instance.HighestImageExcludeCurrentPlayer;
         int imageToAdd = Mathf.CeilToInt(Mathf.Abs(highestImage) * imageMultiplier);

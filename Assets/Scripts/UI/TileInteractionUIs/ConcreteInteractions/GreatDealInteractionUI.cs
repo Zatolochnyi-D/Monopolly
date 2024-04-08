@@ -50,10 +50,10 @@ public class GreatDealInteractionUI : InteractionUI
         };
     }
 
-    public override void Interact(PlayerLogic player)
+    public override void Interact()
     {
+        player = TurnManager.Instance.CurrentPlayer;
         playerCommand.TargetPlayer = player;
-        this.player = player;
 
         endScreen.SetActive(false);
         rolledNumberText.gameObject.SetActive(false);
@@ -78,7 +78,6 @@ public class GreatDealInteractionUI : InteractionUI
 
         endScreen.SetActive(true);
 
-        PlayerLogic.TileIntegersParam param = new();
         if (isVictorious)
         {
             SetParameters(yield, resetImageOnSuccess ? -player.Image : 0, targetTile);

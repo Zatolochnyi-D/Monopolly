@@ -23,8 +23,9 @@ public class NegativePRInteractionUI : InteractionUI
         EndTurn();
     }
 
-    public override void Interact(PlayerLogic player)
+    public override void Interact()
     {
+        PlayerLogic player = TurnManager.Instance.CurrentPlayer;
         playerCommand.TargetPlayer = player;
 
         int imageToAdd;

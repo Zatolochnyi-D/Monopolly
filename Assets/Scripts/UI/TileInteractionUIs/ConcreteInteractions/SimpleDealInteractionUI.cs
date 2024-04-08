@@ -45,8 +45,9 @@ public class SimpleDealInteractionUI : InteractionUI
         };
     }
 
-    public override void Interact(PlayerLogic player)
+    public override void Interact()
     {
+        PlayerLogic player = TurnManager.Instance.CurrentPlayer;
         playerCommand.TargetPlayer = player;
 
         endScreen.SetActive(false);

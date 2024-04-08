@@ -64,10 +64,10 @@ public class AdInteractionUI : InteractionUI
         EndTurn();
     }
 
-    public override void Interact(PlayerLogic player)
+    public override void Interact()
     {
-        playerCommand.TargetPlayer = player;
-        currentPlayer = player;
+        currentPlayer = TurnManager.Instance.CurrentPlayer;
+        playerCommand.TargetPlayer = currentPlayer;
         warningText.gameObject.SetActive(false);
         options.value = 2;
         Show();

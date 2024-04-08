@@ -86,7 +86,7 @@ public partial class PlayerLogic : MonoBehaviour
         else
         {
             TakeTile();
-            currentTile.Interact(this);
+            currentTile.Interact();
         }
     }
 

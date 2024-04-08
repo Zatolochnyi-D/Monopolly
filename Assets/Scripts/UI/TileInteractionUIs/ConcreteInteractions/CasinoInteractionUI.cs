@@ -52,10 +52,10 @@ public class CasinoInteractionUI : InteractionUI
         endScreen.SetActive(false);
     }
 
-    public override void Interact(PlayerLogic player)
+    public override void Interact()
     {
-        playerCommand.TargetPlayer = player;
-        currentPlayer = player;
+        currentPlayer = TurnManager.Instance.CurrentPlayer;
+        playerCommand.TargetPlayer = currentPlayer;
 
         firstLuckyNumber = Random.Range(1, 7);
         secondLuckyNumber = Random.Range(1, 7);

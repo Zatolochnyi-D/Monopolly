@@ -40,9 +40,9 @@ public class ImageInteractionUI : InteractionUI
         };
     }
 
-    public override void Interact(PlayerLogic player)
+    public override void Interact()
     {
-        this.player = player;
+        player = TurnManager.Instance.CurrentPlayer;
         playerCommand.TargetPlayer = player;
 
         warning.gameObject.SetActive(false);

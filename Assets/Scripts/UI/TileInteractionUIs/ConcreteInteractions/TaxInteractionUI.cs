@@ -19,8 +19,9 @@ public class TaxInteractionUI : InteractionUI
         playerCommand = new PlayerLogic.AlterBalanceCommand();
     }
 
-    public override void Interact(PlayerLogic player)
+    public override void Interact()
     {
+        PlayerLogic player = TurnManager.Instance.CurrentPlayer;
         playerCommand.TargetPlayer = player;
 
         if (player.Money >= 10)

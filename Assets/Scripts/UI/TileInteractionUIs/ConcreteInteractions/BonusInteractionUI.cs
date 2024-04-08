@@ -17,8 +17,9 @@ public class BonusInteractionUI : InteractionUI
         playerCommand = new PlayerLogic.AlterBalanceCommand();
     }
 
-    public override void Interact(PlayerLogic player)
+    public override void Interact()
     {
+        PlayerLogic player = TurnManager.Instance.CurrentPlayer;
         playerCommand.TargetPlayer = player;
 
         if (player.Image > 0)
