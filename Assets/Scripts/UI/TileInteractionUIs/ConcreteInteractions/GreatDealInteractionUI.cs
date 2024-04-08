@@ -99,7 +99,7 @@ public class GreatDealInteractionUI : InteractionUI
         rolledNumberText.gameObject.SetActive(true);
         for (int i = 0; i < 20; i++)
         {
-            rolledNumber = Random.Range(1, 13);
+            rolledNumber = Random.Range(2, 13);
             rolledNumberText.text = rolledNumber.ToString();
             await Task.Delay(100);
         }

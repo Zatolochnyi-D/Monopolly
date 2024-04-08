@@ -108,6 +108,21 @@ public partial class PlayerLogic : MonoBehaviour
                 targetPlayer.currentTile = param.tile;
                 targetPlayer.TakeTile();
             }
+
+            base.Execute();
+        }
+    }
+
+
+    public class AlterPassiveIncomeCommand : PlayerCommand
+    {
+        public override void Execute()
+        {
+            var param = Validate<SimpleIntegerParam>(parameters);
+
+            targetPlayer.PassiveProduct += param.integer;
+
+            base.Execute();
         }
     }
 }

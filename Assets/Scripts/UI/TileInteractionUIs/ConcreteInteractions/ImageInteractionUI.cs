@@ -62,7 +62,7 @@ public class ImageInteractionUI : InteractionUI
         int selectedEventID = UnityEngine.Random.Range(1, events.texts.Count);
 
         endScreenDescription.text = events.texts[selectedEventID];
-        costText.text = $"Cost: {events.numbers[selectedEventID].y}";
+        costText.text = $"Cost: {events.numbers[selectedEventID].y}00$";
         imageText.text = $"Image: {events.numbers[selectedEventID].x}";
         SetParameters(-events.numbers[selectedEventID].y, events.numbers[selectedEventID].x);
         playerCommand.Execute();

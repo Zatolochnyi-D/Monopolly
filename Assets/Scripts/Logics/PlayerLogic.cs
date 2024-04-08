@@ -15,12 +15,12 @@ public partial class PlayerLogic : MonoBehaviour
     private int number;
     private int money;
     private int image;
-    private int product = 0;
-    private int passiveIncome = 0;
+    private int production = 0;
+    private int passiveProduct = 0;
     // TODO: shares
 
     private TileLogic currentTile;
-    private float delayBetweenSteps = 0.2f;
+    private readonly float delayBetweenSteps = 0.2f;
 
     public string PlayerName => playerName;
     public Color DisplayColor => playerVisuals.displayColor;
@@ -44,6 +44,24 @@ public partial class PlayerLogic : MonoBehaviour
             OnPropertyChanged?.Invoke();
         }
     }
+    public int Production
+    {
+        get => production;
+        private set
+        {
+            production = value;
+            OnPropertyChanged?.Invoke();
+        }
+    }
+    public int PassiveProduct
+    {
+        get => passiveProduct;
+        private set
+        {
+            passiveProduct = value;
+            OnPropertyChanged?.Invoke();
+        }
+    }
 
     void Start()
     {
@@ -54,6 +72,12 @@ public partial class PlayerLogic : MonoBehaviour
 
         TileLogic.PositionUpdated += OnPositionUpdated;
         TurnManager.Instance.OnTurnStarted += MovePlayer;
+        TenderInteractionUI.OnPlayerEnterTender += GetProduction;
+    }
+
+    private void GetProduction()
+    {
+        production += passiveProduct;
     }
 
     private void OnPositionUpdated(int id)

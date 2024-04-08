@@ -7,6 +7,8 @@ public class PlayerStatsSheetUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI numberDisplay;
     [SerializeField] private TextMeshProUGUI balanceDisplay;
     [SerializeField] private TextMeshProUGUI imageDisplay;
+    [SerializeField] private TextMeshProUGUI productionDispay;
+    [SerializeField] private TextMeshProUGUI passiveProductDispay;
 
     public string Name
     {
@@ -27,5 +29,15 @@ public class PlayerStatsSheetUI : MonoBehaviour
     {
         get => imageDisplay.text;
         set => imageDisplay.text = value;
+    }
+    public string Production
+    {
+        get => productionDispay.text;
+        set => productionDispay.text = value;
+    }
+    public string PassiveProduct
+    {
+        get => passiveProductDispay.text;
+        set => passiveProductDispay.text = value;
     }
 }

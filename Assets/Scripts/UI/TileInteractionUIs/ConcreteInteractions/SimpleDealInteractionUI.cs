@@ -104,7 +104,7 @@ public class SimpleDealInteractionUI : InteractionUI
         rolledNumberText.gameObject.SetActive(true);
         for (int i = 0; i < 20; i++)
         {
-            rolledNumber = UnityEngine.Random.Range(1, 13);
+            rolledNumber = UnityEngine.Random.Range(2, 13);
             rolledNumberText.text = rolledNumber.ToString();
             await Task.Delay(100);
         }
