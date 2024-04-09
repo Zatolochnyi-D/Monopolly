@@ -12,29 +12,16 @@ public partial class PlayerLogic : MonoBehaviour
     }
 
 
-    public class SimpleFloatParam : PlayerCommandParams
-    {
-        public float floating;
-    }
-
-
-    public class DoubleIntegerParam : PlayerCommandParams
-    {
-        public int first;
-        public int second;
-    }
-
-
     public class SimpleTileParam : PlayerCommandParams
     {
         public TileLogic tile;
     }
 
 
-    public class TileIntegersParam: PlayerCommandParams
+    public class DoubleIntegerParam: PlayerCommandParams
     {
-        public SimpleTileParam tile = new();
-        public DoubleIntegerParam integers = new();
+        public int first;
+        public int second;
     }
 
 
@@ -123,6 +110,64 @@ public partial class PlayerLogic : MonoBehaviour
             targetPlayer.PassiveProduct += param.integer;
 
             base.Execute();
+        }
+    }
+
+
+    public class AlterProductionCommand : PlayerCommand
+    {
+        public override void Execute()
+        {
+            var param = Validate<SimpleIntegerParam>(parameters);
+
+            targetPlayer.Production += param.integer;
+
+            base.Execute();
+        }
+    }
+
+
+    public class AlterPlayerShares : PlayerCommand
+    {
+        public override void Execute()
+        {
+            var param = Validate<DoubleIntegerParam>(parameters);
+
+            PlayerShares shares = GetShares(param.first, param.second);
+
+            targetPlayer.Shares += shares;
+
+            base.Execute();
+        }
+
+        private PlayerShares GetShares(int index, int shares)
+        {
+            PlayerShares result = new();
+
+            // factory method??
+            switch (index)
+            {
+                case 0:
+                    result.Airlines = shares;
+                    break;
+                case 1:
+                    result.CarManufacturer = shares;
+                    break;
+                case 2:
+                    result.TourismAgency = shares;
+                    break;
+                case 3:
+                    result.TVCompany = shares;
+                    break;
+                case 4:
+                    result.BuildingAgency = shares;
+                    break;
+                case 5:
+                    result.BookPublisher = shares;
+                    break;
+            }
+
+            return result;
         }
     }
 }

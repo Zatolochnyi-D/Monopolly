@@ -4,6 +4,29 @@ using UnityEngine;
 
 public partial class PlayerLogic : MonoBehaviour
 {
+    public struct PlayerShares
+    {
+        public int Airlines;
+        public int CarManufacturer;
+        public int TourismAgency;
+        public int TVCompany;
+        public int BuildingAgency;
+        public int BookPublisher;
+
+        public static PlayerShares operator +(PlayerShares a, PlayerShares b)
+        {
+            return new()
+            {
+                Airlines = a.Airlines + b.Airlines,
+                CarManufacturer = a.CarManufacturer + b.CarManufacturer,
+                TourismAgency = a.TourismAgency + b.TourismAgency,
+                TVCompany = a.TVCompany + b.TVCompany,
+                BuildingAgency = a.BuildingAgency + b.BuildingAgency,
+                BookPublisher = a.BookPublisher + b.BookPublisher,
+            };
+        }
+    }
+
     public static event Action OnPropertyChanged;
 
     public event Action OnMovementEnded;
@@ -17,7 +40,7 @@ public partial class PlayerLogic : MonoBehaviour
     private int image;
     private int production = 0;
     private int passiveProduct = 0;
-    // TODO: shares
+    private PlayerShares playerShares = new();
 
     private TileLogic currentTile;
     private readonly float delayBetweenSteps = 0.2f;
@@ -59,6 +82,15 @@ public partial class PlayerLogic : MonoBehaviour
         private set
         {
             passiveProduct = value;
+            OnPropertyChanged?.Invoke();
+        }
+    }
+    public PlayerShares Shares
+    {
+        get => playerShares;
+        private set
+        {
+            playerShares = value;
             OnPropertyChanged?.Invoke();
         }
     }
