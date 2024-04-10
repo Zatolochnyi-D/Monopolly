@@ -9,35 +9,47 @@ public class PlayerStatsSheetUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI imageDisplay;
     [SerializeField] private TextMeshProUGUI productionDispay;
     [SerializeField] private TextMeshProUGUI passiveProductDispay;
+    [SerializeField] private TextMeshProUGUI airlinesText;
+    [SerializeField] private TextMeshProUGUI carManufacturerText;
+    [SerializeField] private TextMeshProUGUI tourismAgencyText;
+    [SerializeField] private TextMeshProUGUI tvCompanyText;
+    [SerializeField] private TextMeshProUGUI buildingAgencyText;
+    [SerializeField] private TextMeshProUGUI bookPublisherText;
 
     public string Name
     {
-        get => nameDisplay.text;
         set => nameDisplay.text = value;
     }
     public string Number
     {
-        get => numberDisplay.text;
         set => numberDisplay.text = value;
     }
     public string Balance
     {
-        get => balanceDisplay.text[0..^3];
         set => balanceDisplay.text = value + "00$"; // 1 money in code = 100 money displayed.
     }
     public string Image
     {
-        get => imageDisplay.text;
         set => imageDisplay.text = value;
     }
     public string Production
     {
-        get => productionDispay.text;
         set => productionDispay.text = value;
     }
     public string PassiveProduct
     {
-        get => passiveProductDispay.text;
         set => passiveProductDispay.text = value;
+    }
+    public PlayerLogic.PlayerShares Shares
+    {
+        set 
+        {
+            airlinesText.text = $"Airlines: {value.Airlines}";
+            carManufacturerText.text = $"Car Manufacturer: {value.CarManufacturer}";
+            tourismAgencyText.text = $"Tourism Agecny: {value.TourismAgency}";
+            tvCompanyText.text = $"TV Company: {value.TVCompany}";
+            buildingAgencyText.text = $"Building Agency: {value.BuildingAgency}";
+            bookPublisherText.text = $"Book Publisher: {value.BookPublisher}";
+        }
     }
 }

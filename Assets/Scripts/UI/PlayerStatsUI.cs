@@ -57,5 +57,6 @@ public class PlayerStatsUI : MonoBehaviour
         statsSheetScript.Image = player.Image.ToString();
         statsSheetScript.Production = player.Production.ToString();
         statsSheetScript.PassiveProduct = "+" + player.PassiveProduct.ToString();
+        statsSheetScript.Shares = player.Shares;
     }
 }
