@@ -1,12 +1,80 @@
-using System.Data.SqlTypes;
-using System.Runtime.ExceptionServices;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Video;
 
 public class CompanyInteractionUI : InteractionUI
 {
+    public interface ISharesFactory
+    {
+        public PlayerLogic.PlayerShares Create(int shares);
+    }
+
+
+    public class AirlinesSharesFactory : ISharesFactory
+    {
+        public PlayerLogic.PlayerShares Create(int shares)
+        {
+            return new() { Airlines = shares };
+        }
+    }
+
+
+    public class CarManufacturerSharesFactory : ISharesFactory
+    {
+        public PlayerLogic.PlayerShares Create(int shares)
+        {
+            return new() { CarManufacturer = shares };
+        }
+    }
+
+
+    public class TourismAgencySharesFactory : ISharesFactory
+    {
+        public PlayerLogic.PlayerShares Create(int shares)
+        {
+            return new() { TourismAgency = shares };
+        }
+    }
+
+
+    public class TVCompanySharesFactory : ISharesFactory
+    {
+        public PlayerLogic.PlayerShares Create(int shares)
+        {
+            return new() { TVCompany = shares };
+        }
+    }
+
+
+    public class BuildingAgencySharesFactory : ISharesFactory
+    {
+        public PlayerLogic.PlayerShares Create(int shares)
+        {
+            return new() { BuildingAgency = shares };
+        }
+    }
+
+
+    public class BookPublisherSharesFactory : ISharesFactory
+    {
+        public PlayerLogic.PlayerShares Create(int shares)
+        {
+            return new() { BookPublisher = shares };
+        }
+    }
+
+
+    public enum SharesType
+    {
+        Airlines,
+        CarManufacturer,
+        TourismAgency,
+        TVCompany,
+        BuildingAgency,
+        BookPublisher
+    }
+
+
     [SerializeField] private Button confirmButton;
     [SerializeField] private Button cancelButton;
     [SerializeField] private TextMeshProUGUI availableText;
@@ -23,12 +91,13 @@ public class CompanyInteractionUI : InteractionUI
     [SerializeField] private Button afterBuyButton;
 
     [SerializeField] private string companyName;
-    [SerializeField] private int companyIndex;
+    [SerializeField] private SharesType companyType;
     [SerializeField] private int costPerShare;
     [SerializeField] private int productionPerShare;
 
     private int availableShares = 100;
     private PlayerLogic player;
+    private ISharesFactory sharesFactory;
 
     void Awake()
     {
@@ -65,6 +134,28 @@ public class CompanyInteractionUI : InteractionUI
                 NextCommand = new PlayerLogic.AlterProductionCommand()
             }
         };
+
+        switch (companyType)
+        {
+            case SharesType.Airlines:
+                sharesFactory = new AirlinesSharesFactory();
+                break;
+            case SharesType.CarManufacturer:
+                sharesFactory = new CarManufacturerSharesFactory();
+                break;
+            case SharesType.TourismAgency:
+                sharesFactory = new TourismAgencySharesFactory();
+                break;
+            case SharesType.TVCompany:
+                sharesFactory = new TVCompanySharesFactory();
+                break;
+            case SharesType.BuildingAgency:
+                sharesFactory = new BuildingAgencySharesFactory();
+                break;
+            case SharesType.BookPublisher:
+                sharesFactory = new BookPublisherSharesFactory();
+                break;
+        }
     }
 
     public override void Interact()
@@ -107,6 +198,7 @@ public class CompanyInteractionUI : InteractionUI
 
         SetParameters(total, shares, shares * productionPerShare);
         playerCommand.Execute();
+        availableShares -= shares;
 
         afterBuy.SetActive(true);
     }
@@ -145,7 +237,7 @@ public class CompanyInteractionUI : InteractionUI
     private void SetParameters(int cost, int shares, int production)
     {
         playerCommand.Parameters = new PlayerLogic.SimpleIntegerParam() { integer = -cost };
-        playerCommand.NextCommand.Parameters = new PlayerLogic.DoubleIntegerParam() { first = companyIndex, second = shares };
+        playerCommand.NextCommand.Parameters = new PlayerLogic.SimpleSharesParam() { shares = sharesFactory.Create(shares) };
         playerCommand.NextCommand.NextCommand.Parameters = new PlayerLogic.SimpleIntegerParam() { integer = production };
     }
 }

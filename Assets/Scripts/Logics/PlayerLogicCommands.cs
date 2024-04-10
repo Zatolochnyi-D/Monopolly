@@ -18,10 +18,9 @@ public partial class PlayerLogic : MonoBehaviour
     }
 
 
-    public class DoubleIntegerParam: PlayerCommandParams
+    public class SimpleSharesParam : PlayerCommandParams
     {
-        public int first;
-        public int second;
+        public PlayerShares shares;
     }
 
 
@@ -131,43 +130,11 @@ public partial class PlayerLogic : MonoBehaviour
     {
         public override void Execute()
         {
-            var param = Validate<DoubleIntegerParam>(parameters);
+            var param = Validate<SimpleSharesParam>(parameters);
 
-            PlayerShares shares = GetShares(param.first, param.second);
-
-            targetPlayer.Shares += shares;
+            targetPlayer.Shares += param.shares;
 
             base.Execute();
-        }
-
-        private PlayerShares GetShares(int index, int shares)
-        {
-            PlayerShares result = new();
-
-            // factory method??
-            switch (index)
-            {
-                case 0:
-                    result.Airlines = shares;
-                    break;
-                case 1:
-                    result.CarManufacturer = shares;
-                    break;
-                case 2:
-                    result.TourismAgency = shares;
-                    break;
-                case 3:
-                    result.TVCompany = shares;
-                    break;
-                case 4:
-                    result.BuildingAgency = shares;
-                    break;
-                case 5:
-                    result.BookPublisher = shares;
-                    break;
-            }
-
-            return result;
         }
     }
 }
