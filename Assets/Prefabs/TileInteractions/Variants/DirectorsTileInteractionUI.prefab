@@ -1797,22 +1797,22 @@ MonoBehaviour:
   directors:
   - name: Airlines
     image: {fileID: 21300000, guid: 6e6737a7ca3b746abb34a4fc8edc633e, type: 3}
-    power: 0
+    power: 2
   - name: Car Manufacturer
     image: {fileID: 21300000, guid: 2d31528e70c604a2f9da80fb8f29cec1, type: 3}
-    power: 0
+    power: 5
   - name: Tourism Agency
     image: {fileID: 21300000, guid: 18538b82e2e3d4e9e9a5ea55cefb9b6b, type: 3}
-    power: 0
+    power: 1
   - name: TV Company
     image: {fileID: 21300000, guid: c2ed65b58595046d3976417c820a7cd0, type: 3}
-    power: 0
+    power: 3
   - name: Building Agency
     image: {fileID: 21300000, guid: d09f335f2736c4e46804933f817ac42c, type: 3}
-    power: 0
+    power: 2
   - name: Book Publisher
     image: {fileID: 21300000, guid: 1bedd70a9e3504df4b4df241230bab12, type: 3}
-    power: 0
+    power: 5
 --- !u!224 &6973954067102346121 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3317456350636310623, guid: a582407ad9bea45be9098f2386422477, type: 3}

@@ -1,3 +1,4 @@
+using System.Collections.ObjectModel;
 using TMPro;
 using UnityEngine;
 
@@ -15,6 +16,14 @@ public class PlayerStatsSheetUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI tvCompanyText;
     [SerializeField] private TextMeshProUGUI buildingAgencyText;
     [SerializeField] private TextMeshProUGUI bookPublisherText;
+
+    [SerializeField] private Transform cardsRoot;
+    [SerializeField] private Transform cardTemplate;
+
+    void Awake()
+    {
+        cardTemplate.gameObject.SetActive(false);
+    }
 
     public string Name
     {
@@ -50,6 +59,25 @@ public class PlayerStatsSheetUI : MonoBehaviour
             tvCompanyText.text = $"TV Company: {value.TVCompany}";
             buildingAgencyText.text = $"Building Agency: {value.BuildingAgency}";
             bookPublisherText.text = $"Book Publisher: {value.BookPublisher}";
+        }
+    }
+    public ObservableCollection<Director> Directors
+    {
+        set
+        {
+            foreach (Transform child in cardsRoot)
+            {
+                if (child == cardTemplate) continue;
+                Destroy(child.gameObject);
+            }
+
+            foreach (Director director in value)
+            {
+                Transform card = Instantiate(cardTemplate, cardsRoot);
+                DirectorCardUI script = card.GetComponent<DirectorCardUI>();
+                script.SetInfo(director.name, director.image, director.power);
+                card.gameObject.SetActive(true);
+            }
         }
     }
 }

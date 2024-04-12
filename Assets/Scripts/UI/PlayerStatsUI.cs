@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -58,5 +57,6 @@ public class PlayerStatsUI : MonoBehaviour
         statsSheetScript.Production = player.Production.ToString();
         statsSheetScript.PassiveProduct = "+" + player.PassiveProduct.ToString();
         statsSheetScript.Shares = player.Shares;
+        statsSheetScript.Directors = player.Directors;
     }
 }

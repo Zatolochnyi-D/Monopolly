@@ -77,22 +77,20 @@ public class DirectorsInteractionUI : InteractionUI
         if (player.Shares.BuildingAgency > 50) availableDirectors.Add("Building Agency");
 
         if (player.Shares.BookPublisher > 50) availableDirectors.Add("Book Publisher");
+
+        availableDirectors.RemoveAll(x => allDirectors.FirstOrDefault(y => y.name == x) == default);
     }
 
     private void AddCards()
     {
         foreach (string name in availableDirectors)
         {
-            try
-            {
-                Director director = allDirectors.First(x => x.name == name);
-                Transform card = Instantiate(cardTemplate, cardsRoot);
-                DirectorCardUI script = card.GetComponent<DirectorCardUI>();
-                script.SetInfo(director.name, director.image, director.power);
-                script.OnClick += GetDirector;
-                card.gameObject.SetActive(true);
-            }
-            catch { }
+            Director director = allDirectors.First(x => x.name == name);
+            Transform card = Instantiate(cardTemplate, cardsRoot);
+            DirectorCardUI script = card.GetComponent<DirectorCardUI>();
+            script.SetInfo(director.name, director.image, director.power);
+            script.OnClick += GetDirector;
+            card.gameObject.SetActive(true);
         }
     }
 
