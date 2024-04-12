@@ -22,6 +22,8 @@ public partial class PlayerLogic
         private int money;
         private int image;
 
+        private PlayerShares shares;
+
         public PlayerBuilder()
         {
             Reset();
@@ -35,6 +37,7 @@ public partial class PlayerLogic
             number = Random.Range(1, 6);
             money = 100;
             image = 1;
+            shares = new() { Airlines = 45, BookPublisher = 60, BuildingAgency = 51, TVCompany = 10, CarManufacturer = 100 };
         }
 
         public void SetName(string name)
@@ -68,6 +71,8 @@ public partial class PlayerLogic
             script.number = number;
             script.money = money;
             script.image = image;
+            
+            script.playerShares = shares;
 
             if (pawnVisuals == null)
             {

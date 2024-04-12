@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -41,6 +43,7 @@ public partial class PlayerLogic : MonoBehaviour
     private int production = 0;
     private int passiveProduct = 0;
     private PlayerShares playerShares = new();
+    private ObservableCollection<Director> playerDirectors = new();
 
     private TileLogic currentTile;
     private readonly float delayBetweenSteps = 0.2f;
@@ -94,6 +97,10 @@ public partial class PlayerLogic : MonoBehaviour
             OnPropertyChanged?.Invoke();
         }
     }
+    public ObservableCollection<Director> Directors
+    {
+        get => playerDirectors;
+    }
 
     void Start()
     {
@@ -105,6 +112,8 @@ public partial class PlayerLogic : MonoBehaviour
         TileLogic.PositionUpdated += OnPositionUpdated;
         TurnManager.Instance.OnTurnStarted += MovePlayer;
         TenderInteractionUI.OnPlayerEnterTender += GetProduction;
+
+        playerDirectors.CollectionChanged += (sender, args) => OnPropertyChanged?.Invoke();
     }
 
     private void GetProduction()
