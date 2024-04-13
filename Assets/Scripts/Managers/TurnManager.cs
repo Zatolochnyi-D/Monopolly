@@ -18,6 +18,8 @@ public class TurnManager : MonoBehaviour
     public PlayerLogic CurrentPlayer => players[currentPlayerIndex];
     public int HighestImage => players.Max(x => x.Image);
     public int HighestImageExcludeCurrentPlayer => players.Where(x => x != CurrentPlayer).Max(x => x.Image);
+    public int[] PlayerNumbers => players.Select(x => x.Number).ToArray();
+    public int[] PlayerNumbersExcludeCurrentPlayer => players.Where(x => x != CurrentPlayer).Select(x => x.Number).ToArray();
 
     void Awake()
     {
@@ -46,5 +48,10 @@ public class TurnManager : MonoBehaviour
         currentPlayerIndex = (currentPlayerIndex + 1) % players.Length;
 
         OnTurnEnded?.Invoke();
+    }
+
+    public PlayerLogic GetPlayerByNumber(int number)
+    {
+        return players.Where(x => x.Number == number).First();
     }
 }

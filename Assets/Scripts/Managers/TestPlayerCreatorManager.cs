@@ -14,7 +14,6 @@ public class TestPlayerCreatorManager : MonoBehaviour
             builders[i] = new();
             builders[i].SetName(names[i]);
             builders[i].SetPosition(0);
-            builders[i].SetNumber(3);
             builders[i].SetVisuals(visuals[i]);
         }
 
