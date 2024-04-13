@@ -58,6 +58,12 @@ public class GreatDealInteractionUI : InteractionUI
         endScreen.SetActive(false);
         rolledNumberText.gameObject.SetActive(false);
 
+        if (player.Money < 0)
+        {
+            endScreen.SetActive(true);
+            endScreenText.text = "You can't leave small circle with the debt.";
+        }
+
         if (2 > difficulty)
         {
             endScreen.SetActive(true);
