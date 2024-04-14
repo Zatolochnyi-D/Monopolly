@@ -36,4 +36,9 @@ public class GameInputManager : MonoBehaviour
     {
         OnOpenCloseStatsPreformed?.Invoke();
     }
+
+    public void Disable()
+    {
+        inputActions.Disable();
+    }
 }

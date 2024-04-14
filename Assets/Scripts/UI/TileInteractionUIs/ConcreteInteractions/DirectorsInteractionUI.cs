@@ -240,7 +240,7 @@ public class DirectorsInteractionUI : InteractionUI
 
             if (sum >= winScore)
             {
-                // declare player victory.
+                EndGameManager.Instance.SetWinner(player);
 
                 Debug.Log("Victory!");
             }
