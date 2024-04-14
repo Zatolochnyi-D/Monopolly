@@ -132,7 +132,7 @@ public class ClientInteractionUI : InteractionUI
     {
         victimRollButton.gameObject.SetActive(false);
 
-        victimRolled = await Roll(victimRolledText, Enumerable.Range(1, 6).ToArray());
+        victimRolled = await Roll(victimRolledText, TurnManager.Instance.PlayerNumbersExcludeCurrentPlayer);
 
         isVictimRolled = true;
 
