@@ -7,9 +7,9 @@ public class TestPlayerCreatorManager : MonoBehaviour
 
     void Awake()
     {
-        PlayerLogic.PlayerBuilder[] builders = new PlayerLogic.PlayerBuilder[4];
+        PlayerLogic.PlayerBuilder[] builders = new PlayerLogic.PlayerBuilder[1];
 
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < builders.Length; i++)
         {
             builders[i] = new();
             builders[i].SetName(names[i]);

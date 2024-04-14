@@ -12,6 +12,8 @@ public class DirectorCardUI : MonoBehaviour, IPointerClickHandler
     [SerializeField] private Image companyImage;
     [SerializeField] private TextMeshProUGUI powerText;
 
+    public string Text => nameText.text;
+
     public void SetInfo(string name, Sprite image, int power)
     {
         nameText.text = name;
