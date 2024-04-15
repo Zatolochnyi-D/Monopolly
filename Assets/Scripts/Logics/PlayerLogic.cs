@@ -33,7 +33,7 @@ public partial class PlayerLogic : MonoBehaviour
         {
             Debug.Log("Debt Check");
 
-            if (player.money < 0)
+            if (player.money < 0 && player.currentTile.TileID < 18)
             {
                 moveCommand.TargetPlayer = player;
                 moveCommand.Execute();
