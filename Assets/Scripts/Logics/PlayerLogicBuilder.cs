@@ -50,8 +50,8 @@ public partial class PlayerLogic
 
             money = 100;
             image = 1;
-            production = 10000;
-            shares = new() { Airlines = 45, BookPublisher = 60, BuildingAgency = 51, TVCompany = 10, CarManufacturer = 100 };
+            // production = 10000;
+            // shares = new() { Airlines = 45, BookPublisher = 60, BuildingAgency = 51, TVCompany = 10, CarManufacturer = 100 };
         }
 
         public void SetName(string name)

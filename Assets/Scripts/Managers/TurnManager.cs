@@ -9,6 +9,7 @@ public class TurnManager : MonoBehaviour
 
     public event Action<int> OnTurnStarted;
     public event Action OnTurnEnded;
+    public event Action OnNewTurn;
 
     [SerializeField] private GameObject playerPrefab;
 
@@ -45,9 +46,13 @@ public class TurnManager : MonoBehaviour
 
     public void EndTurn()
     {
+        OnTurnEnded?.Invoke();
+
         currentPlayerIndex = (currentPlayerIndex + 1) % players.Length;
 
-        OnTurnEnded?.Invoke();
+        EndGameManager.Instance.DeclareWinner();
+
+        OnNewTurn?.Invoke();
     }
 
     public PlayerLogic GetPlayerByNumber(int number)

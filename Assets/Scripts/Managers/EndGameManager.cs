@@ -16,14 +16,12 @@ public class EndGameManager : MonoBehaviour
         Instance = this;
     }
 
-    void Start()
-    {
-        TurnManager.Instance.OnTurnEnded += DeclareWinner;
-    }
-
     public void DeclareWinner()
     {
-        endGameScreen.Show();
+        if (winner != null)
+        {
+            endGameScreen.Show();
+        }
     }
 
     public void SetWinner(PlayerLogic player)

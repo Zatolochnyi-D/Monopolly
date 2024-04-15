@@ -26,7 +26,7 @@ public class HUDUI : MonoBehaviour
         UpdateWhoseTurnText();
         ClearRolledNumberDisplayText();
 
-        TurnManager.Instance.OnTurnEnded += PrepareHUDForNewPlayer;
+        TurnManager.Instance.OnNewTurn += PrepareHUDForNewPlayer;
 
         DiceManager.Instance.OnDiceThrowed += HideDiceButton;
 
