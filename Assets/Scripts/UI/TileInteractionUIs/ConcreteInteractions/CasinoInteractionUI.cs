@@ -122,6 +122,6 @@ public class CasinoInteractionUI : InteractionUI
 
         await Task.Delay(1000);
 
-        return rolledNumber == firstLuckyNumber || rolledNumber == firstLuckyNumber;
+        return rolledNumber == firstLuckyNumber || rolledNumber == secondLuckyNumber;
     }
 }
