@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TMPro;
@@ -52,6 +51,11 @@ public class TenderInteractionUI : InteractionUI
             },
             Parameters = new PlayerLogic.SimpleIntegerParam() { integer = -cost }
         };
+    }
+
+    void OnDestroy()
+    {
+        OnPlayerEnterTender = new();
     }
 
     public override void Interact()

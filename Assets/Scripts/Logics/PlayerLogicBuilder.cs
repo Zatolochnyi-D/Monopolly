@@ -18,6 +18,14 @@ public partial class PlayerLogic
     {
         public static List<int> availableNumbers = new() { 1, 2, 3, 4, 5 };
 
+        static PlayerBuilder()
+        {
+            Loader.OnSceneChangeStatic += (scene) =>
+            {
+                if (scene == Loader.Scenes.Game) ResetNumbers();
+            };
+        }
+
         public static void ResetNumbers()
         {
             availableNumbers = new() { 1, 2, 3, 4, 5 };

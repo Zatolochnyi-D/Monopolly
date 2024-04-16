@@ -19,6 +19,11 @@ public class TileLogic : MonoBehaviour
     public int TileID => tileID;
     public TileLogic NextTile => nextTile;
 
+    void OnDestroy()
+    {
+        PositionUpdated = null;
+    }
+
     public Vector3 GetTemporalPosition()
     {
         return playerPositions[0].GetChild(0).position;

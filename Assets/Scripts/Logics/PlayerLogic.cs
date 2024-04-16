@@ -187,6 +187,11 @@ public partial class PlayerLogic : MonoBehaviour, ISubscriber
         playerDirectors.CollectionChanged += (sender, args) => OnPropertyChanged?.Invoke();
     }
 
+    void OnDestroy()
+    {
+        OnPropertyChanged = null;
+    }
+
     private void GetProduction()
     {
         production += passiveProduct;
