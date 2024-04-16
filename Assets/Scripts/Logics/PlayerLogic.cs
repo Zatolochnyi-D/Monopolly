@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public partial class PlayerLogic : MonoBehaviour
+public partial class PlayerLogic : MonoBehaviour, ISubscriber
 {
     public interface IHandler
     {
@@ -31,8 +31,6 @@ public partial class PlayerLogic : MonoBehaviour
 
         public void Handle(PlayerLogic player)
         {
-            Debug.Log("Debt Check");
-
             if (player.money < 0 && player.currentTile.TileID < 18)
             {
                 moveCommand.TargetPlayer = player;
@@ -52,8 +50,6 @@ public partial class PlayerLogic : MonoBehaviour
 
         public void Handle(PlayerLogic player)
         {
-            Debug.Log("Early Win Check");
-
             if (player.Directors.Sum(x => x.power) >= 9)
             {
                 EndGameManager.Instance.SetWinner(player);
@@ -184,9 +180,9 @@ public partial class PlayerLogic : MonoBehaviour
 
         TileLogic.PositionUpdated += OnPositionUpdated;
         TurnManager.Instance.OnTurnStarted += MovePlayer;
-        TenderInteractionUI.OnPlayerEnterTender += GetProduction;
         TurnManager.Instance.OnNewTurn += PerformInitialChecks;
         TurnManager.Instance.OnTurnEnded += PerformFinalChecks;
+        TenderInteractionUI.OnPlayerEnterTender.AddSubscriber(this);
 
         playerDirectors.CollectionChanged += (sender, args) => OnPropertyChanged?.Invoke();
     }
@@ -251,6 +247,11 @@ public partial class PlayerLogic : MonoBehaviour
         }
     }
 
+    public void React()
+    {
+        GetProduction();
+    }
+
     [ContextMenu("Bankrupt")]
     private void Bankrupt()
     {
@@ -263,5 +264,11 @@ public partial class PlayerLogic : MonoBehaviour
         playerDirectors.Add(new Director() {name = "Athos", power = 100});
         playerDirectors.Add(new Director() { name = "Porthos", power = 100 });
         playerDirectors.Add(new Director() { name = "Aramis", power = 100 });
+    }
+
+    [ContextMenu("ConjurePassiveProduction")]
+    private void ConjurePassiveProduction()
+    {
+        PassiveProduct += 100;
     }
 }

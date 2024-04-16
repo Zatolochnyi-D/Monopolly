@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
@@ -6,7 +7,7 @@ using UnityEngine.UI;
 
 public class TenderInteractionUI : InteractionUI
 {
-    public static event Action OnPlayerEnterTender;
+    public static TenderEvent OnPlayerEnterTender = new();
 
     [SerializeField] private Button confirmButton;
     [SerializeField] private Button cancelButton;
@@ -66,7 +67,7 @@ public class TenderInteractionUI : InteractionUI
         rolledNumberText.gameObject.SetActive(false);
         endScreen.SetActive(false);
 
-        OnPlayerEnterTender?.Invoke();
+        OnPlayerEnterTender.Notify();
 
         Show();
     }
@@ -114,5 +115,35 @@ public class TenderInteractionUI : InteractionUI
     {
         Hide();
         EndTurn();
+    }
+
+    [ContextMenu("TriggerEvent")]
+    private void TriggerEvent()
+    {
+        OnPlayerEnterTender.Notify();
+    }
+}
+
+
+public class TenderEvent : IObserver
+{
+    private List<ISubscriber> subscribers = new();
+
+    public void AddSubscriber(ISubscriber subscriber)
+    {
+        subscribers.Add(subscriber);
+    }
+
+    public void RemoveSubscriber(ISubscriber subscriber)
+    {
+        subscribers.Remove(subscriber);
+    }
+
+    public void Notify()
+    {
+        foreach (ISubscriber s in subscribers)
+        {
+            s.React();
+        }
     }
 }
