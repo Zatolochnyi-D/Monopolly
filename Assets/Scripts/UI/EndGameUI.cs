@@ -12,7 +12,7 @@ public class EndGameUI : MonoBehaviour
     {
         toMainMenuButton.onClick.AddListener(() =>
         {
-            // TODO switch to main menu
+            Loader.LoadScene(Loader.Scenes.MainMenu);
         });
 
         Hide();
