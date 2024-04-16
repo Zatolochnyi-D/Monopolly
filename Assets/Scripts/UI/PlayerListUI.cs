@@ -19,11 +19,11 @@ public class PlayerListUI : MonoBehaviour
         playerFieldTemplate.gameObject.SetActive(false);
         addPlayerButton.onClick.AddListener(() =>
         {
-            NewGameOptionsManager.Instance.PlayerList.AddPlayer();
+            NewGameManager.Instance.PlayerList.AddPlayer();
         });
         removeButtonDivTemplate.gameObject.SetActive(false);
 
-        NewGameOptionsManager.Instance.PlayerList.OnPlayersUpdated += UpdatePlayerList;
+        NewGameManager.Instance.PlayerList.OnPlayersUpdated += UpdatePlayerList;
         UpdatePlayerList();
     }
 
@@ -42,16 +42,16 @@ public class PlayerListUI : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        for (int i = 0; i < NewGameOptionsManager.Instance.PlayerList.Players.Count; i++)
+        for (int i = 0; i < NewGameManager.Instance.PlayerList.Players.Count; i++)
         {
             Transform newPlayer = Instantiate(playerFieldTemplate, playerFieldsContainer);
             newPlayer.gameObject.SetActive(true);
         }
         buttonDiv.transform.SetAsLastSibling();
 
-        if (!NewGameOptionsManager.Instance.PlayerList.IsMinPlayersReached)
+        if (!NewGameManager.Instance.PlayerList.IsMinPlayersReached)
         {
-            for (int i = 0; i < NewGameOptionsManager.Instance.PlayerList.Players.Count; i++)
+            for (int i = 0; i < NewGameManager.Instance.PlayerList.Players.Count; i++)
             {
                 Transform newRemoveButtonDiv = Instantiate(removeButtonDivTemplate, removeButtonsContainer);
                 newRemoveButtonDiv.gameObject.SetActive(true);
@@ -60,12 +60,12 @@ public class PlayerListUI : MonoBehaviour
                 int cached = i;
                 newRemoveButton.onClick.AddListener(() =>
                 {
-                    NewGameOptionsManager.Instance.PlayerList.RemovePlayer(cached);
+                    NewGameManager.Instance.PlayerList.RemovePlayer(cached);
                 });
             }
         }
 
-        if (NewGameOptionsManager.Instance.PlayerList.IsMaxPlayersReached)
+        if (NewGameManager.Instance.PlayerList.IsMaxPlayersReached)
         {
             buttonDiv.gameObject.SetActive(false);
         }

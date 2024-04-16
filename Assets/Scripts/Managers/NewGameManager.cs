@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NewGameOptionsManager : MonoBehaviour
+public class NewGameManager : MonoBehaviour
 {
-    public static NewGameOptionsManager Instance { get; private set; }
+    public static NewGameManager Instance { get; private set; }
 
     private PlayerListOptionsModule playerList = new();
 
