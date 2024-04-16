@@ -259,7 +259,7 @@ public class DirectorsInteractionUI : InteractionUI
 
 
 [Serializable]
-public struct Director
+public struct Director 
 {
     public string name;
     public Sprite image;

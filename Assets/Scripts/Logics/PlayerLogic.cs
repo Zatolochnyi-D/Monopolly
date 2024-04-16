@@ -2,7 +2,6 @@ using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public partial class PlayerLogic : MonoBehaviour, ISubscriber
@@ -211,22 +210,34 @@ public partial class PlayerLogic : MonoBehaviour, ISubscriber
         {
             currentTile.ReleasePlace(this);
             MoveStepByStep(rolledNumber);
+            
         }
     }
 
     private async void MoveStepByStep(int steps)
     {
-        if (steps != 0)
+        try
         {
-            currentTile = currentTile.NextTile;
-            transform.position = currentTile.GetTemporalPosition();
-            await Task.Delay((int)(delayBetweenSteps * 1000));
-            MoveStepByStep(steps - 1);
+            if (steps != 0)
+            {
+                currentTile = currentTile.NextTile;
+                transform.position = currentTile.GetTemporalPosition();
+                await Task.Delay((int)(delayBetweenSteps * 1000));
+                while (GameInputManager.Instance.IsPaused)
+                {
+                    await Task.Delay(1000);
+                }
+                MoveStepByStep(steps - 1);
+            }
+            else
+            {
+                TakeTile();
+                currentTile.Interact();
+            }
         }
-        else
+        catch (MissingReferenceException)
         {
-            TakeTile();
-            currentTile.Interact();
+            // scene changed and objects disposed. Do nothing.
         }
     }
 
