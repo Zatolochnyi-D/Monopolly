@@ -6,18 +6,38 @@ public class NewGameManager : MonoBehaviour
 {
     public static NewGameManager Instance { get; private set; }
 
-    private PlayerListOptionsModule playerList = new();
+    public event Action OnPlayerAdded;
+    public event Action<int> OnPlayerRemoved;
 
-    public PlayerListOptionsModule PlayerList => playerList;
+    private PlayerListOptionsModule playerList = new();
+    private List<PlayerLogic.PlayerBuilder> builders = new();
+
+    public List<PlayerLogic.PlayerBuilder> PlayerList => builders;
+    public bool IsMinPlayersReached => builders.Count == 2;
+    public bool IsMaxPlayersReached => builders.Count == 4;
 
     void Awake()
     {
         Instance = this;
+        builders.Add(new());
+        builders.Add(new());
     }
 
     public void Reset()
     {
         playerList = new();
+    }
+
+    public void AddPlayer()
+    {
+        builders.Add(new());
+        OnPlayerAdded?.Invoke();
+    }
+
+    public void RemovePlayer(int index)
+    {
+        builders.RemoveAt(index);
+        OnPlayerRemoved?.Invoke(index);
     }
 }
 

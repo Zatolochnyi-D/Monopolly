@@ -52,9 +52,11 @@ public partial class PlayerLogic
             tileID = 0;
             pawnVisuals = null;
 
-            int selectedNumber = Random.Range(0, availableNumbers.Count);
-            number = availableNumbers[selectedNumber];
-            availableNumbers.RemoveAt(selectedNumber);
+            // int selectedNumber = Random.Range(0, availableNumbers.Count);
+            // number = availableNumbers[selectedNumber];
+            // availableNumbers.RemoveAt(selectedNumber);
+
+            number = 7;
 
             money = 100;
             image = 1;

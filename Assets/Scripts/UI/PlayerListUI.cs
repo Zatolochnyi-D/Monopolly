@@ -1,4 +1,3 @@
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,59 +18,63 @@ public class PlayerListUI : MonoBehaviour
         playerFieldTemplate.gameObject.SetActive(false);
         addPlayerButton.onClick.AddListener(() =>
         {
-            NewGameManager.Instance.PlayerList.AddPlayer();
+            NewGameManager.Instance.AddPlayer();
         });
         removeButtonDivTemplate.gameObject.SetActive(false);
+        removeButtonsContainer.gameObject.SetActive(false);
 
-        NewGameManager.Instance.PlayerList.OnPlayersUpdated += UpdatePlayerList;
-        UpdatePlayerList();
+        NewGameManager.Instance.OnPlayerAdded += AddPlayer;
+        NewGameManager.Instance.OnPlayerRemoved += DeletePlayer;
+        for (int i = 0; i < NewGameManager.Instance.PlayerList.Count; i++)
+        {
+            AddPlayer();
+        }
     }
 
-    private void UpdatePlayerList()
+    private void AddPlayer()
     {
-        foreach (Transform child in playerFieldsContainer)
-        {
-            if (child == playerFieldTemplate) continue;
-            if (child == buttonDiv) continue;
-            Destroy(child.gameObject);
-        }
-
-        foreach (Transform child in removeButtonsContainer)
-        {
-            if (child == removeButtonDivTemplate) continue;
-            Destroy(child.gameObject);
-        }
-
-        for (int i = 0; i < NewGameManager.Instance.PlayerList.Players.Count; i++)
-        {
-            Transform newPlayer = Instantiate(playerFieldTemplate, playerFieldsContainer);
-            newPlayer.gameObject.SetActive(true);
-        }
+        Transform newPlayer = Instantiate(playerFieldTemplate, playerFieldsContainer);
+        newPlayer.gameObject.SetActive(true);
+        newPlayer.GetComponent<PlayerFieldUI>().CreateGallery();
         buttonDiv.transform.SetAsLastSibling();
 
-        if (!NewGameManager.Instance.PlayerList.IsMinPlayersReached)
-        {
-            for (int i = 0; i < NewGameManager.Instance.PlayerList.Players.Count; i++)
-            {
-                Transform newRemoveButtonDiv = Instantiate(removeButtonDivTemplate, removeButtonsContainer);
-                newRemoveButtonDiv.gameObject.SetActive(true);
-                Button newRemoveButton = newRemoveButtonDiv.GetChild(0).GetComponent<Button>();
+        Transform newRemoveButtonDiv = Instantiate(removeButtonDivTemplate, removeButtonsContainer);
+        newRemoveButtonDiv.gameObject.SetActive(true);
+        Button newRemoveButton = newRemoveButtonDiv.GetChild(0).GetComponent<Button>();
+        int cached = playerFieldsContainer.childCount;
+        newRemoveButton.onClick.AddListener(() => NewGameManager.Instance.RemovePlayer(cached - 3));
 
-                int cached = i;
-                newRemoveButton.onClick.AddListener(() =>
-                {
-                    NewGameManager.Instance.PlayerList.RemovePlayer(cached);
-                });
-            }
+        if (!NewGameManager.Instance.IsMinPlayersReached)
+        {
+            removeButtonsContainer.gameObject.SetActive(true);
         }
 
-        if (NewGameManager.Instance.PlayerList.IsMaxPlayersReached)
+        if (NewGameManager.Instance.IsMaxPlayersReached)
         {
             buttonDiv.gameObject.SetActive(false);
         }
-        else
+    }
+
+    private void DeletePlayer(int index)
+    {
+        Transform playerTemplate = playerFieldsContainer.GetChild(index + 1);
+        playerTemplate.GetComponent<PlayerFieldUI>().DeleteGallery();
+        Destroy(playerTemplate.gameObject);
+        buttonDiv.gameObject.SetActive(true);
+
+        Transform removeButtonDiv = removeButtonsContainer.GetChild(index + 1);
+        for (int i = index + 2; i < removeButtonsContainer.childCount; i++)
         {
-            buttonDiv.gameObject.SetActive(true);
+            Button nextRemoveButton = removeButtonsContainer.GetChild(i).GetChild(0).GetComponent<Button>();
+            nextRemoveButton.onClick.RemoveAllListeners();
+            int cached = i;
+            nextRemoveButton.onClick.AddListener(() => NewGameManager.Instance.RemovePlayer(cached - 2));
+        }
+        Destroy(removeButtonDiv.gameObject);
+
+        if (NewGameManager.Instance.IsMinPlayersReached)
+        {
+            removeButtonsContainer.gameObject.SetActive(false);
         }
     }
 }

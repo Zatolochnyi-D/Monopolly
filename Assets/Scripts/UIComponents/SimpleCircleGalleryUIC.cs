@@ -5,13 +5,6 @@ using UnityEngine.UI;
 
 public class SimpleCircleGalleryUIC : MonoBehaviour, IPointerClickHandler
 {
-    public class CirlceGalleryEventArgs : EventArgs
-    {
-        public int previousIndex;
-        public int currentIndex;
-    }
-
-
     public event EventHandler<CirlceGalleryEventArgs> OnValueChanged;
 
     private Sprite[] images;
@@ -21,11 +14,7 @@ public class SimpleCircleGalleryUIC : MonoBehaviour, IPointerClickHandler
     private bool[] availability;
 
     public bool[] Availability => availability;
-
-    void Awake()
-    {
-        displayedImage = transform.GetChild(displayerImagePosition).GetComponent<Image>();
-    }
+    public int CurrentIndex => currentSelectionIndex;
 
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -42,6 +31,7 @@ public class SimpleCircleGalleryUIC : MonoBehaviour, IPointerClickHandler
 
     public void SetUpComponent(Sprite[] images)
     {
+        displayedImage = transform.GetChild(displayerImagePosition).GetComponent<Image>();
         this.images = images;
         availability = new bool[images.Length];
         for (int i = 0; i < availability.Length; i++) availability[i] = true;
@@ -62,4 +52,11 @@ public class SimpleCircleGalleryUIC : MonoBehaviour, IPointerClickHandler
         availability[currentSelectionIndex] = false;
         OnValueChanged?.Invoke(this, new CirlceGalleryEventArgs() { previousIndex = previousIndex, currentIndex = currentSelectionIndex});
     }
+}
+
+
+public class CirlceGalleryEventArgs : EventArgs
+{
+    public int previousIndex;
+    public int currentIndex;
 }
