@@ -2,8 +2,15 @@ using UnityEngine;
 
 public class PawnSelectionManager : MonoBehaviour
 {
+    public static PawnSelectionManager Instance { get; private set; }
+
     [SerializeField] private SimpleCircleGalleryUIC[] galleries;
     [SerializeField] private Sprite[] pawnImages;
+
+    void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {
