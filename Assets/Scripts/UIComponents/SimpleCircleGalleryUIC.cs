@@ -5,35 +5,46 @@ using UnityEngine.UI;
 
 public class SimpleCircleGalleryUIC : MonoBehaviour, IPointerClickHandler
 {
-    public event Action<int> OnValueChanged;
+    public class CirlceGalleryEventArgs : EventArgs
+    {
+        public int previousIndex;
+        public int currentIndex;
+    }
 
-    [SerializeField] private Sprite[] images;
 
+    public event EventHandler<CirlceGalleryEventArgs> OnValueChanged;
+
+    private Sprite[] images;
     private Image displayedImage;
     private int displayerImagePosition = 0;
     private int currentSelectionIndex = 0;
     private bool[] availability;
 
+    public bool[] Availability => availability;
+
     void Awake()
     {
         displayedImage = transform.GetChild(displayerImagePosition).GetComponent<Image>();
-        displayedImage.sprite = images[currentSelectionIndex];
-
-        availability = new bool[images.Length];
-        for (int i = 0; i < availability.Length; i++) availability[i] = true;
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        int nextIndex;
+        int nextIndex = currentSelectionIndex;
         do
         {
-            nextIndex = (currentSelectionIndex + 1) % images.Length;
+            nextIndex = (nextIndex + 1) % images.Length;
             if (nextIndex == currentSelectionIndex) return;
         }
         while (!availability[nextIndex]);
 
         SetSelectionIndex(nextIndex);
+    }
+
+    public void SetUpComponent(Sprite[] images)
+    {
+        this.images = images;
+        availability = new bool[images.Length];
+        for (int i = 0; i < availability.Length; i++) availability[i] = true;
     }
 
     public void SetSelectionIndex(int index)
@@ -44,8 +55,11 @@ public class SimpleCircleGalleryUIC : MonoBehaviour, IPointerClickHandler
             return;
         }
 
+        int previousIndex = currentSelectionIndex;
+        availability[currentSelectionIndex] = true;
         currentSelectionIndex = index;
         displayedImage.sprite = images[currentSelectionIndex];
-        OnValueChanged?.Invoke(index);
+        availability[currentSelectionIndex] = false;
+        OnValueChanged?.Invoke(this, new CirlceGalleryEventArgs() { previousIndex = previousIndex, currentIndex = currentSelectionIndex});
     }
 }
