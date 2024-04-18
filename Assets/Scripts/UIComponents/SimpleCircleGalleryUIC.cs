@@ -46,10 +46,8 @@ public class SimpleCircleGalleryUIC : MonoBehaviour, IPointerClickHandler
         }
 
         int previousIndex = currentSelectionIndex;
-        availability[currentSelectionIndex] = true;
         currentSelectionIndex = index;
         displayedImage.sprite = images[currentSelectionIndex];
-        availability[currentSelectionIndex] = false;
         OnValueChanged?.Invoke(this, new CirlceGalleryEventArgs() { previousIndex = previousIndex, currentIndex = currentSelectionIndex});
     }
 }

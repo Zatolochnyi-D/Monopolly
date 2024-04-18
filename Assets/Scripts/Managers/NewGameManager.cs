@@ -8,9 +8,7 @@ public class NewGameManager : MonoBehaviour
 
     public event Action OnPlayerAdded;
     public event Action<int> OnPlayerRemoved;
-
-    private PlayerListOptionsModule playerList = new();
-    private List<PlayerLogic.PlayerBuilder> builders = new();
+    private List<PlayerLogic.PlayerBuilder> builders;
 
     public List<PlayerLogic.PlayerBuilder> PlayerList => builders;
     public bool IsMinPlayersReached => builders.Count == 2;
@@ -19,13 +17,12 @@ public class NewGameManager : MonoBehaviour
     void Awake()
     {
         Instance = this;
-        builders.Add(new());
-        builders.Add(new());
+        Reset();
     }
 
     public void Reset()
     {
-        playerList = new();
+        builders = new() { new(), new() };
     }
 
     public void AddPlayer()
