@@ -162,6 +162,7 @@ public partial class PlayerLogic : MonoBehaviour, ISubscriber
 
     void Awake()
     {
+        Debug.Log($"Player {playerName} awake");
         HandleOnTurnStart = new DebtCheck();
 
         HandleOnTurnEnd = new DebtCheck()
@@ -173,7 +174,6 @@ public partial class PlayerLogic : MonoBehaviour, ISubscriber
     void Start()
     {
         transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = playerVisuals.visual;
-
         currentTile = MapManager.Instance.FindTileByID(tileID);
         transform.position = currentTile.TakePlace(this);
 
