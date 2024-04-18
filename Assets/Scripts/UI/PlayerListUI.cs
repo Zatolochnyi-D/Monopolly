@@ -35,20 +35,20 @@ public class PlayerListUI : MonoBehaviour
     {
         Transform newPlayer = Instantiate(playerFieldTemplate, playerFieldsContainer);
         newPlayer.gameObject.SetActive(true);
-        newPlayer.GetComponent<PlayerFieldUI>().CreateGallery();
+        var newPlayerScript = newPlayer.GetComponent<PlayerFieldUI>();
+        int cached = playerFieldsContainer.childCount;
+        newPlayerScript.InitField(cached - 3);
         buttonDiv.transform.SetAsLastSibling();
 
         Transform newRemoveButtonDiv = Instantiate(removeButtonDivTemplate, removeButtonsContainer);
         newRemoveButtonDiv.gameObject.SetActive(true);
         Button newRemoveButton = newRemoveButtonDiv.GetChild(0).GetComponent<Button>();
-        int cached = playerFieldsContainer.childCount;
         newRemoveButton.onClick.AddListener(() => NewGameManager.Instance.RemovePlayer(cached - 3));
 
         if (!NewGameManager.Instance.IsMinPlayersReached)
         {
             removeButtonsContainer.gameObject.SetActive(true);
         }
-
         if (NewGameManager.Instance.IsMaxPlayersReached)
         {
             buttonDiv.gameObject.SetActive(false);
@@ -58,7 +58,11 @@ public class PlayerListUI : MonoBehaviour
     private void DeletePlayer(int index)
     {
         Transform playerTemplate = playerFieldsContainer.GetChild(index + 1);
-        playerTemplate.GetComponent<PlayerFieldUI>().DeleteGallery();
+        playerTemplate.GetComponent<PlayerFieldUI>().DisposeField();
+        for (int i = index + 2; i < playerFieldsContainer.childCount - 1; i++)
+        {
+            playerFieldsContainer.GetChild(i).GetComponent<PlayerFieldUI>().DecreaseIndex();
+        }
         Destroy(playerTemplate.gameObject);
         buttonDiv.gameObject.SetActive(true);
 
