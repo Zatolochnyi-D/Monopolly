@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class NewGameManager : MonoBehaviour
@@ -36,5 +37,22 @@ public class NewGameManager : MonoBehaviour
     {
         builders.RemoveAt(index);
         OnPlayerRemoved?.Invoke(index);
+    }
+
+    public void CreateGame()
+    {
+        PawnVisualsSO[] visuals = PawnSelectionManager.Instance.GetVisuals();
+        List<int> numbers = new() { 1, 2, 3, 4, 5 };
+        for (int i = 0; i < builders.Count; i++)
+        {
+            builders[i].SetName(NameSelectionManager.Instance.Names[i]);
+            builders[i].SetVisuals(visuals[i]);
+            int index = UnityEngine.Random.Range(0, numbers.Count);
+            builders[i].SetNumber(numbers[index]);
+            numbers.RemoveAt(index);
+        }
+
+        TurnManager.playerBuilders = builders.ToArray();
+        Loader.LoadScene(Loader.Scenes.Game);
     }
 }

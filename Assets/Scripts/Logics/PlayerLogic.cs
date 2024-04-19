@@ -162,7 +162,6 @@ public partial class PlayerLogic : MonoBehaviour, ISubscriber
 
     void Awake()
     {
-        Debug.Log($"Player {playerName} awake");
         HandleOnTurnStart = new DebtCheck();
 
         HandleOnTurnEnd = new DebtCheck()
