@@ -2969,7 +2969,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 63a4ced1957664a1e9271ec1faba655a, type: 3}
   - {fileID: 21300000, guid: 80f06407a53594efb83b33bb5770d17c, type: 3}
   - {fileID: 21300000, guid: d4b826ccd9d3e4083b130fec8b21aa45, type: 3}
-  - {fileID: 21300000, guid: 1c0eebf955a344bdfbafa276cb8e8368, type: 3}
+  - {fileID: 21300000, guid: c915a7e989f6b471a9a736476cbab229, type: 3}
   pawnCorrespondingColors:
   - {r: 0.28627452, g: 0.85882354, b: 0.3372549, a: 1}
   - {r: 0.7803922, g: 0.30588236, b: 0.7254902, a: 1}
