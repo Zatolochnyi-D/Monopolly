@@ -25,10 +25,7 @@ public class PlayerListUI : MonoBehaviour
 
         NewGameManager.Instance.OnPlayerAdded += AddPlayer;
         NewGameManager.Instance.OnPlayerRemoved += DeletePlayer;
-        for (int i = 0; i < NewGameManager.Instance.PlayerList.Count; i++)
-        {
-            AddPlayer();
-        }
+        for (int i = 0; i < NewGameManager.Instance.PlayerList.Count; i++) AddPlayer();
     }
 
     private void AddPlayer()

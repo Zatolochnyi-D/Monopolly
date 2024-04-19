@@ -14,7 +14,6 @@ public class PlayerFieldUI : MonoBehaviour
 
         PawnSelectionManager.Instance.AddGallery(gallery);
 
-        Debug.Log(NameSelectionManager.Instance);
         int nameIndex = NameSelectionManager.Instance.AddPlayer();
         inputField.text = NameSelectionManager.Instance.Names[nameIndex];
         inputField.onEndEdit.AddListener((value) => NameSelectionManager.Instance.ChangeName(fieldIndex, value));
