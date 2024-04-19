@@ -24,18 +24,8 @@ public class PawnSelectionManager : MonoBehaviour
         {
             gallery.Availability[otherGallery.CurrentIndex] = false;
         }
-        for (int i = 0; i < gallery.Availability.Length; i++)
-        {
-            if (gallery.Availability[i])
-            {
-                gallery.SetSelectionIndex(i);
-                break;
-            }
-        }
-        foreach (SimpleCircleGalleryUIC otherGallery in galleries)
-        {
-            otherGallery.Availability[gallery.CurrentIndex] = false;
-        }
+        gallery.Availability[^1] = true;
+        gallery.SetSelectionIndex(gallery.Availability.Length - 1);
         gallery.OnValueChanged += UpdateAvailability;
         galleries.Add(gallery);
     }
@@ -55,7 +45,7 @@ public class PawnSelectionManager : MonoBehaviour
         foreach (SimpleCircleGalleryUIC gallery in galleries)
         {
             gallery.Availability[args.previousIndex] = true;
-            gallery.Availability[args.currentIndex] = false;
+            if (args.currentIndex != gallery.Availability.Length - 1) gallery.Availability[args.currentIndex] = false;
         }
     }
 }
