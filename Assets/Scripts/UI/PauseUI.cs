@@ -23,7 +23,7 @@ public class PauseUI : MonoBehaviour
         });
         saveAndQuitButton.onClick.AddListener(() =>
         {
-            saveAndQuitPopup.gameObject.SetActive(true);  
+            saveAndQuitPopup.gameObject.SetActive(true);
         });
         quitButton.onClick.AddListener(() =>
         {
@@ -53,6 +53,9 @@ public class PauseUI : MonoBehaviour
         GameInputManager.Instance.OnPausePerformed += Pause;
         GameInputManager.Instance.OnUnpausePerformed += Unpause;
 
+        TurnManager.Instance.OnTurnStarted += _ => DisableSaving();
+        TurnManager.Instance.OnNewTurn += EnableSaving;
+
         gameObject.SetActive(false);
     }
 
@@ -67,6 +70,21 @@ public class PauseUI : MonoBehaviour
     {
         gameObject.SetActive(false);
         GameInputManager.Instance.FromPause();
+        savePopup.gameObject.SetActive(false);
+        saveAndQuitPopup.gameObject.SetActive(false);
+        quitPopup.gameObject.SetActive(false);
         Time.timeScale = 1.0f;
+    }
+
+    private void DisableSaving()
+    {
+        saveAndQuitButton.enabled = false;
+        saveButton.enabled = false;
+    }
+    
+    private void EnableSaving()
+    {
+        saveAndQuitButton.enabled = true;
+        saveButton.enabled = true;
     }
 }
