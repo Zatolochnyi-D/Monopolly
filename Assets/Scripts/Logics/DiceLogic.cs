@@ -41,7 +41,7 @@ public class DiceLogic : MonoBehaviour
 
             if (timeFromBeingThrowed > throwTimeOut)
             {
-                // dice falled out of the field
+                // dice fell out of the field
                 diceRigidbody.velocity = new Vector3(0f, 0f, 0f);
                 timeFromBeingThrowed = 0f;
                 transform.position = target.position + new Vector3(0f, distanceFromTarget, 0f);
@@ -70,14 +70,14 @@ public class DiceLogic : MonoBehaviour
 
     public int GetRolledNumber()
     {
-        int rolledNumber = 0;
-        float y = diceSides[0].position.y;
+        int rolledNumber = 1;
+        float highestPoint = diceSides[0].position.y;
 
         for (int i = 0; i < diceSides.Length; i++)
         {
-            if (diceSides[i].position.y > y)
+            if (diceSides[i].position.y > highestPoint)
             {
-                y = diceSides[i].position.y;
+                highestPoint = diceSides[i].position.y;
                 rolledNumber = i + 1;
             }
         }
