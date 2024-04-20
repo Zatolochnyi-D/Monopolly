@@ -29,7 +29,7 @@ public class MainMenuUI : MonoBehaviour
             // to load screen
         });
 
-        newGameButton.onClick.AddListener(() =>
+        quitButton.onClick.AddListener(() =>
         {
             Application.Quit();
         });
