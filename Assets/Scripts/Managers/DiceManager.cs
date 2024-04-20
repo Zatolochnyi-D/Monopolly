@@ -30,15 +30,14 @@ public class DiceManager : MonoBehaviour
         {
             ThrowDice();
         });
-        GameInputManager.Instance.OnThrowDicePerformed += ThrowDice;
-
-        TurnManager.Instance.OnTurnEnded += Activate;
     }
 
     void Start()
     {
         firstDice.OnDiceLanded += CalculateRolledNumber;
         secondDice.OnDiceLanded += CalculateRolledNumber;
+        GameInputManager.Instance.OnThrowDicePerformed += ThrowDice;
+        TurnManager.Instance.OnTurnEnded += Activate;
     }
 
     private void CalculateRolledNumber(int rolledNumber)
