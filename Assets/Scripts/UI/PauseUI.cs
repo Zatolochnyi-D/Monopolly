@@ -17,6 +17,7 @@ public class PauseUI : MonoBehaviour
         saveButton.onClick.AddListener(() =>
         {
             FileManager.Save(Saver.SerializeGame(TurnManager.Instance.CreateSnapshot()));
+            Time.timeScale = 1.0f;
             Loader.LoadScene(Loader.Scenes.MainMenu);
         });
 

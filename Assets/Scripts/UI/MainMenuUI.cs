@@ -19,6 +19,13 @@ public class MainMenuUI : MonoBehaviour
 
         loadGameButton.onClick.AddListener(() =>
         {
+            string loadedSerializedGame = FileManager.Load();
+            if (loadedSerializedGame == null) return;
+
+            TurnManager.loadFromSnapshot = Saver.DeserializeGame(loadedSerializedGame);
+
+            Loader.LoadScene(Loader.Scenes.Game);
+
             // to load screen
         });
 

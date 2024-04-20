@@ -53,6 +53,7 @@ public class NewGameManager : MonoBehaviour
         }
 
         TurnManager.playerBuilders = builders.ToArray();
+        TurnManager.loadFromSnapshot = null;
         Loader.LoadScene(Loader.Scenes.Game);
     }
 }

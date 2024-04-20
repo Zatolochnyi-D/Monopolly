@@ -7,21 +7,18 @@ public class TurnManager : MonoBehaviour
     public class GameSnapshot : IMemento
     {
         public string[] serializedPlayers;
+        public int currentPlayerIndex;
 
         public GameSnapshot(TurnManager turnManager)
         {
             serializedPlayers = turnManager.players.Select(x => Saver.SerializePlayer(x.CreateSnapshot())).ToArray();
+            currentPlayerIndex = turnManager.currentPlayerIndex;
         }
     }
 
     public static PlayerLogic.PlayerBuilder[] playerBuilders; // assume this field filled at the start of the game
+    public static GameSnapshot loadFromSnapshot;
     public static TurnManager Instance { get; private set; }
-
-    public enum TurnStates
-    {
-        TurnStarted,
-        InteractionStarted,
-    }
 
     public event Action<int> OnTurnStarted;
     public event Action OnTurnEnded;
@@ -31,7 +28,6 @@ public class TurnManager : MonoBehaviour
 
     private PlayerLogic[] players;
     private int currentPlayerIndex = 0;
-    private TurnStates turnState = TurnStates.TurnStarted;
 
     public PlayerLogic CurrentPlayer => players[currentPlayerIndex];
     public int HighestImage => players.Max(x => x.Image);
@@ -42,6 +38,12 @@ public class TurnManager : MonoBehaviour
     void Awake()
     {
         Instance = this;
+
+        if (loadFromSnapshot != null)
+        {
+            currentPlayerIndex = loadFromSnapshot.currentPlayerIndex;
+            playerBuilders = loadFromSnapshot.serializedPlayers.Select(x => Saver.DeserializePlayer(x).LoadToBuilder()).ToArray();
+        }
 
         players = new PlayerLogic[playerBuilders.Length];
         for (int i = 0; i < players.Length; i++)
@@ -58,7 +60,6 @@ public class TurnManager : MonoBehaviour
 
     private void DoTurn(int rolledNumber)
     {
-        turnState = TurnStates.InteractionStarted;
         OnTurnStarted?.Invoke(rolledNumber);
     }
 

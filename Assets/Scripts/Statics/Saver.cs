@@ -12,8 +12,13 @@ public static class Saver
         return JsonUtility.ToJson(snapshot);
     }
 
-    public static void PrintGameJson(TurnManager.GameSnapshot snapshot)
+    public static TurnManager.GameSnapshot DeserializeGame(string serializedSnapshot)
     {
-        Debug.Log(JsonUtility.ToJson(snapshot));
+        return JsonUtility.FromJson<TurnManager.GameSnapshot>(serializedSnapshot);
+    }
+
+    public static PlayerLogic.PlayerSnapshot DeserializePlayer(string serializedSnapshot)
+    {
+        return JsonUtility.FromJson<PlayerLogic.PlayerSnapshot>(serializedSnapshot);
     }
 }
