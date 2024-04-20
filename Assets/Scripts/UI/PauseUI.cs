@@ -16,7 +16,8 @@ public class PauseUI : MonoBehaviour
 
         saveButton.onClick.AddListener(() =>
         {
-            // save screen here
+            FileManager.Save(Saver.SerializeGame(TurnManager.Instance.CreateSnapshot()));
+            Loader.LoadScene(Loader.Scenes.MainMenu);
         });
 
         quitButton.onClick.AddListener(() =>
@@ -24,8 +25,8 @@ public class PauseUI : MonoBehaviour
             // ask for quit confirmation. Warn about data loss.
 
             // move this to quit confirmation
-            Loader.LoadScene(Loader.Scenes.MainMenu);
             Time.timeScale = 1.0f;
+            Loader.LoadScene(Loader.Scenes.MainMenu);
         });
     }
 

@@ -53,6 +53,15 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""TestButton"",
+                    ""type"": ""Button"",
+                    ""id"": ""bb23a4e3-14b6-4c2d-a03a-269f515258ce"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -86,6 +95,17 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b38058d2-f87e-4c9c-b08d-5a22e3d1e87c"",
+                    ""path"": ""<Keyboard>/j"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TestButton"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -127,6 +147,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         m_Game_ThrowDice = m_Game.FindAction("ThrowDice", throwIfNotFound: true);
         m_Game_OpenCloseStats = m_Game.FindAction("OpenCloseStats", throwIfNotFound: true);
         m_Game_Pause = m_Game.FindAction("Pause", throwIfNotFound: true);
+        m_Game_TestButton = m_Game.FindAction("TestButton", throwIfNotFound: true);
         // Pause
         m_Pause = asset.FindActionMap("Pause", throwIfNotFound: true);
         m_Pause_Unpause = m_Pause.FindAction("Unpause", throwIfNotFound: true);
@@ -194,6 +215,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Game_ThrowDice;
     private readonly InputAction m_Game_OpenCloseStats;
     private readonly InputAction m_Game_Pause;
+    private readonly InputAction m_Game_TestButton;
     public struct GameActions
     {
         private @InputActions m_Wrapper;
@@ -201,6 +223,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         public InputAction @ThrowDice => m_Wrapper.m_Game_ThrowDice;
         public InputAction @OpenCloseStats => m_Wrapper.m_Game_OpenCloseStats;
         public InputAction @Pause => m_Wrapper.m_Game_Pause;
+        public InputAction @TestButton => m_Wrapper.m_Game_TestButton;
         public InputActionMap Get() { return m_Wrapper.m_Game; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -219,6 +242,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Pause.started += instance.OnPause;
             @Pause.performed += instance.OnPause;
             @Pause.canceled += instance.OnPause;
+            @TestButton.started += instance.OnTestButton;
+            @TestButton.performed += instance.OnTestButton;
+            @TestButton.canceled += instance.OnTestButton;
         }
 
         private void UnregisterCallbacks(IGameActions instance)
@@ -232,6 +258,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Pause.started -= instance.OnPause;
             @Pause.performed -= instance.OnPause;
             @Pause.canceled -= instance.OnPause;
+            @TestButton.started -= instance.OnTestButton;
+            @TestButton.performed -= instance.OnTestButton;
+            @TestButton.canceled -= instance.OnTestButton;
         }
 
         public void RemoveCallbacks(IGameActions instance)
@@ -300,6 +329,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         void OnThrowDice(InputAction.CallbackContext context);
         void OnOpenCloseStats(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
+        void OnTestButton(InputAction.CallbackContext context);
     }
     public interface IPauseActions
     {

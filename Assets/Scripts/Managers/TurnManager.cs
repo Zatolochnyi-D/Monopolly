@@ -4,8 +4,24 @@ using UnityEngine;
 
 public class TurnManager : MonoBehaviour
 {
+    public class GameSnapshot : IMemento
+    {
+        public string[] serializedPlayers;
+
+        public GameSnapshot(TurnManager turnManager)
+        {
+            serializedPlayers = turnManager.players.Select(x => Saver.SerializePlayer(x.CreateSnapshot())).ToArray();
+        }
+    }
+
     public static PlayerLogic.PlayerBuilder[] playerBuilders; // assume this field filled at the start of the game
     public static TurnManager Instance { get; private set; }
+
+    public enum TurnStates
+    {
+        TurnStarted,
+        InteractionStarted,
+    }
 
     public event Action<int> OnTurnStarted;
     public event Action OnTurnEnded;
@@ -15,6 +31,7 @@ public class TurnManager : MonoBehaviour
 
     private PlayerLogic[] players;
     private int currentPlayerIndex = 0;
+    private TurnStates turnState = TurnStates.TurnStarted;
 
     public PlayerLogic CurrentPlayer => players[currentPlayerIndex];
     public int HighestImage => players.Max(x => x.Image);
@@ -41,6 +58,7 @@ public class TurnManager : MonoBehaviour
 
     private void DoTurn(int rolledNumber)
     {
+        turnState = TurnStates.InteractionStarted;
         OnTurnStarted?.Invoke(rolledNumber);
     }
 
@@ -58,5 +76,10 @@ public class TurnManager : MonoBehaviour
     public PlayerLogic GetPlayerByNumber(int number)
     {
         return players.Where(x => x.Number == number).First();
+    }
+
+    public GameSnapshot CreateSnapshot()
+    {
+        return new(this);
     }
 }

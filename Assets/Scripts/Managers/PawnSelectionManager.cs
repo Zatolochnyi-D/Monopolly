@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -72,12 +73,22 @@ public class PawnSelectionManager : MonoBehaviour
         for (int i = 0; i < galleries.Count; i++)
         {
             if (galleries[i].CurrentIndex != pawnImages.Length - 1) continue;
-            int randomIndex = Random.Range(0, availableSprites.Count);
+            int randomIndex = UnityEngine.Random.Range(0, availableSprites.Count);
             result[i] = new() { visual = availableSprites[randomIndex], displayColor = availableColors[randomIndex] };
             availableSprites.RemoveAt(randomIndex);
             availableColors.RemoveAt(randomIndex);
         }
 
         return result;
+    }
+
+    public int GetIdByVisual(Sprite sprite)
+    {
+        return Array.IndexOf(pawnImages, sprite);
+    }
+
+    public PawnVisualsSO GetVisualById(int id)
+    {
+        return new() { visual = pawnImages[id], displayColor = pawnCorrespondingColors[id] };
     }
 }

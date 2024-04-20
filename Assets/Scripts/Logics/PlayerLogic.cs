@@ -59,7 +59,7 @@ public partial class PlayerLogic : MonoBehaviour, ISubscriber
         }
     }
 
-
+    [Serializable]
     public struct PlayerShares
     {
         public int Airlines;
@@ -265,6 +265,11 @@ public partial class PlayerLogic : MonoBehaviour, ISubscriber
     public void React()
     {
         GetProduction();
+    }
+
+    public PlayerSnapshot CreateSnapshot()
+    {
+        return new PlayerSnapshot(this);
     }
 
     [ContextMenu("Bankrupt")]
