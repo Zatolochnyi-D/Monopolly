@@ -6,6 +6,8 @@ public class PauseUI : MonoBehaviour
     [SerializeField] private Button resumeButton;
     [SerializeField] private Button saveButton;
     [SerializeField] private Button quitButton;
+    [SerializeField] private PopUpUIC savePopup;
+    [SerializeField] private PopUpUIC quitPopup;
 
     void Awake()
     {
@@ -13,22 +15,26 @@ public class PauseUI : MonoBehaviour
         {
             Unpause();
         });
-
         saveButton.onClick.AddListener(() =>
+        {
+            savePopup.gameObject.SetActive(true);  
+        });
+        quitButton.onClick.AddListener(() =>
+        {
+            quitPopup.gameObject.SetActive(true);
+        });
+
+        savePopup.actionOnConfirm = () =>
         {
             FileManager.Save(Saver.SerializeGame(TurnManager.Instance.CreateSnapshot()));
             Time.timeScale = 1.0f;
             Loader.LoadScene(Loader.Scenes.MainMenu);
-        });
-
-        quitButton.onClick.AddListener(() =>
+        };
+        quitPopup.actionOnConfirm = () =>
         {
-            // ask for quit confirmation. Warn about data loss.
-
-            // move this to quit confirmation
             Time.timeScale = 1.0f;
             Loader.LoadScene(Loader.Scenes.MainMenu);
-        });
+        };
     }
 
     void Start()
