@@ -109,6 +109,7 @@ public partial class PlayerLogic : MonoBehaviour, ISubscriber
     public string PlayerName => playerName;
     public Color DisplayColor => playerVisuals.displayColor;
     public int Number => number;
+    public int TileID => tileID;
 
     public int Money
     {
@@ -208,28 +209,29 @@ public partial class PlayerLogic : MonoBehaviour, ISubscriber
         if (TurnManager.Instance.CurrentPlayer == this)
         {
             currentTile.ReleasePlace(this);
-            MoveStepByStep(rolledNumber);
-            
+            MoveStepByStep(rolledNumber, currentTile);
         }
     }
 
-    private async void MoveStepByStep(int steps)
+    private async void MoveStepByStep(int steps, TileLogic startTile)
     {
         try
         {
+            TileLogic thisTile = startTile;
             if (steps != 0)
             {
-                currentTile = currentTile.NextTile;
-                transform.position = currentTile.GetTemporalPosition();
+                thisTile = thisTile.NextTile;
+                transform.position = thisTile.GetTemporalPosition();
                 await Task.Delay((int)(delayBetweenSteps * 1000));
                 while (GameInputManager.Instance.IsPaused)
                 {
                     await Task.Delay(1000);
                 }
-                MoveStepByStep(steps - 1);
+                MoveStepByStep(steps - 1, thisTile);
             }
             else
             {
+                currentTile = thisTile;
                 TakeTile();
                 currentTile.Interact();
             }
