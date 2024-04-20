@@ -5,8 +5,10 @@ public class PauseUI : MonoBehaviour
 {
     [SerializeField] private Button resumeButton;
     [SerializeField] private Button saveButton;
+    [SerializeField] private Button saveAndQuitButton;
     [SerializeField] private Button quitButton;
     [SerializeField] private PopUpUIC savePopup;
+    [SerializeField] private PopUpUIC saveAndQuitPopup;
     [SerializeField] private PopUpUIC quitPopup;
 
     void Awake()
@@ -17,7 +19,11 @@ public class PauseUI : MonoBehaviour
         });
         saveButton.onClick.AddListener(() =>
         {
-            savePopup.gameObject.SetActive(true);  
+            savePopup.gameObject.SetActive(true);
+        });
+        saveAndQuitButton.onClick.AddListener(() =>
+        {
+            saveAndQuitPopup.gameObject.SetActive(true);  
         });
         quitButton.onClick.AddListener(() =>
         {
@@ -25,6 +31,10 @@ public class PauseUI : MonoBehaviour
         });
 
         savePopup.actionOnConfirm = () =>
+        {
+            FileManager.Save(Saver.SerializeGame(TurnManager.Instance.CreateSnapshot()));
+        };
+        saveAndQuitPopup.actionOnConfirm = () =>
         {
             FileManager.Save(Saver.SerializeGame(TurnManager.Instance.CreateSnapshot()));
             Time.timeScale = 1.0f;
