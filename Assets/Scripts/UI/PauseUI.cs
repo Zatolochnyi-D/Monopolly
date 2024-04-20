@@ -33,6 +33,7 @@ public class PauseUI : MonoBehaviour
         savePopup.actionOnConfirm = () =>
         {
             FileManager.Save(Saver.SerializeGame(TurnManager.Instance.CreateSnapshot()));
+            savePopup.gameObject.SetActive(false);
         };
         saveAndQuitPopup.actionOnConfirm = () =>
         {
