@@ -41,11 +41,12 @@ public class NewGameManager : MonoBehaviour
 
     public void CreateGame()
     {
+        string[] names = NameSelectionManager.Instance.GetNames();
         PawnVisualsSO[] visuals = PawnSelectionManager.Instance.GetVisuals();
         List<int> numbers = new() { 1, 2, 3, 4, 5 };
         for (int i = 0; i < builders.Count; i++)
         {
-            builders[i].SetName(NameSelectionManager.Instance.Names[i]);
+            builders[i].SetName(names[i]);
             builders[i].SetVisuals(visuals[i]);
             int index = UnityEngine.Random.Range(0, numbers.Count);
             builders[i].SetNumber(numbers[index]);

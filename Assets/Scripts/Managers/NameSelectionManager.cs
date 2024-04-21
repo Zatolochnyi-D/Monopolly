@@ -61,4 +61,14 @@ public class NameSelectionManager : MonoBehaviour
         FreeDefaultName(names[index]);
         names[index] = newName;
     }
+
+    public string[] GetNames()
+    {
+        for (int i = 0; i < names.Count; i++)
+        {
+            if (names[i] == string.Empty) names[i] = GetDefaultName();
+        }
+
+        return names.ToArray();
+    }
 }
