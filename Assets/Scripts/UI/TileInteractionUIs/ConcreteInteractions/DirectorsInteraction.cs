@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DirectorsInteractionUI : InteractionUI
+public class DirectorsInteraction : Interaction
 {
     private static readonly int winScore = 36; 
 

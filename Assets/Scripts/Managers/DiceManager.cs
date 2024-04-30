@@ -68,7 +68,7 @@ public class DiceManager : MonoBehaviour
         firstDice.Reset();
         secondDice.Reset();
 
-        OnDiceReset?.Invoke(totalRolledNumber); // TODO: replace with totalRolledNumber
+        OnDiceReset?.Invoke(totalRolledNumber);
 
         totalRolledNumber = 0;
     }

@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ClientInteractionUI : InteractionUI
+public class ClientInteraction : Interaction
 {
     [SerializeField] private Button confirmButton;
     [SerializeField] private Button cancelButton;

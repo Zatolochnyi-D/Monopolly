@@ -181,7 +181,7 @@ public partial class PlayerLogic : MonoBehaviour, ISubscriber
         TurnManager.Instance.OnTurnStarted += MovePlayer;
         TurnManager.Instance.OnNewTurn += PerformInitialChecks;
         TurnManager.Instance.OnTurnEnded += PerformFinalChecks;
-        TenderInteractionUI.OnPlayerEnterTender.AddSubscriber(this);
+        TenderInteraction.OnPlayerEnterTender.AddSubscriber(this);
 
         playerDirectors.CollectionChanged += (sender, args) => OnPropertyChanged?.Invoke();
     }

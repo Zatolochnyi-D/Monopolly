@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class NegativePRInteractionUI : InteractionUI
+public class NegativePRInteraction : Interaction
 {
     [SerializeField] private Button confirmButton;
 

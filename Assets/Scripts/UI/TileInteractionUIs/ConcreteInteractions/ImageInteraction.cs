@@ -1,9 +1,8 @@
-using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ImageInteractionUI : InteractionUI
+public class ImageInteraction : Interaction
 {
     [SerializeField] private ImageEventsListSO events;
     [SerializeField] private Button confirmButton;

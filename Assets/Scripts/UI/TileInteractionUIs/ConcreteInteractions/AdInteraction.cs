@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class AdInteractionUI : InteractionUI
+public class AdInteraction : Interaction
 {
     [SerializeField] private TMP_Dropdown options;
     [SerializeField] private Button confirmButton;

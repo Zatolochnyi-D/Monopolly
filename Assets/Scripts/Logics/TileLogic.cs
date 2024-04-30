@@ -11,7 +11,7 @@ public class TileLogic : MonoBehaviour
     [SerializeField] private Transform[] playerPositions;
 
     [Header("Tile interactions")]
-    [SerializeField] private InteractionUI tileInteractionDialog;
+    [SerializeField] private Interaction tileInteractionDialog;
 
     private PlayerLogic[] players = new PlayerLogic[0];
     private int tileCapacityLevel = 0;

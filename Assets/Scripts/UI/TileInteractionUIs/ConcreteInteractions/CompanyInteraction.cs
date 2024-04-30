@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CompanyInteractionUI : InteractionUI
+public class CompanyInteraction : Interaction
 {
     public interface ISharesFactory
     {

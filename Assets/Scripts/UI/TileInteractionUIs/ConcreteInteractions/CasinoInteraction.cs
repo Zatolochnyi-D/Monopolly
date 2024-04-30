@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CasinoInteractionUI : InteractionUI
+public class CasinoInteraction : Interaction
 {
     [SerializeField] private Button cancelButton;
     [SerializeField] private Button confirmButton;

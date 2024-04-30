@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GreatDealInteractionUI : InteractionUI
+public class SimpleDealInteraction : Interaction
 {
     [SerializeField] private Button confirmButton;
     [SerializeField] private Button cancelButton;
@@ -16,10 +16,8 @@ public class GreatDealInteractionUI : InteractionUI
 
     [SerializeField] private int yield;
     [SerializeField] private int difficulty;
-    [SerializeField] private TileLogic targetTile;
-    [SerializeField] private bool resetImageOnSuccess = true;
 
-    private PlayerLogic player;
+    private int currentDifficulty;
 
     protected void Awake()
     {
@@ -39,39 +37,39 @@ public class GreatDealInteractionUI : InteractionUI
         });
 
         yieldText.text = $"{yield}00$";
-        difficultyText.text = difficulty.ToString();
 
         playerCommand = new PlayerLogic.AlterBalanceCommand()
         {
             NextCommand = new PlayerLogic.AlterImageCommand()
-            {
-                NextCommand = new PlayerLogic.MovePlayerCommand()
-            }
         };
     }
 
     public override void Interact()
     {
-        player = TurnManager.Instance.CurrentPlayer;
+        PlayerLogic player = TurnManager.Instance.CurrentPlayer;
         playerCommand.TargetPlayer = player;
 
         endScreen.SetActive(false);
         rolledNumberText.gameObject.SetActive(false);
+        currentDifficulty = difficulty;
 
-        if (player.Money < 0)
+        if (player.Image - 2 >= difficulty)
         {
             endScreen.SetActive(true);
-            endScreenText.text = "You can't leave small circle with the debt.";
-        }
-
-        if (2 > difficulty)
-        {
-            endScreen.SetActive(true);
-            endScreenText.text = $"This deal is to easy. Your received {yield}00$ and pass to the big circle";
-
-            SetParameters(yield, resetImageOnSuccess ? -player.Image : 0, targetTile);
+            endScreenText.text = $"Your reputation successfully handled this deal. Your received {yield}00$.";
+            SetParameters(yield, 0);
             playerCommand.Execute();
         }
+
+        if (difficulty - player.Image > 12)
+        {
+            endScreen.SetActive(true);
+            endScreenText.text = $"Your reputation is to low for this deal.";
+        }
+
+        currentDifficulty = difficulty - player.Image;
+
+        difficultyText.text = currentDifficulty.ToString();
 
         Show();
     }
@@ -86,14 +84,14 @@ public class GreatDealInteractionUI : InteractionUI
 
         if (isVictorious)
         {
-            SetParameters(yield, resetImageOnSuccess ? -player.Image : 0, targetTile);
+            SetParameters(yield, 0);
             endScreenText.text = $"You handled this deal! \n+{yield}00$";
             endScreen.SetActive(true);
         }
         else
         {
-            SetParameters(0, -3, null);
-            endScreenText.text = $"You lost this deal. \n-3 image";
+            SetParameters(0, -1);
+            endScreenText.text = $"You lost this deal. \n-1 image";
             endScreen.SetActive(true);
         }
         playerCommand.Execute();
@@ -105,14 +103,14 @@ public class GreatDealInteractionUI : InteractionUI
         rolledNumberText.gameObject.SetActive(true);
         for (int i = 0; i < 20; i++)
         {
-            rolledNumber = Random.Range(2, 13);
+            rolledNumber = UnityEngine.Random.Range(2, 13);
             rolledNumberText.text = rolledNumber.ToString();
             await Task.Delay(100);
         }
 
         await Task.Delay(1000);
 
-        return rolledNumber > difficulty;
+        return rolledNumber >= currentDifficulty;
     }
 
     private void Close()
@@ -121,10 +119,9 @@ public class GreatDealInteractionUI : InteractionUI
         EndTurn();
     }
 
-    private void SetParameters(int money, int image, TileLogic tile)
+    private void SetParameters(int money, int image)
     {
         playerCommand.Parameters = new PlayerLogic.SimpleIntegerParam() { integer = money };
         playerCommand.NextCommand.Parameters = new PlayerLogic.SimpleIntegerParam() { integer = image };
-        playerCommand.NextCommand.NextCommand.Parameters = new PlayerLogic.SimpleTileParam() { tile = tile };
     }
 }

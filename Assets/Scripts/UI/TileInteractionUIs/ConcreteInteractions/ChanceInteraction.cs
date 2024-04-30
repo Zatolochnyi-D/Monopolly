@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ChanceInteractionUI : InteractionUI
+public class ChanceInteraction : Interaction
 {
     [SerializeField] private ChanceEventsListSO events;
     [SerializeField] private Button confirmButton;

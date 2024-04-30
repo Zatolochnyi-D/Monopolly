@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BonusInteractionUI : InteractionUI
+public class BonusInteraction : Interaction
 {
     [SerializeField] private TextMeshProUGUI descriptionText;
     [SerializeField] private Button confirmButton;

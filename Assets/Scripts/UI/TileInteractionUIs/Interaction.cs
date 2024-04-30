@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class InteractionUI : MonoBehaviour
+public abstract class Interaction : MonoBehaviour
 {
     protected PlayerLogic.PlayerCommand playerCommand;
 

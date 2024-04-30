@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TenderInteractionUI : InteractionUI
+public class TenderInteraction : Interaction
 {
     public static TenderEvent OnPlayerEnterTender = new();
 

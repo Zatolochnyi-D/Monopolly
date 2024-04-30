@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TaxInteractionUI : InteractionUI
+public class TaxInteraction : Interaction
 {
     [SerializeField] private Button confirmButton;
     [SerializeField] private TextMeshProUGUI descriptionText;

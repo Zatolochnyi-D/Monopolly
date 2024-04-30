@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class RecomendationsInteractionUI : InteractionUI
+public class RecomendationsInteraction : Interaction
 {
     [SerializeField] private Button confirmButton;
 

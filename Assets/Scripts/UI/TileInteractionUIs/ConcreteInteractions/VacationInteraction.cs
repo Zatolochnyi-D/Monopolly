@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class VacationInteractionUI : InteractionUI
+public class VacationInteraction : Interaction
 {
     [SerializeField] private Button confirmationButton;
 
