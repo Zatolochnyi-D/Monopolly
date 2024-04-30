@@ -40,7 +40,7 @@ public class ChanceInteraction : Interaction
 
     private void RollRandomEvent()
     {
-        int selectedEventID = UnityEngine.Random.Range(1, events.texts.Count);
+        int selectedEventID = Random.Range(1, events.texts.Count);
 
         endScreenDescription.text = events.texts[selectedEventID];
         effectText.text = $"Effect: {events.effects[selectedEventID]}00$";

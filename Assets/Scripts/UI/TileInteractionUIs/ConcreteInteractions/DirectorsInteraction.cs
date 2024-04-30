@@ -27,7 +27,7 @@ public class DirectorsInteraction : Interaction
     [SerializeField] private Transform availableCards;
     [SerializeField] private Transform availableCardTemplate;
     [SerializeField] private Transform usedCards;
-    [SerializeField] private Transform usedCardTemlplate;
+    [SerializeField] private Transform usedCardTemplate;
 
     [SerializeField] private GameObject finalScoreScreen;
     [SerializeField] private TextMeshProUGUI finalScore;
@@ -45,7 +45,7 @@ public class DirectorsInteraction : Interaction
         allDirectors = directors;
         cardTemplate.gameObject.SetActive(false);
         availableCardTemplate.gameObject.SetActive(false);
-        usedCardTemlplate.gameObject.SetActive(false);
+        usedCardTemplate.gameObject.SetActive(false);
 
         cancelButton.onClick.AddListener(() =>
         {
@@ -166,7 +166,7 @@ public class DirectorsInteraction : Interaction
 
         foreach (Transform child in usedCards)
         {
-            if (child == usedCardTemlplate) continue;
+            if (child == usedCardTemplate) continue;
             Destroy(child.gameObject);
         }
 
@@ -194,7 +194,7 @@ public class DirectorsInteraction : Interaction
         }
         Director director = player.Directors.First(x => x.name == name);
 
-        Transform cardAndText = Instantiate(usedCardTemlplate, usedCards);
+        Transform cardAndText = Instantiate(usedCardTemplate, usedCards);
         Transform card = cardAndText.GetChild(0);
         var script = card.GetComponent<DirectorCardUI>();
         script.SetInfo(director.name, director.image, director.power);
