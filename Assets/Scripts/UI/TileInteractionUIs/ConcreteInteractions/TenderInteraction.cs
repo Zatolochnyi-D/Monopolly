@@ -120,12 +120,6 @@ public class TenderInteraction : Interaction
         Hide();
         EndTurn();
     }
-
-    [ContextMenu("TriggerEvent")]
-    private void TriggerEvent()
-    {
-        OnPlayerEnterTender.Notify();
-    }
 }
 
 
