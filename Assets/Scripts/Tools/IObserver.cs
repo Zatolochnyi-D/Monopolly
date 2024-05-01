@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public interface IObserver
 {
     public void AddSubscriber(ISubscriber subscriber);
