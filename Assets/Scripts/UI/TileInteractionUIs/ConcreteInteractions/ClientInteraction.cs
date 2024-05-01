@@ -25,6 +25,10 @@ public class ClientInteraction : Interaction
     [SerializeField] private GameObject noTradeScreen;
     [SerializeField] private Button noTradeButton;
 
+    private NumberRoller rollerSelecter;
+    private NumberRoller rollerForPlayer;
+    private NumberRoller rollerForVictim;
+
     private PlayerLogic player;
     private PlayerLogic victim;
 
@@ -65,6 +69,10 @@ public class ClientInteraction : Interaction
         {
             Close();
         });
+
+        rollerSelecter = new(rolledPlayerNumberText, TurnManager.Instance.PlayerNumbersExcludeCurrentPlayer);
+        rollerForPlayer = new(playerRolledText, Enumerable.Range(1, 6).ToArray());
+        rollerForVictim = new(victimRolledText, Enumerable.Range(1, 6).ToArray());
 
         playerCommand = new PlayerLogic.AlterBalanceCommand()
         {
@@ -108,7 +116,7 @@ public class ClientInteraction : Interaction
     {
         rolledPlayerTexts.SetActive(true);
 
-        int number = await Roll(rolledPlayerNumberText, TurnManager.Instance.PlayerNumbersExcludeCurrentPlayer);
+        int number = await rollerSelecter.Roll();
         victim = TurnManager.Instance.GetPlayerByNumber(number);
         playerCommand.NextCommand.NextCommand.TargetPlayer = victim;
 
@@ -121,7 +129,7 @@ public class ClientInteraction : Interaction
     {
         playerRollButton.gameObject.SetActive(false);
 
-        playerRolled = await Roll(playerRolledText, Enumerable.Range(1, 6).ToArray());
+        playerRolled = await rollerForPlayer.Roll();
 
         isPlayerRolled = true;
 
@@ -132,7 +140,7 @@ public class ClientInteraction : Interaction
     {
         victimRollButton.gameObject.SetActive(false);
 
-        victimRolled = await Roll(victimRolledText, TurnManager.Instance.PlayerNumbersExcludeCurrentPlayer);
+        victimRolled = await rollerForVictim.Roll();
 
         isVictimRolled = true;
 
@@ -159,22 +167,6 @@ public class ClientInteraction : Interaction
             SetParameters(moneyToPay, player.Production);
             playerCommand.Execute();
         }
-    }
-
-    private async Task<int> Roll(TextMeshProUGUI displayText, int[] range)
-    {
-        int rolledNumber = 0;
-        displayText.gameObject.SetActive(true);
-        for (int i = 0; i < 20; i++)
-        {
-            rolledNumber = range[Random.Range(0, range.Length)];
-            displayText.text = rolledNumber.ToString();
-            await Task.Delay(100);
-        }
-
-        await Task.Delay(1000);
-
-        return rolledNumber;
     }
 
     private void SetParameters(int moneyToTransfer, int productionToBurn)

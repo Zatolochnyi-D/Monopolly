@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
@@ -22,6 +23,7 @@ public class TenderInteraction : Interaction
     [SerializeField] private int income;
     private int cost;
 
+    private NumberRoller roller;
     private PlayerLogic player;
 
     void Awake()
@@ -42,7 +44,7 @@ public class TenderInteraction : Interaction
         });
 
         cost = difficulty * 10;
-
+        roller = new(rolledNumberText, Enumerable.Range(2, 12).ToArray());
         playerCommand = new PlayerLogic.AlterBalanceCommand()
         {
             NextCommand = new PlayerLogic.AlterPassiveIncomeCommand()
@@ -84,11 +86,11 @@ public class TenderInteraction : Interaction
             return;
         }
 
-        bool isVictorious = await Roll();
+        int rolledNumber = await roller.Roll();
 
         endScreen.SetActive(true);
 
-        if (isVictorious)
+        if (rolledNumber > difficulty)
         {
             endScreenText.text = "You won and now have factory here.";
             playerCommand.Execute();
@@ -97,22 +99,6 @@ public class TenderInteraction : Interaction
         {
             endScreenText.text = "You loose and can't have factory here";
         }
-    }
-
-    private async Task<bool> Roll()
-    {
-        int rolledNumber = 0;
-        rolledNumberText.gameObject.SetActive(true);
-        for (int i = 0; i < 20; i++)
-        {
-            rolledNumber = UnityEngine.Random.Range(2, 13);
-            rolledNumberText.text = rolledNumber.ToString();
-            await Task.Delay(100);
-        }
-
-        await Task.Delay(1000);
-
-        return rolledNumber > difficulty;
     }
 }
 

@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -35,6 +34,7 @@ public class DirectorsInteraction : Interaction
 
     [SerializeField] private List<Director> directors;
 
+    private NumberRoller roller;
     private PlayerLogic player;
     private List<string> availableDirectors = new();
     private List<int> rolledScores = new();
@@ -71,6 +71,8 @@ public class DirectorsInteraction : Interaction
         {
             Close();
         });
+
+        roller = new(null, Enumerable.Range(1, 6).ToArray());
     }
 
     public override void Interact()
@@ -201,7 +203,8 @@ public class DirectorsInteraction : Interaction
         var text = cardAndText.GetChild(1).GetComponent<TextMeshProUGUI>();
         cardAndText.gameObject.SetActive(true);
 
-        int rolledNumber = await Roll(text, Enumerable.Range(1, 6).ToArray());
+        roller.DisplayText = text;
+        int rolledNumber = await roller.Roll();
 
         int score = rolledNumber * director.power;
         text.text = $"{score}";
@@ -210,22 +213,6 @@ public class DirectorsInteraction : Interaction
         amountOfCardsInEndGame--;
 
         TryCalculateFinalScore();
-    }
-
-    private async Task<int> Roll(TextMeshProUGUI displayText, int[] range)
-    {
-        int rolledNumber = 0;
-        displayText.gameObject.SetActive(true);
-        for (int i = 0; i < 20; i++)
-        {
-            rolledNumber = range[UnityEngine.Random.Range(0, range.Length)];
-            displayText.text = rolledNumber.ToString();
-            await Task.Delay(100);
-        }
-
-        await Task.Delay(1000);
-
-        return rolledNumber;
     }
 
     private void TryCalculateFinalScore()

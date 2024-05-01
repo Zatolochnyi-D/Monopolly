@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
@@ -17,6 +18,7 @@ public class SimpleDealInteraction : Interaction
     [SerializeField] private int yield;
     [SerializeField] private int difficulty;
 
+    private NumberRoller roller;
     private int currentDifficulty;
 
     protected void Awake()
@@ -37,7 +39,7 @@ public class SimpleDealInteraction : Interaction
         });
 
         yieldText.text = $"{yield}00$";
-
+        roller = new(rolledNumberText, Enumerable.Range(2, 12).ToArray());
         playerCommand = new PlayerLogic.AlterBalanceCommand()
         {
             NextCommand = new PlayerLogic.AlterImageCommand()
@@ -78,11 +80,11 @@ public class SimpleDealInteraction : Interaction
     {
         rolledNumberText.gameObject.SetActive(true);
 
-        bool isVictorious = await Roll();
+        int rolledNumber = await roller.Roll();
 
         endScreen.SetActive(true);
 
-        if (isVictorious)
+        if (rolledNumber >= currentDifficulty)
         {
             SetParameters(yield, 0);
             endScreenText.text = $"You handled this deal! \n+{yield}00$";
@@ -95,22 +97,6 @@ public class SimpleDealInteraction : Interaction
             endScreen.SetActive(true);
         }
         playerCommand.Execute();
-    }
-
-    private async Task<bool> Roll()
-    {
-        int rolledNumber = 0;
-        rolledNumberText.gameObject.SetActive(true);
-        for (int i = 0; i < 20; i++)
-        {
-            rolledNumber = UnityEngine.Random.Range(2, 13);
-            rolledNumberText.text = rolledNumber.ToString();
-            await Task.Delay(100);
-        }
-
-        await Task.Delay(1000);
-
-        return rolledNumber >= currentDifficulty;
     }
 
     private void SetParameters(int money, int image)

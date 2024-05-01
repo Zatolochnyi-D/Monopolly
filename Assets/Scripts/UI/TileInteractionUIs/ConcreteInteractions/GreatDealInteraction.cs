@@ -1,4 +1,4 @@
-using System.Threading.Tasks;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,6 +19,7 @@ public class GreatDealInteraction : Interaction
     [SerializeField] private TileLogic targetTile;
     [SerializeField] private bool resetImageOnSuccess = true;
 
+    private NumberRoller roller;
     private PlayerLogic player;
 
     protected void Awake()
@@ -40,6 +41,7 @@ public class GreatDealInteraction : Interaction
 
         yieldText.text = $"{yield}00$";
         difficultyText.text = difficulty.ToString();
+        roller = new(rolledNumberText, Enumerable.Range(2, 12).ToArray());
 
         playerCommand = new PlayerLogic.AlterBalanceCommand()
         {
@@ -80,11 +82,11 @@ public class GreatDealInteraction : Interaction
     {
         rolledNumberText.gameObject.SetActive(true);
 
-        bool isVictorious = await Roll();
+        int rolledNumber = await roller.Roll();
 
         endScreen.SetActive(true);
 
-        if (isVictorious)
+        if (rolledNumber > difficulty)
         {
             SetParameters(yield, resetImageOnSuccess ? -player.Image : 0, targetTile);
             endScreenText.text = $"You handled this deal! \n+{yield}00$";
@@ -97,22 +99,6 @@ public class GreatDealInteraction : Interaction
             endScreen.SetActive(true);
         }
         playerCommand.Execute();
-    }
-
-    private async Task<bool> Roll()
-    {
-        int rolledNumber = 0;
-        rolledNumberText.gameObject.SetActive(true);
-        for (int i = 0; i < 20; i++)
-        {
-            rolledNumber = Random.Range(2, 13);
-            rolledNumberText.text = rolledNumber.ToString();
-            await Task.Delay(100);
-        }
-
-        await Task.Delay(1000);
-
-        return rolledNumber > difficulty;
     }
 
     private void SetParameters(int money, int image, TileLogic tile)

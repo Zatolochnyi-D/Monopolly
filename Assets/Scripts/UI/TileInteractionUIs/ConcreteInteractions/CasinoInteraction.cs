@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
@@ -18,6 +19,7 @@ public class CasinoInteraction : Interaction
     private int firstLuckyNumber;
     private int secondLuckyNumber;
 
+    private NumberRoller roller;
     private PlayerLogic currentPlayer;
 
     void Awake()
@@ -40,7 +42,7 @@ public class CasinoInteraction : Interaction
         ResetDialog();
 
         betField.onValueChanged.AddListener((string value) => warningText.gameObject.SetActive(false));
-
+        roller = new(rolledNumberText, Enumerable.Range(1, 6).ToArray());
         playerCommand = new PlayerLogic.AlterBalanceCommand();
     }
 
@@ -81,14 +83,12 @@ public class CasinoInteraction : Interaction
             return;
         }
 
-        rolledNumberText.gameObject.SetActive(true);
-
-        bool isVictorious = await Roll();
+        int rolledNumber = await roller.Roll();
 
         endScreen.SetActive(true);
 
         PlayerLogic.SimpleIntegerParam intToAdd = new();
-        if (isVictorious)
+        if (rolledNumber == firstLuckyNumber || rolledNumber == secondLuckyNumber)
         {
             intToAdd.integer = bet * 2;
             endScreenSummaryText.text = $"You won! \n+{intToAdd.integer}00$";
@@ -100,20 +100,5 @@ public class CasinoInteraction : Interaction
         }
         playerCommand.Parameters = intToAdd;
         playerCommand.Execute();
-    }
-
-    private async Task<bool> Roll()
-    {
-        int rolledNumber = 0;
-        for (int i = 0; i < 20; i++)
-        {
-            rolledNumber = Random.Range(1, 7);
-            rolledNumberText.text = rolledNumber.ToString();
-            await Task.Delay(100);
-        }
-
-        await Task.Delay(1000);
-
-        return rolledNumber == firstLuckyNumber || rolledNumber == secondLuckyNumber;
     }
 }
