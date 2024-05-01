@@ -11,7 +11,7 @@ public class BonusInteraction : Interaction
     {
         confirmButton.onClick.AddListener(() =>
         {
-            Confirm();
+            Close();
         });
 
         playerCommand = new PlayerLogic.AlterBalanceCommand();
@@ -36,11 +36,5 @@ public class BonusInteraction : Interaction
         }
 
         Show();
-    }
-
-    private void Confirm()
-    {
-        Hide();
-        EndTurn();
     }
 }

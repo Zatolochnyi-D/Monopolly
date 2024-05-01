@@ -9,18 +9,12 @@ public class VacationInteraction : Interaction
     {
         confirmationButton.onClick.AddListener(() =>
         {
-            DoNothing();
+            Close();
         });
     }
 
     public override void Interact()
     {
         Show();
-    }
-
-    private void DoNothing()
-    {
-        Hide();
-        EndTurn();
     }
 }

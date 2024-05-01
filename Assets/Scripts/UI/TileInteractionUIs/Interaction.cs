@@ -24,5 +24,11 @@ public abstract class Interaction : MonoBehaviour
         TurnManager.Instance.EndTurn();
     }
 
+    public virtual void Close()
+    {
+        Hide();
+        EndTurn();
+    }
+
     public abstract void Interact();
 }

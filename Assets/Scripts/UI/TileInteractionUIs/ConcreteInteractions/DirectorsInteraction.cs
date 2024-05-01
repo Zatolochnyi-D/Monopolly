@@ -249,12 +249,6 @@ public class DirectorsInteraction : Interaction
             }
         }
     }
-
-    private void Close()
-    {
-        Hide();
-        EndTurn();
-    }
 }
 
 

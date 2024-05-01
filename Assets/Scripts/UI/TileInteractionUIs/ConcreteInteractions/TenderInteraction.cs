@@ -114,12 +114,6 @@ public class TenderInteraction : Interaction
 
         return rolledNumber > difficulty;
     }
-
-    private void Close()
-    {
-        Hide();
-        EndTurn();
-    }
 }
 
 

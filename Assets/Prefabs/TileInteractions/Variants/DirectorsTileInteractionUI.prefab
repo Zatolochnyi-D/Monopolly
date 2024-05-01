@@ -6847,7 +6847,7 @@ MonoBehaviour:
   availableCards: {fileID: 7458719579356530324}
   availableCardTemplate: {fileID: 3428292177469508669}
   usedCards: {fileID: 8191128065339151924}
-  usedCardTemlplate: {fileID: 398686661169934217}
+  usedCardTemplate: {fileID: 398686661169934217}
   finalScoreScreen: {fileID: 4214207723029892695}
   finalScore: {fileID: 1835519956106111061}
   finalScoreCloseButton: {fileID: 2063610829580705420}

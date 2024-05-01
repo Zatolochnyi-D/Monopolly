@@ -177,12 +177,6 @@ public class ClientInteraction : Interaction
         return rolledNumber;
     }
 
-    private void Close()
-    {
-        Hide();
-        EndTurn();
-    }
-
     private void SetParameters(int moneyToTransfer, int productionToBurn)
     {
         playerCommand.Parameters = new PlayerLogic.SimpleIntegerParam() { integer = moneyToTransfer };

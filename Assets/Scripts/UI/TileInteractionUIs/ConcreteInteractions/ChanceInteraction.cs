@@ -49,12 +49,6 @@ public class ChanceInteraction : Interaction
         endScreen.SetActive(true);
     }
 
-    private void Close()
-    {
-        Hide();
-        EndTurn();
-    }
-
     private void SetParameters(int money)
     {
         playerCommand.Parameters = new PlayerLogic.SimpleIntegerParam() { integer = money};

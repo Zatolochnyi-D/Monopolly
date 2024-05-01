@@ -68,12 +68,6 @@ public class ImageInteraction : Interaction
         endScreen.SetActive(true);
     }
 
-    private void Close()
-    {
-        Hide();
-        EndTurn();
-    }
-
     private void SetParameters(int money, int image)
     {
         playerCommand.Parameters = new PlayerLogic.SimpleIntegerParam() { integer = money};

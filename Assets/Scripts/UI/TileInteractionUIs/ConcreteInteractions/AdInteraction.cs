@@ -57,12 +57,6 @@ public class AdInteraction : Interaction
         }
     }
 
-    private void Close()
-    {
-        Hide();
-        EndTurn();
-    }
-
     public override void Interact()
     {
         currentPlayer = TurnManager.Instance.CurrentPlayer;

@@ -203,12 +203,6 @@ public class CompanyInteraction : Interaction
         afterBuy.SetActive(true);
     }
 
-    private void Close()
-    {
-        Hide();
-        EndTurn();
-    }
-
     private void UpdateTotalCost(string value)
     {
         warning.SetActive(false);

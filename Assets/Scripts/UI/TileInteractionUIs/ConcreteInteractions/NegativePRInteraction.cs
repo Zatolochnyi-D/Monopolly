@@ -11,16 +11,10 @@ public class NegativePRInteraction : Interaction
     {
         confirmButton.onClick.AddListener(() =>
         {
-            Accept();
+            Close();
         });
 
         playerCommand = new PlayerLogic.AlterImageCommand();
-    }
-
-    private void Accept()
-    {
-        Hide();
-        EndTurn();
     }
 
     public override void Interact()

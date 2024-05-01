@@ -115,12 +115,6 @@ public class GreatDealInteraction : Interaction
         return rolledNumber > difficulty;
     }
 
-    private void Close()
-    {
-        Hide();
-        EndTurn();
-    }
-
     private void SetParameters(int money, int image, TileLogic tile)
     {
         playerCommand.Parameters = new PlayerLogic.SimpleIntegerParam() { integer = money };

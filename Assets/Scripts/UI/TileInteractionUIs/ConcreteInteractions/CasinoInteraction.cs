@@ -67,13 +67,6 @@ public class CasinoInteraction : Interaction
         Show();
     }
 
-    private void Close()
-    {
-        ResetDialog();
-        Hide();
-        EndTurn();
-    }
-
     private async void Play()
     {
         string betText = betField.text;

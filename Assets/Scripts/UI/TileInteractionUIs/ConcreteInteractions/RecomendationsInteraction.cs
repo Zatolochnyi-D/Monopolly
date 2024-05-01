@@ -28,10 +28,4 @@ public class RecomendationsInteraction : Interaction
         playerCommand.Execute();
         Show();
     }
-
-    private void Close()
-    {
-        Hide();
-        EndTurn();
-    }
 }

@@ -39,10 +39,4 @@ public class TaxInteraction : Interaction
         
         Show();
     }
-
-    private void Close()
-    {
-        Hide();
-        EndTurn();
-    }
 }
