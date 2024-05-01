@@ -69,8 +69,6 @@ public class ClientInteraction : Interaction
         {
             Close();
         });
-
-        rollerSelecter = new(rolledPlayerNumberText, TurnManager.Instance.PlayerNumbersExcludeCurrentPlayer);
         rollerForPlayer = new(playerRolledText, Enumerable.Range(1, 6).ToArray());
         rollerForVictim = new(victimRolledText, Enumerable.Range(1, 6).ToArray());
 
@@ -81,6 +79,13 @@ public class ClientInteraction : Interaction
                 NextCommand = new PlayerLogic.AlterBalanceCommand()
             }
         };
+
+        Hide();
+    }
+
+    void Start()
+    {
+        rollerSelecter = new(rolledPlayerNumberText, TurnManager.Instance.PlayerNumbersExcludeCurrentPlayer);
     }
 
     private void Reset()

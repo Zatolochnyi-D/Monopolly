@@ -41,7 +41,7 @@ public class GreatDealInteraction : Interaction
 
         yieldText.text = $"{yield}00$";
         difficultyText.text = difficulty.ToString();
-        roller = new(rolledNumberText, Enumerable.Range(2, 12).ToArray());
+        roller = new(rolledNumberText, Enumerable.Range(2, 11).ToArray());
 
         playerCommand = new PlayerLogic.AlterBalanceCommand()
         {

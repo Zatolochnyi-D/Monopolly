@@ -43,7 +43,7 @@ public class TenderInteraction : Interaction
         });
 
         cost = difficulty * 10;
-        roller = new(rolledNumberText, Enumerable.Range(2, 12).ToArray());
+        roller = new(rolledNumberText, Enumerable.Range(2, 11).ToArray());
         playerCommand = new PlayerLogic.AlterBalanceCommand()
         {
             NextCommand = new PlayerLogic.AlterPassiveIncomeCommand()

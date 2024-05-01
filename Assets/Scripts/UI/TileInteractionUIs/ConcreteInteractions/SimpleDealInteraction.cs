@@ -39,7 +39,7 @@ public class SimpleDealInteraction : Interaction
         });
 
         yieldText.text = $"{yield}00$";
-        roller = new(rolledNumberText, Enumerable.Range(2, 12).ToArray());
+        roller = new(rolledNumberText, Enumerable.Range(2, 11).ToArray());
         playerCommand = new PlayerLogic.AlterBalanceCommand()
         {
             NextCommand = new PlayerLogic.AlterImageCommand()

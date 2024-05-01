@@ -55,6 +55,8 @@ public class CasinoInteraction : Interaction
 
     public override void Interact()
     {
+        ResetDialog();
+
         currentPlayer = TurnManager.Instance.CurrentPlayer;
         playerCommand.TargetPlayer = currentPlayer;
 
