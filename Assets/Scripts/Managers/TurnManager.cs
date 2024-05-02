@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TurnManager : MonoBehaviour
 {
-    public class GameSnapshot : IMemento
+    public class GameSnapshot
     {
         public string[] serializedPlayers;
         public int currentPlayerIndex;

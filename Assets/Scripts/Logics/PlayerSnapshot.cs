@@ -1,14 +1,8 @@
 using System.Linq;
 
-public interface IMemento
-{
-    
-}
-
-
 public partial class PlayerLogic
 {
-    public class PlayerSnapshot : IMemento
+    public class PlayerSnapshot
     {
         public string name;
         public int tileId;
