@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PawnSelectionManager : MonoBehaviour
@@ -54,29 +55,26 @@ public class PawnSelectionManager : MonoBehaviour
     public PawnVisualsSO[] GetVisuals()
     {
         PawnVisualsSO[] result = new PawnVisualsSO[galleries.Count];
-        List<Sprite> availableSprites = new(pawnImages[0..^1]);
-        List<Color> availableColors = new(pawnCorrespondingColors);
-        List<int> used = new();
+        List<int> unusedIndexes = Enumerable.Range(0, result.Length).ToList();
 
-        for (int i = 0; i < galleries.Count; i++)
+        for (int i = 0; i < result.Length; i++)
         {
-            int galleryIndex = galleries[i].CurrentIndex;
-            if (galleryIndex == pawnImages.Length - 1) continue;
-            result[i] = new() { visual = availableSprites[galleryIndex], displayColor = availableColors[galleryIndex] };
-            used.Add(galleryIndex);
+            int index = Array.IndexOf(pawnImages, galleries[i].CurrentImage);
+            if (index == pawnImages.Length - 1)
+            {
+                continue;
+            }
+            unusedIndexes.Remove(index);
+            result[i] = new() { visual = pawnImages[index], displayColor = pawnCorrespondingColors[index] };
         }
-        foreach (int i in used)
+        for (int i = 0; i < result.Length; i++)
         {
-            availableSprites.RemoveAt(i);
-            availableColors.RemoveAt(i);
-        }
-        for (int i = 0; i < galleries.Count; i++)
-        {
-            if (galleries[i].CurrentIndex != pawnImages.Length - 1) continue;
-            int randomIndex = UnityEngine.Random.Range(0, availableSprites.Count);
-            result[i] = new() { visual = availableSprites[randomIndex], displayColor = availableColors[randomIndex] };
-            availableSprites.RemoveAt(randomIndex);
-            availableColors.RemoveAt(randomIndex);
+            if (result[i] == null)
+            {
+                int index = unusedIndexes[UnityEngine.Random.Range(0, unusedIndexes.Count - 1)];
+                unusedIndexes.Remove(index);
+                result[i] = new() { visual = pawnImages[index], displayColor = pawnCorrespondingColors[index] };
+            }
         }
 
         return result;

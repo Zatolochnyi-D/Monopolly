@@ -51,6 +51,8 @@ public class SimpleDealInteraction : Interaction
         PlayerLogic player = TurnManager.Instance.CurrentPlayer;
         playerCommand.TargetPlayer = player;
 
+        cancelButton.gameObject.SetActive(true);
+        confirmButton.gameObject.SetActive(true);
         endScreen.SetActive(false);
         rolledNumberText.gameObject.SetActive(false);
         currentDifficulty = difficulty;
@@ -78,7 +80,8 @@ public class SimpleDealInteraction : Interaction
 
     private async void Play()
     {
-        rolledNumberText.gameObject.SetActive(true);
+        cancelButton.gameObject.SetActive(false);
+        confirmButton.gameObject.SetActive(false);
 
         int rolledNumber = await roller.Roll();
 

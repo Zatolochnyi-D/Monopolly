@@ -231,9 +231,12 @@ public partial class PlayerLogic : MonoBehaviour, ISubscriber
             }
             else
             {
-                currentTile = thisTile;
-                TakeTile();
-                currentTile.Interact();
+                if (currentTile != thisTile)
+                {
+                    currentTile = thisTile;
+                    TakeTile();
+                    currentTile.Interact();
+                }
             }
         }
         catch (MissingReferenceException)

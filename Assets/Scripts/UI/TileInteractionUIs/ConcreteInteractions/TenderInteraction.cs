@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class TenderInteraction : Interaction
 {
-    public static TenderEvent OnPlayerEnterTender = new();
+    public static IObserver OnPlayerEnterTender = new TenderEvent();
 
     [SerializeField] private Button confirmButton;
     [SerializeField] private Button cancelButton;
@@ -56,7 +56,7 @@ public class TenderInteraction : Interaction
 
     void OnDestroy()
     {
-        OnPlayerEnterTender = new();
+        OnPlayerEnterTender = new TenderEvent();
     }
 
     public override void Interact()

@@ -10,9 +10,9 @@ public class NewGameManager : MonoBehaviour
     public event Action OnPlayerAdded;
     public event Action<int> OnPlayerRemoved;
 
-    private List<PlayerLogic.PlayerBuilder> builders;
+    private List<PlayerLogic.IPlayerBuilder> builders;
 
-    public List<PlayerLogic.PlayerBuilder> PlayerList => builders;
+    public List<PlayerLogic.IPlayerBuilder> PlayerList => builders;
     public bool IsMinPlayersReached => builders.Count == 2;
     public bool IsMaxPlayersReached => builders.Count == 4;
 
@@ -24,12 +24,12 @@ public class NewGameManager : MonoBehaviour
 
     public void Reset()
     {
-        builders = new() { new(), new() };
+        builders = new() { new PlayerLogic.PlayerBuilder(), new PlayerLogic.PlayerBuilder() };
     }
 
     public void AddPlayer()
     {
-        builders.Add(new());
+        builders.Add(new PlayerLogic.PlayerBuilder());
         OnPlayerAdded?.Invoke();
     }
 

@@ -16,7 +16,7 @@ public class TurnManager : MonoBehaviour
         }
     }
 
-    public static PlayerLogic.PlayerBuilder[] playerBuilders; // assume this field filled at the start of the game
+    public static PlayerLogic.IPlayerBuilder[] playerBuilders; // assume this field filled at the start of the game
     public static GameSnapshot loadFromSnapshot;
     public static TurnManager Instance { get; private set; }
 

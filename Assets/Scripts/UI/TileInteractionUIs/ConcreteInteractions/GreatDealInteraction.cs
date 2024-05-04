@@ -57,6 +57,8 @@ public class GreatDealInteraction : Interaction
         player = TurnManager.Instance.CurrentPlayer;
         playerCommand.TargetPlayer = player;
 
+        cancelButton.gameObject.SetActive(true);
+        confirmButton.gameObject.SetActive(true);
         endScreen.SetActive(false);
         rolledNumberText.gameObject.SetActive(false);
 
@@ -80,7 +82,8 @@ public class GreatDealInteraction : Interaction
 
     private async void Play()
     {
-        rolledNumberText.gameObject.SetActive(true);
+        cancelButton.gameObject.SetActive(false);
+        confirmButton.gameObject.SetActive(false);
 
         int rolledNumber = await roller.Roll();
 

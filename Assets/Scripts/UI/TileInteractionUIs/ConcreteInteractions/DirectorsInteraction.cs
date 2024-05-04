@@ -226,8 +226,6 @@ public class DirectorsInteraction : Interaction
             if (sum >= winScore)
             {
                 EndGameManager.Instance.SetWinner(player);
-
-                Debug.Log("Victory!");
             }
             else
             {

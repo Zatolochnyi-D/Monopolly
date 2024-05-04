@@ -15,6 +15,7 @@ public class SimpleCircleGalleryUIC : MonoBehaviour, IPointerClickHandler
 
     public bool[] Availability => availability;
     public int CurrentIndex => currentSelectionIndex;
+    public Sprite CurrentImage => images[currentSelectionIndex];
 
     public void OnPointerClick(PointerEventData eventData)
     {
