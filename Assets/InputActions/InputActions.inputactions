@@ -1,0 +1,122 @@
+{
+    "name": "InputActions",
+    "maps": [
+        {
+            "name": "Game",
+            "id": "ded3bba5-aca4-42ea-9419-ce00247ef204",
+            "actions": [
+                {
+                    "name": "ThrowDice",
+                    "type": "Button",
+                    "id": "32f29ff1-884c-407b-ad7e-cb4552a305d1",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "OpenCloseStats",
+                    "type": "Button",
+                    "id": "e0def61b-6c3f-49df-8c80-3eb0559bc06b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "16090f47-1bb1-4574-a063-25a576953593",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "TestButton",
+                    "type": "Button",
+                    "id": "bb23a4e3-14b6-4c2d-a03a-269f515258ce",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "f471ea9b-b95e-407e-b5e5-d1b5a42d0055",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ThrowDice",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a3f5d097-c52a-4193-b15f-b50947520250",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OpenCloseStats",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0867a119-3f2e-4f30-9968-5c74631a7ef9",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b38058d2-f87e-4c9c-b08d-5a22e3d1e87c",
+                    "path": "<Keyboard>/j",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TestButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Pause",
+            "id": "c3aa518f-2680-417b-bf1e-67946a527142",
+            "actions": [
+                {
+                    "name": "Unpause",
+                    "type": "Button",
+                    "id": "08862fa9-08ef-451c-9251-bd9c60e69492",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "9c06a47c-0436-4494-9d05-08f98bd7efcd",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Unpause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c32198e8002a47f1b6b98512e9e2c67, type: 3}
+  m_Name: ChanceEvents
+  m_EditorClassIdentifier: 
+  texts:
+  - You bought some groceries.
+  - You received a legacy.
+  - You lend some money to friend.
+  - You got a godson.
+  - You applied for certification trainings.
+  - You paid for education.
+  - You repaired your car.
+  - You sold your phone.
+  - You visited a dentist.
+  - Friends invited you to casino.
+  - You were scammed.
+  - You had a wedding.
+  - You bought an yacht.
+  - You got back old debt.
+  - You got a baby.
+  - You bought present for your parents.
+  - You had dinner at restaurant.
+  - You paid credit for bought car.
+  - You bought some furniture.
+  - You visited relatives.
+  - You moved to a new flat.
+  - Your neighbours flooded you.
+  - Your got into a hospital.
+  - You received bonus.
+  - You bought gift for your friend.
+  effects: fbffffff3c000000cefffffffdfffffff6ffffffceffffffd8ffffff0a000000fcfffffff6fffffff6ffffffc4ffffffceffffff32000000e2ffffffe2fffffffbffffffd8ffffffecffffffecffffffe2ffffffecffffffecffffff64000000f6ffffff
